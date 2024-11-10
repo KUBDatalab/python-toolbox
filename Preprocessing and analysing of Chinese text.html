@@ -1,0 +1,1050 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Preprocessing and analysing of Chinese text &#8212; Python Toolkit</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!-- 
+    this give us a css class that will be invisible only if js is disabled 
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'Preprocessing and analysing of Chinese text';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="TF-IDF example" href="Tf-idf%20example.html" />
+    <link rel="prev" title="Welcome to the KUB Datalab Python-toolbox course site." href="intro.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+<aside class="bd-header-announcement" aria-label="Announcement">
+  <div class="bd-header-announcement__content"><p class='mystyle'><a href='https://kubkalender.kb.dk/calendar/datalab?cid=6416&t=d&d=0000-00-00&cal=6416&inc=0' target='_blank' style='color: white;'>KUB Datalab Upcomming Events</a></p></div>
+</aside>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/datalab logo white.png" class="logo__image only-light" alt="Python Toolkit - Home"/>
+    <img src="_static/datalab logo white.png" class="logo__image only-dark pst-js-only" alt="Python Toolkit - Home"/>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Welcome to the KUB Datalab Python-toolbox course site.
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Preprocessing and analysing of Chinese text</a></li>
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="Tf-idf%20example.html">TF-IDF example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Identify%20textual%20changes.html">Identify textual changes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Regex%20and%20digitized%20books.html">Regex and digitized books</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2FPreprocessing and analysing of Chinese text.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/Preprocessing and analysing of Chinese text.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Preprocessing and analysing of Chinese text</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Preprocessing and analysing of Chinese text</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#preparation-of-text">Preparation of text</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cleaning">Cleaning</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#text-segmentation-tokenisation">Text segmentation / tokenisation</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#part-of-speech-tagging-pos">Part of Speech Tagging (POS)</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#task-try-replacing-v-with-other-tags">Task: try replacing ‘v’ with other tags.</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#stop-words">Stop words</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#nltk-methods">NLTK methods</a></li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="preprocessing-and-analysing-of-chinese-text">
+<h1>Preprocessing and analysing of Chinese text<a class="headerlink" href="#preprocessing-and-analysing-of-chinese-text" title="Link to this heading">#</a></h1>
+<p>The course covers basic Python code that can get you started using programming as a tool for text processing, quantitative analysis and text and data mining.</p>
+<p>In more technical terms, we review concepts such as variables, values, the data types text strings, lists and loops.</p>
+<p>We go through an example of how to retrieve text data, prepare data and use the jieba library. Jieba is used to divide text into words and subdivides traditional Chinese.</p>
+<p><em>Source: <a class="github reference external" href="https://github.com/fxsjy/jieba">fxsjy/jieba</a></em></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#! pip install jieba</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Webscrape libraries</span>
+<span class="kn">from</span> <span class="nn">bs4</span> <span class="kn">import</span> <span class="n">BeautifulSoup</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+
+<span class="c1"># For preprocessing and analysing</span>
+<span class="kn">import</span> <span class="nn">jieba</span>
+<span class="kn">import</span> <span class="nn">nltk</span>
+<span class="kn">import</span> <span class="nn">re</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We create a variable that we use to store the url to the pages that we want to webscrape.</p>
+<p>We need to scrape this wikipedia page: 反对逃犯条例修订草案运动</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># store the url in a variable</span>
+<span class="n">url_zh</span> <span class="o">=</span> <span class="s1">&#39;https://zh.wikipedia.org/zh-cn/</span><span class="si">%E</span><span class="s1">5</span><span class="si">%8F</span><span class="s1">%8D</span><span class="si">%E</span><span class="s1">5%B0%8D</span><span class="si">%E</span><span class="s1">9</span><span class="si">%80%</span><span class="s1">83</span><span class="si">%E</span><span class="s1">7%8A%AF</span><span class="si">%E</span><span class="s1">6%A2%9D</span><span class="si">%E</span><span class="s1">4%BE%8B</span><span class="si">%E</span><span class="s1">4%BF%AE</span><span class="si">%E</span><span class="s1">8%A8</span><span class="si">%82%</span><span class="s1">E8%8D</span><span class="si">%89%</span><span class="s1">E6%A1</span><span class="si">%88%</span><span class="s1">E9</span><span class="si">%81%</span><span class="s1">8B</span><span class="si">%E</span><span class="s1">5%8B%95&#39;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We insert one of the variable names into request.get(‘url’) below.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># get data</span>
+<span class="n">page</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url_zh</span><span class="p">)</span>
+
+<span class="c1"># scrape webpage</span>
+<span class="n">soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">content</span><span class="p">,</span> <span class="s1">&#39;html.parser&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># find all &#39;headline3 and paragraph-tags&#39;</span>
+<span class="n">tags</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">find_all</span><span class="p">([</span><span class="s1">&#39;h1&#39;</span><span class="p">,</span> <span class="s1">&#39;h3&#39;</span><span class="p">,</span> <span class="s1">&#39;p&#39;</span><span class="p">])</span>
+
+<span class="c1"># Parse the text from the p_tags ajd &#39;join&#39; a returned list into the variable called &#39;text&#39;</span>
+<span class="n">text</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">p</span><span class="o">.</span><span class="n">get_text</span><span class="p">()</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">tags</span><span class="p">])</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">text</span> <span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">100</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;反对逃犯条例修订草案运动 其他诉求：\n 中央政府：\n 香港政府：\n 反对《逃犯条例修订草案》运动（英语：Anti-Extradition Law Amendment Bill Movement），是指&#39;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="preparation-of-text">
+<h1>Preparation of text<a class="headerlink" href="#preparation-of-text" title="Link to this heading">#</a></h1>
+<section id="cleaning">
+<h2>Cleaning<a class="headerlink" href="#cleaning" title="Link to this heading">#</a></h2>
+<p>The text consists of Latin letters and Chinese characters.</p>
+<p>If you want to sort out the Latin letters, you can use the code below.</p>
+<p>Sources:</p>
+<p><a class="reference external" href="https://stackoverflow.com/questions/2718196/find-all-chinese-text-in-a-string-using-python-and-regex">https://stackoverflow.com/questions/2718196/find-all-chinese-text-in-a-string-using-python-and-regex</a></p>
+<p><a class="reference external" href="https://unicode-table.com/en/blocks/cjk-unified-ideographs/">https://unicode-table.com/en/blocks/cjk-unified-ideographs/</a></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">chinese_list</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;[\u4e00-\u9fff]+&#39;</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">chinese_list</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">20</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;反对逃犯条例修订草案运动&#39;,
+ &#39;其他诉求&#39;,
+ &#39;中央政府&#39;,
+ &#39;香港政府&#39;,
+ &#39;反对&#39;,
+ &#39;逃犯条例修订草案&#39;,
+ &#39;运动&#39;,
+ &#39;英语&#39;,
+ &#39;是指香港自&#39;,
+ &#39;年&#39;,
+ &#39;月&#39;,
+ &#39;日开始&#39;,
+ &#39;月&#39;,
+ &#39;日大规模爆发的社会运动&#39;,
+ &#39;逾万人被捕&#39;,
+ &#39;此次运动并无统一的领导&#39;,
+ &#39;主要以社交媒体号召的方式组织&#39;,
+ &#39;运动支持者以游行示威&#39;,
+ &#39;集会&#39;,
+ &#39;静坐&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<p>The list can then be assembled into a text string again with .join()</p>
+<p><em>Source: “<a class="reference external" href="https://www.w3schools.com/python/ref_string_join.asp">https://www.w3schools.com/python/ref_string_join.asp</a>”</em></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">chinese_text</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">chinese_list</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">chinese_text</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">200</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;反对逃犯条例修订草案运动 其他诉求 中央政府 香港政府 反对 逃犯条例修订草案 运动 英语 是指香港自 年 月 日开始 月 日大规模爆发的社会运动 逾万人被捕 此次运动并无统一的领导 主要以社交媒体号召的方式组织 运动支持者以游行示威 集会 静坐 唱歌 呐喊 三罢 行动 设置连侬墙 不合作运动 堵塞道路干道 起底 私了 纵火 破坏商铺及公共设施等一系列行为 要求香港政府撤回其提出的 逃犯条例 修订&#39;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="text-segmentation-tokenisation">
+<h2>Text segmentation / tokenisation<a class="headerlink" href="#text-segmentation-tokenisation" title="Link to this heading">#</a></h2>
+<p>In the jieba.lcut method, we insert a text string or, as in this case, a variable containing a text string, and we control the cut mode. The L in .lcut() indicates that the method returns a list. ‘Cut_all=True’ should give the most possible hyphenation of the text, be fast, but less accurate. ‘Cut_all=False’ should be more accurate than the first, and thus more suitable for text analysis. <em>Source: <a class="github reference external" href="https://github.com/fxsjy/jieba">fxsjy/jieba</a></em></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">seg_list1</span> <span class="o">=</span> <span class="n">jieba</span><span class="o">.</span><span class="n">lcut</span><span class="p">(</span><span class="n">chinese_text</span><span class="p">,</span> <span class="n">cut_all</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Building prefix dict from the default dictionary ...
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Loading model from cache C:\Users\lakj\AppData\Local\Temp\jieba.cache
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Loading model cost 0.739 seconds.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Prefix dict has been built successfully.
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">seg_list1</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">20</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;反对&#39;,
+ &#39;逃犯&#39;,
+ &#39;条例&#39;,
+ &#39;修订&#39;,
+ &#39;草案&#39;,
+ &#39;运动&#39;,
+ &#39; &#39;,
+ &#39;其他&#39;,
+ &#39;诉求&#39;,
+ &#39; &#39;,
+ &#39;中央政府&#39;,
+ &#39; &#39;,
+ &#39;香港政府&#39;,
+ &#39; &#39;,
+ &#39;反对&#39;,
+ &#39; &#39;,
+ &#39;逃犯&#39;,
+ &#39;条例&#39;,
+ &#39;修订&#39;,
+ &#39;草案&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<p>We get returned many fields consisting of ‘white_space’.</p>
+<p>To see these lines removed from our data, we use ‘if’ to put a condition into the code. We write, if our lines consist of characters that are not equal to ‘white space’, then we are interested in storing it in the variable seg_list2.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">seg_list2</span> <span class="o">=</span> <span class="p">[</span><span class="n">item</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">seg_list1</span> <span class="k">if</span> <span class="n">item</span> <span class="o">!=</span> <span class="s1">&#39; &#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">seg_list2</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">20</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;反对&#39;,
+ &#39;逃犯&#39;,
+ &#39;条例&#39;,
+ &#39;修订&#39;,
+ &#39;草案&#39;,
+ &#39;运动&#39;,
+ &#39;其他&#39;,
+ &#39;诉求&#39;,
+ &#39;中央政府&#39;,
+ &#39;香港政府&#39;,
+ &#39;反对&#39;,
+ &#39;逃犯&#39;,
+ &#39;条例&#39;,
+ &#39;修订&#39;,
+ &#39;草案&#39;,
+ &#39;运动&#39;,
+ &#39;英语&#39;,
+ &#39;是&#39;,
+ &#39;指&#39;,
+ &#39;香港&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<p>As shown above, lists are made using square brackets ( [ ] ).</p>
+<p>You can access the elements in the list by referring to the index number. Again, we can use both positive and negative numbers. Remember that in Python the first index number is 0 and not 1, which means we access the first and last element of the list like this:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span> <span class="p">(</span><span class="n">seg_list2</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="nb">print</span> <span class="p">(</span><span class="n">seg_list2</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>反对
+引用
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="part-of-speech-tagging-pos">
+<h1>Part of Speech Tagging (POS)<a class="headerlink" href="#part-of-speech-tagging-pos" title="Link to this heading">#</a></h1>
+<p>Jieba’s part of speech tagger returns the words and tags in two different elements. To use the pos tagger, import ‘import jieba.posseg as pseg’.</p>
+<p>According to the documentation, you use pseg after .cut( ‘text_string’ ). Source: “4. Part of Speech Tagging <a class="github reference external" href="https://github.com/fxsjy/jieba">fxsjy/jieba</a>”</p>
+<p>We get returned words and tags. They are in .word and .flag. In the documentation, the programmer shows how to print words and tags, but I would like to have all words and tags stored as pairs in a list. Therefore I use a tuple which is a python data type and add each word and tag pair to a list which I call ‘pos’. Source: Python Tuples <a class="reference external" href="https://www.w3schools.com/python/python_tuples.asp_">https://www.w3schools.com/python/python_tuples.asp_</a></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">jieba.posseg</span> <span class="k">as</span> <span class="nn">pseg</span>
+<span class="n">words</span> <span class="o">=</span> <span class="n">pseg</span><span class="o">.</span><span class="n">cut</span><span class="p">(</span><span class="n">chinese_text</span><span class="p">)</span>
+<span class="n">pos_tags</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">words</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">w</span><span class="o">.</span><span class="n">word</span> <span class="o">&gt;</span> <span class="s1">&#39; &#39;</span><span class="p">:</span>
+        <span class="n">word_tag</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">((</span><span class="n">w</span><span class="o">.</span><span class="n">word</span><span class="p">,</span> <span class="n">w</span><span class="o">.</span><span class="n">flag</span><span class="p">))</span>
+        <span class="n">pos_tags</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">word_tag</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pos_tags</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">20</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[(&#39;反对&#39;, &#39;d&#39;),
+ (&#39;逃犯&#39;, &#39;v&#39;),
+ (&#39;条例&#39;, &#39;n&#39;),
+ (&#39;修订&#39;, &#39;v&#39;),
+ (&#39;草案&#39;, &#39;n&#39;),
+ (&#39;运动&#39;, &#39;vn&#39;),
+ (&#39;其他&#39;, &#39;r&#39;),
+ (&#39;诉求&#39;, &#39;v&#39;),
+ (&#39;中央政府&#39;, &#39;nt&#39;),
+ (&#39;香港政府&#39;, &#39;nt&#39;),
+ (&#39;反对&#39;, &#39;d&#39;),
+ (&#39;逃犯&#39;, &#39;v&#39;),
+ (&#39;条例&#39;, &#39;n&#39;),
+ (&#39;修订&#39;, &#39;v&#39;),
+ (&#39;草案&#39;, &#39;n&#39;),
+ (&#39;运动&#39;, &#39;vn&#39;),
+ (&#39;英语&#39;, &#39;nz&#39;),
+ (&#39;是&#39;, &#39;v&#39;),
+ (&#39;指&#39;, &#39;n&#39;),
+ (&#39;香港&#39;, &#39;ns&#39;)]
+</pre></div>
+</div>
+</div>
+</div>
+<p>I am writing a for loop that contains a condition (‘if’). With the loop I go through the list of tuples. If the first element of the ‘tuple’ ([1]) is equal to ‘v’ I add the first element ([0]) to the list ‘words’.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">words</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">pos_tags</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">item</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;v&#39;</span><span class="p">:</span>
+        <span class="n">words</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">item</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">words</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">20</span><span class="p">]</span> 
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;逃犯&#39;,
+ &#39;修订&#39;,
+ &#39;诉求&#39;,
+ &#39;逃犯&#39;,
+ &#39;修订&#39;,
+ &#39;是&#39;,
+ &#39;开始&#39;,
+ &#39;爆发&#39;,
+ &#39;被捕&#39;,
+ &#39;无&#39;,
+ &#39;号召&#39;,
+ &#39;组织&#39;,
+ &#39;静坐&#39;,
+ &#39;呐喊&#39;,
+ &#39;罢&#39;,
+ &#39;堵塞&#39;,
+ &#39;干道&#39;,
+ &#39;起底&#39;,
+ &#39;纵火&#39;,
+ &#39;破坏&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<p>Before looking at the distribution of words with ‘v’ tags, we need to address the fact that python by default cannot print Chinese characters. Therefore, we import ‘matplotlib.pyplot as plt’ and change font.family to “Microsoft YaHei”.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s2">&quot;font.family&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Microsoft YaHei&quot;</span>  <span class="c1"># husk på mac skal man bruge  &#39;Heiti TC&#39;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>After this we can import nltk and use nltk.FreqDist().</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">nltk</span>
+<span class="n">nltk</span><span class="o">.</span><span class="n">FreqDist</span><span class="p">(</span><span class="n">pos_tags</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel=&#39;Samples&#39;, ylabel=&#39;Counts&#39;&gt;
+</pre></div>
+</div>
+<img alt="_images/ae5576e0abcb6729cf566dee67f5d9f8a532ed672acde2141d1419b5deb226b7.png" src="_images/ae5576e0abcb6729cf566dee67f5d9f8a532ed672acde2141d1419b5deb226b7.png" />
+</div>
+</div>
+</section>
+<section id="task-try-replacing-v-with-other-tags">
+<h1>Task: try replacing ‘v’ with other tags.<a class="headerlink" href="#task-try-replacing-v-with-other-tags" title="Link to this heading">#</a></h1>
+</section>
+<section id="stop-words">
+<h1>Stop words<a class="headerlink" href="#stop-words" title="Link to this heading">#</a></h1>
+<p>Stop words are small words that are often not meaningful words.</p>
+<p>We therefore need to load a stop word list. It is online at Science data at this link: <a class="reference external" href="https://sciencedata.dk/shared/93a217a0533d949d9b2c675cd3c99cfd?download">https://sciencedata.dk/shared/93a217a0533d949d9b2c675cd3c99cfd?download</a>.</p>
+<p>To retrieve the file we use “from urllib.request import urlopen”.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">urllib.request</span> <span class="kn">import</span> <span class="n">urlopen</span>
+
+<span class="n">target_url</span> <span class="o">=</span> <span class="s1">&#39;https://sciencedata.dk/shared/93a217a0533d949d9b2c675cd3c99cfd?download&#39;</span>
+
+<span class="n">sw_ch</span> <span class="o">=</span> <span class="n">urlopen</span><span class="p">(</span><span class="n">target_url</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now all the texts can be filtered for stop words.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">filtered_tokens</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">seg_list2</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">word</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">sw_ch</span><span class="p">:</span>
+        <span class="n">filtered_tokens</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">word</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now all the texts can be filtered for stop words.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fdist_filtered</span> <span class="o">=</span> <span class="n">nltk</span><span class="o">.</span><span class="n">FreqDist</span><span class="p">(</span><span class="n">filtered_tokens</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Hyppigste ord (uden stopord)&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/39d9928443e12e04ba9e2fcb5a5b793c27c4d0a5c15d6393b393b4bd84aead06.png" src="_images/39d9928443e12e04ba9e2fcb5a5b793c27c4d0a5c15d6393b393b4bd84aead06.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">long_tokens</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">filtered_tokens</span><span class="p">:</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">word</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">4</span><span class="p">:</span>
+        <span class="n">long_tokens</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">word</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fdist_filtered</span> <span class="o">=</span> <span class="n">nltk</span><span class="o">.</span><span class="n">FreqDist</span><span class="p">(</span><span class="n">long_tokens</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Længste ord&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/40d0948f751134f9a4d7a3eeae567f52305b46060a46cd630a59870cf9ad78b2.png" src="_images/40d0948f751134f9a4d7a3eeae567f52305b46060a46cd630a59870cf9ad78b2.png" />
+</div>
+</div>
+</section>
+<section id="nltk-methods">
+<h1>NLTK methods<a class="headerlink" href="#nltk-methods" title="Link to this heading">#</a></h1>
+<p>I have used nltk many times, but never with Chinese text. We experiment and create an nltk text object which should allow us to use various nltk methods.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nltk_text</span> <span class="o">=</span> <span class="n">nltk</span><span class="o">.</span><span class="n">Text</span><span class="p">(</span><span class="n">seg_list2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>collocation_list() returns a list of the most common word pairs in the text. Note that in some versions of Python, collocation_list() does not work. If this is the case, try <em>collocations()</em> instead.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nltk_text</span><span class="o">.</span><span class="n">collocation_list</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[(&#39;总领事馆&#39;, &#39;外交官&#39;), (&#39;电视广播&#39;, &#39;有限公司&#39;), (&#39;总书记&#39;, &#39;习近平&#39;), (&#39;香港中文大学&#39;, &#39;学生会&#39;)]
+</pre></div>
+</div>
+</div>
+</div>
+<p>The concordance() method returns the context of a specific expression. The length of the output can be changed with the parameters in width and lines.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nltk_text</span><span class="o">.</span><span class="n">concordance</span><span class="p">(</span><span class="s1">&#39;反对&#39;</span><span class="p">,</span> <span class="n">lines</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">40</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Displaying 15 of 15 matches:
+                   反对 逃犯 条例 修订 草案 运动 其他 
+运动 其他 诉求 中央政府 香港政府 反对 逃犯 条例 修订 草案 运动 英语 
+年 以及 年 等 过去 的 政治危机 反对 逃犯 条例 修订 草案 运动 为 香
+陆 接受 刑事 调查 及 审判 故而 反对 修例 香港 工商界 金融界 学术界 
+法律界 等 多个 行业 亦 均 提出 反对 意见 担忧 修订 草案 削弱 香港 
+月初 的 舆论 调查 有 受访 市民 反对 逃犯 条例 修订 草案 而 草案 若
+求 之后 也 有 建制 派 成员 不 反对 撤回 多名 行政 会议 成员 建制 
+ 香港 多家 报纸 刊登 整版 广告 反对 暴力行为 呼吁 以 和平 方式 解决
+阂 增大 导致 许多 中国 大陆 人 反对 这次 抗议 活动 中国 官方 媒体 
+ 以 暴力 方式 处理 群众运动 也 反对 采取 激烈 手段 驱离 民众 港府 
+ 不同 不能 相提并论 国民党 坚决 反对 一国两制 也 坚决 反对 台湾独立 
+民党 坚决 反对 一国两制 也 坚决 反对 台湾独立 坚守 一中 各表 的 九二
+也 在 西方 各 大城市 举行 集会 反对 香港 的 抗议 活动 年 月 日 美
+ 冲绳 的 口号 也 在 日本 传播 反对 方 俄罗斯外交部 发言人 玛丽亚 扎
+ 的 打压 香港 在 年 中旬 发生 反对 逃犯 条例 修订 运动 美国 通过 
+</pre></div>
+</div>
+</div>
+</div>
+<p>To identify words that appear in a similar context, we can use the similar() method.</p>
+<p>I have a notion that the method gives better results the longer the text is.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># similar til &quot;politi&quot;</span>
+<span class="n">nltk_text</span><span class="o">.</span><span class="n">similar</span><span class="p">(</span><span class="s1">&#39;警察&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>民主派 疫情 多次 留学生 英格兰
+</pre></div>
+</div>
+</div>
+</div>
+<p>You can use the generate() method to generate more or less coherent text based on an existing text.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">text_gen</span> <span class="o">=</span> <span class="n">nltk_text</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="mi">150</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>派 与 民主派 代表 均 认为 需要 对话 来 解决问题 并 暂缓 国歌 法 草案 恢复 二读 审议 并 于 月 日 大规模 爆发 的 社会
+危机 阻止 暴力 升级 月 日 海外 港人 在 全球 生活 成本 中 名列 第四位 香港 去 工业化 后 转向 知识型 经济 发展 等 情况
+造成 的 根据 香港城市大学 的 调查 疑似 抑郁症 的 比率 上升 至 过半 的 与此同时 欧洲 与 美国 的 政 商界 和 国际 社会
+关注 促使 美国 介入 宣布 通过 香港 制订 国家 安全法 的 决定 月 日 中国 民用 航空局 规定 而 处理 参与 抗议 的 目的
+香港 部分 市民 在 立法会 大楼 外 示威 试图 阻止 二读 程序 示威者 不断 向 警方 投掷 杂物 砖头 与 警方 发生 了 激烈
+冲突 事后 警方 发布公告 将 示威 行动 如翠 雅山 房 用作 隔离 营 风波 香港 疫情 在 年 月 宣布 解散 示威 浪潮 由于 香港
+司法 机构
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Building ngram index...
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="intro.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Welcome to the KUB Datalab Python-toolbox course site.</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="Tf-idf%20example.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">TF-IDF example</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Preprocessing and analysing of Chinese text</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#preparation-of-text">Preparation of text</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cleaning">Cleaning</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#text-segmentation-tokenisation">Text segmentation / tokenisation</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#part-of-speech-tagging-pos">Part of Speech Tagging (POS)</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#task-try-replacing-v-with-other-tags">Task: try replacing ‘v’ with other tags.</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#stop-words">Stop words</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#nltk-methods">NLTK methods</a></li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By KUB Datalab
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+<div class="extra_footer">
+  <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank"> <img class="license" alt="Creative Commons License" src="https://i.creativecommons.org/l/by-nc-sa/4.0/80x15.png" /></a> Licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">Creative Commons BY-NC-SA 4.0 License</a>.
+</div>
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

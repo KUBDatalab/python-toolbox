@@ -1,0 +1,2212 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Basic text processing 1 &#8212; Python Toolkit</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!-- 
+    this give us a css class that will be invisible only if js is disabled 
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'python basic text analysis - incl tf-idf';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+<aside class="bd-header-announcement" aria-label="Announcement">
+  <div class="bd-header-announcement__content"><p class='mystyle'><a href='https://kubkalender.kb.dk/calendar/datalab?cid=6416&t=d&d=0000-00-00&cal=6416&inc=0' target='_blank' style='color: white;'>KUB Datalab Upcomming Events</a></p></div>
+</aside>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/datalab logo white.png" class="logo__image only-light" alt="Python Toolkit - Home"/>
+    <img src="_static/datalab logo white.png" class="logo__image only-dark pst-js-only" alt="Python Toolkit - Home"/>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Welcome to the KUB Datalab Python-toolbox course site.
+                </a>
+            </li>
+        </ul>
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="Preprocessing%20and%20analysing%20of%20Chinese%20text.html">Preprocessing and analysing of Chinese text</a></li>
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="Tf-idf%20example.html">TF-IDF example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Identify%20textual%20changes.html">Identify textual changes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Regex%20and%20digitized%20books.html">Regex and digitized books</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fpython basic text analysis - incl tf-idf.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/python basic text analysis - incl tf-idf.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Basic text processing 1</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Basic text processing 1</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#read-text-files">Read text files</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#strings">Strings</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#clean-text-for-grammatical-characters">Clean text for grammatical characters</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#split-text-into-word-lists">Split text into word lists</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lists">Lists</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#filter-word-lists-for-stop-words">Filter word lists for stop words</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#word-frequency-analysis">Word frequency analysis</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dictionaries">Dictionaries</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#visualize-the-result">Visualize the result</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-text-processing-2">Basic text processing 2</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Read text files</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#functions">Functions</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#clean-functions">Clean functions</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#pandas">Pandas</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#use-own-functions-in-pandas">Use own functions in Pandas</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#new-systematics">New systematics</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#add-new-column">add new column</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#subsets-rows-and-columns">Subsets - rows and columns</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#add-more-columns-and-calculate-type-token-ratio-ttr">Add more columns and calculate type / token ratio (TTR)</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-text-processing-3">Basic text processing 3</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#functions-to-calculate-tf-idf">Functions to calculate tf-idf</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#objects">Objects</a></li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="basic-text-processing-1">
+<h1>Basic text processing 1<a class="headerlink" href="#basic-text-processing-1" title="Link to this heading">#</a></h1>
+<p>Learn to use Python to:</p>
+<ol class="arabic simple">
+<li><p>read text files</p></li>
+<li><p>clean text</p></li>
+<li><p>count words (frequency analysis)</p></li>
+<li><p>plot keywords (visualization)</p></li>
+</ol>
+<p>Learn at the same time about the concepts:</p>
+<ol class="arabic simple">
+<li><p>strings
+2nd list</p></li>
+<li><p>RegEX</p></li>
+<li><p>list comprehensions</p></li>
+<li><p>loops</p></li>
+<li><p>dictionaries</p></li>
+</ol>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="read-text-files">
+<h1>Read text files<a class="headerlink" href="#read-text-files" title="Link to this heading">#</a></h1>
+<p>We get the book Frankenstein from Project Gutenberg and use it for the rest of the workshop. We download the Plain Text UTF-8 version.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">urllib.request</span>
+
+<span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;https://gutenberg.org/cache/epub/84/pg84.txt&#39;</span>
+<span class="n">raw_text</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="n">url</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span>
+<span class="c1"># save for later</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;Frankenstein.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">raw_text</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="strings">
+<h2>Strings<a class="headerlink" href="#strings" title="Link to this heading">#</a></h2>
+<p>The variable raw_text is a <a class="reference external" href="https://www.w3schools.com/python/python_strings.asp">string</a>.</p>
+<p>By calling the method find(‘fictitious text string’) we can get an index number equal to the index number where ‘fictitious text string’ begins.</p>
+<p>Below we use Python’s string method <a class="reference external" href="https://www.w3schools.com/python/ref_string_find.asp">find()</a> to find the index numbers where the text starts and ends, and we use [“slicing strings”] (<a class="reference external" href="https://www.w3schools.com/python/python_strings_slicing.asp">https://www.w3schools.com/python/python_strings_slicing.asp</a>) to slice the text.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">text_start</span> <span class="o">=</span> <span class="n">raw_text</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;*** START OF THE PROJECT GUTENBERG EBOOK FRANKENSTEIN; OR, THE MODERN PROMETHEUS ***&#39;</span><span class="p">)</span>
+<span class="n">text_start</span> <span class="o">=</span> <span class="n">text_start</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="s1">&#39;*** START OF THE PROJECT GUTENBERG EBOOK FRANKENSTEIN; OR, THE MODERN PROMETHEUS ***&#39;</span><span class="p">)</span>
+<span class="n">text_end</span> <span class="o">=</span> <span class="n">raw_text</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;*** END OF THE PROJECT GUTENBERG EBOOK FRANKENSTEIN; OR, THE MODERN PROMETHEUS ***&#39;</span><span class="p">)</span>
+<span class="n">text</span> <span class="o">=</span> <span class="n">raw_text</span><span class="p">[</span><span class="n">text_start</span><span class="p">:</span><span class="n">text_end</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="c1"># Slice</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="clean-text-for-grammatical-characters">
+<h1>Clean text for grammatical characters<a class="headerlink" href="#clean-text-for-grammatical-characters" title="Link to this heading">#</a></h1>
+<p>Cleaning the text will often be a fundamental necessity before working on using different methods to analyze the text. Cleaning often consists of removing grammatical characters, ensuring that all uppercase letters are changed to lowercase, and that <a class="reference external" href="https://en.wikipedia.org/wiki/Stop_word">stop words</a> have been filtered out.</p>
+<p>When we need to clean our text of grammatical characters, we use RegEX patterns and Python string methods. Below we test two different RegEX patterns.</p>
+<p>When we work with RegEx, the website <a class="reference external" href="https://regex101.com/">regex101.com</a> is a brilliant tool, because we can get help partly to understand Regex, partly to write a Regex pattern.</p>
+<p>Try to open the page and insert this text string: <em>Chapter 1 I am by birth a Genevese, and my family is one of the most distinguished of that republic.</em> in the field ‘TEXT STRING’.</p>
+<p><strong>First RegEX pattern ‘\b\S+\b’</strong>.</p>
+<p>In the ‘REGULAR EXPRESSION’ field you can write this pattern <em>‘\b\S+\b’</em>.</p>
+<p>\b : \b finds the position at the boundary of a word (word boundary). \S: \S matches any non-space +: + matches the previous character between one and an unlimited number of times, as many times as possible until the next character. They say the plus is greedy. \b : \b finds the position at the boundary of a word (word boundary).</p>
+<p>When you set \b\S+\b, you match from, you match all “non-space characters” as well as underscores, but not symbols such as periods, commas, question marks.</p>
+<p><strong>Other RegEX pattern ‘\w+’</strong>.
+Another Regex pattern that is also used for cleaning is ‘\w+’.
+\w: \w matches any alphabetic letter (uppercase and lowercase), any number, or an underscore (_). +: + matches the preceding character one or more times.</p>
+<p>When you put \w+ together, you match whole words composed of letters, digits and underscores.</p>
+<p><strong>Comparison of the two RegEX patterns</strong></p>
+<p>In the first method, <em>There-for</em> remains in a word</p>
+<p>In the second method it becomes two words, <em>There for</em>.</p>
+<p>Search e.g. after <em>About two o’clock</em>.</p>
+<p>In the first method, <em>o’clock</em> remains a word.</p>
+<p>In the second method it becomes two words, <em>o clock</em>.</p>
+<p>Both methods leave us with underscores (_), so to get rid of underscores we use stitch’s .replace() method.</p>
+<p>Try both methods below and inspect the result.</p>
+<p>The code makes use of the python string methods <a class="reference external" href="https://www.w3schools.com/python/ref_string_lower.asp">.lower()</a>, [.replace()](<a class="reference external" href="https://www.w3schools.com/python/">https://www.w3schools.com/python/</a> ref_string_replace.asp) and <a class="reference external" href="https://www.w3schools.com/python/ref_string_join.asp">.join()</a>, as well as the ‘re’ library, Python [RegEx](<a class="reference external" href="https://www.w3schools.com/">https://www.w3schools.com/</a> python/python_regex.asp).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">re</span>
+<span class="n">text_string</span> <span class="o">=</span> <span class="n">text</span>
+<span class="n">lower_text_string</span> <span class="o">=</span> <span class="n">text_string</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+<span class="n">text_wo_underscores</span> <span class="o">=</span> <span class="n">lower_text_string</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="c1"># return string</span>
+
+<span class="c1">#list_w_clean_text = re.findall(r&#39;\b(\S+)\b&#39;, text_wo_underscores) # return list</span>
+<span class="n">list_w_clean_text</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;\w+&#39;</span><span class="p">,</span> <span class="n">text_wo_underscores</span><span class="p">)</span> <span class="c1"># return list</span>
+
+<span class="n">clean_text_string</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">list_w_clean_text</span><span class="p">)</span> <span class="c1"># join list items around whitespace and return a string</span>
+<span class="n">clean_text_string</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">100</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;frankenstein or the modern prometheus by mary wollstonecraft godwin shelley contents letter 1 letter&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<section id="split-text-into-word-lists">
+<h2>Split text into word lists<a class="headerlink" href="#split-text-into-word-lists" title="Link to this heading">#</a></h2>
+<section id="lists">
+<h3>Lists<a class="headerlink" href="#lists" title="Link to this heading">#</a></h3>
+<p>We use the python stitch method <a class="reference external" href="https://www.w3schools.com/python/ref_string_split.asp">.split()</a> to split a string into a list.</p>
+<p>Below I use .split() to split my text string on all spaces. I save the result in the word_list variable.</p>
+<p>Word_list will consist of all the words in the text. Each word is a string of text.</p>
+<p>You can access the elements in the list by referring to the index number. Again, we can use both positive and negative numbers. Remember that in python the first index number is 0 and not 1.</p>
+<p><strong>Lists are used to store multiple values ​​in a variable.</strong></p>
+<p>Lists are distinguished by the square brackets ( [ ] ).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">word_list</span> <span class="o">=</span> <span class="n">clean_text_string</span><span class="o">.</span><span class="n">split</span><span class="p">()</span> <span class="c1"># return list</span>
+<span class="n">word_list</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">10</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;frankenstein&#39;,
+ &#39;or&#39;,
+ &#39;the&#39;,
+ &#39;modern&#39;,
+ &#39;prometheus&#39;,
+ &#39;by&#39;,
+ &#39;mary&#39;,
+ &#39;wollstonecraft&#39;,
+ &#39;godwin&#39;,
+ &#39;shelley&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="filter-word-lists-for-stop-words">
+<h2>Filter word lists for stop words<a class="headerlink" href="#filter-word-lists-for-stop-words" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># read stop words</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;en.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">stopwords</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span> <span class="c1"># return string</span>
+<span class="nb">print</span> <span class="p">(</span><span class="sa">f</span><span class="s1">&#39;stop_words:</span><span class="se">\n</span><span class="si">{</span><span class="n">stopwords</span><span class="p">[:</span><span class="mi">50</span><span class="p">]</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="n">stopword_list</span> <span class="o">=</span> <span class="n">stopwords</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span> <span class="c1"># return list</span>
+<span class="nb">print</span> <span class="p">(</span><span class="sa">f</span><span class="s1">&#39;stop word list: </span><span class="si">{</span><span class="n">stopword_list</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">10</span><span class="p">]</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="n">word_list_wo_stopwords</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">word_list</span> <span class="k">if</span> <span class="n">i</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">stopword_list</span><span class="p">]</span> <span class="c1"># List comprehension that returns list</span>
+
+<span class="nb">print</span> <span class="p">(</span><span class="sa">f</span><span class="s1">&#39;word list with out stopwords: </span><span class="si">{</span><span class="n">word_list_wo_stopwords</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">100</span><span class="p">]</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="nb">print</span> <span class="p">(</span><span class="sa">f</span><span class="s1">&#39;word list with stopwords: </span><span class="si">{</span><span class="n">word_list</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">100</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">FileNotFoundError</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span> <span class="n">line</span> <span class="mi">2</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># read stop words</span>
+<span class="ne">----&gt; </span><span class="mi">2</span> <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;en.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span>     <span class="n">stopwords</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span> <span class="c1"># return string</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="nb">print</span> <span class="p">(</span><span class="sa">f</span><span class="s1">&#39;stop_words:</span><span class="se">\n</span><span class="si">{</span><span class="n">stopwords</span><span class="p">[:</span><span class="mi">50</span><span class="p">]</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="nn">File ~\AppData\Local\anaconda3\Lib\site-packages\IPython\core\interactiveshell.py:324,</span> in <span class="ni">_modified_open</span><span class="nt">(file, *args, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">317</span> <span class="k">if</span> <span class="n">file</span> <span class="ow">in</span> <span class="p">{</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">}:</span>
+<span class="g g-Whitespace">    </span><span class="mi">318</span>     <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">319</span>         <span class="sa">f</span><span class="s2">&quot;IPython won&#39;t let you open fd=</span><span class="si">{</span><span class="n">file</span><span class="si">}</span><span class="s2"> by default &quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">320</span>         <span class="s2">&quot;as it is likely to crash IPython. If you know what you are doing, &quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">321</span>         <span class="s2">&quot;you can use builtins&#39; open.&quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">322</span>     <span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">324</span> <span class="k">return</span> <span class="n">io_open</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<span class="ne">FileNotFoundError</span>: [Errno 2] No such file or directory: &#39;en.txt&#39;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="word-frequency-analysis">
+<h1>Word frequency analysis<a class="headerlink" href="#word-frequency-analysis" title="Link to this heading">#</a></h1>
+<section id="dictionaries">
+<h2>Dictionaries<a class="headerlink" href="#dictionaries" title="Link to this heading">#</a></h2>
+<p>Python <a class="reference external" href="https://www.w3schools.com/python/python_dictionaries.asp">dictionaries</a> are distinguished by curly brackets; { }.</p>
+<p>They consist of keys and values, and they have a variety of associated <a class="reference external" href="https://www.w3schools.com/python/python_dictionaries_methods.asp">methods</a>.</p>
+<p>The code below uses <a class="reference external" href="https://www.w3schools.com/python/python_dictionaries_add.asp">Adding Items</a> and the dictionary method <a class="reference external" href="https://www.w3schools.com/python/ref_dictionary_get.asp">.get()</a>.</p>
+<p>We use the code to count words and store the result in a dictionary. It consists of words as keys and the words’ relative frequency as values.</p>
+<p>We obtain the relative frequency by dividing the sum of the number of times a word appears by the total number of words.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tf_dict</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="n">total_words</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">word_list</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">word_list_wo_stopwords</span><span class="p">:</span>
+    <span class="n">tf_dict</span><span class="p">[</span><span class="n">word</span><span class="p">]</span> <span class="o">=</span> <span class="n">tf_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">word</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span> <span class="c1"># adding item og .get method</span>
+
+<span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">tf_dict</span><span class="p">:</span>
+    <span class="n">tf_dict</span><span class="p">[</span><span class="n">word</span><span class="p">]</span> <span class="o">=</span> <span class="n">tf_dict</span><span class="p">[</span><span class="n">word</span><span class="p">]</span> <span class="o">/</span> <span class="n">total_words</span> <span class="c1"># return relative frequence of raw frequence </span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We now have a dictionary with words as keys and the relative frequency of the words as values.</p>
+<p>We would like to have it sorted so that the words with the highest value are shown first.</p>
+<p>For that we use Python’s built-in function called <a class="reference external" href="https://www.w3schools.com/python/ref_func_sorted.asp">sorted</a>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Sort dictionary</span>
+
+<span class="n">tf_dict_sorted</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">tf_dict</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">item</span><span class="p">:</span> <span class="n">item</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+
+<span class="c1"># inspicer dict</span>
+<span class="c1"># tf_dict_sorted</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Later we would like to make a graph with some of the most important keywords. Therefore, we choose to take our dictionary, turn it into a list that we can slice with the index , 0 - 25; and and changes that list back to a dictionary.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># choose the higest values</span>
+<span class="n">most_common</span> <span class="o">=</span> <span class="mi">25</span>
+<span class="n">most_common_keywords</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">tf_dict_sorted</span><span class="o">.</span><span class="n">items</span><span class="p">())[:</span><span class="n">most_common</span><span class="p">])</span>
+<span class="nb">print</span> <span class="p">(</span><span class="n">most_common_keywords</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;will&#39;: 0.002574207502355267, &#39;man&#39;: 0.0018178681846529464, &#39;father&#39;: 0.0017780608521422978, &#39;life&#39;: 0.0015259477462415245, &#39;eyes&#39;: 0.0013799875270358133, &#39;time&#39;: 0.0013003728620145164, &#39;night&#39;: 0.0012340273078301023, &#39;elizabeth&#39;: 0.0012207581969932194, &#39;mind&#39;: 0.0011278744211350397, &#39;day&#39;: 0.0010880670886243913, &#39;heart&#39;: 0.0010747979777875085, &#39;felt&#39;: 0.0010615288669506256, &#39;death&#39;: 0.0010482597561137428, &#39;feelings&#39;: 0.0010084524236030944, &#39;thought&#39;: 0.0009819142019293287, &#39;dear&#39;: 0.0009553759802555631, &#39;friend&#39;: 0.0009421068694186802, &#39;passed&#39;: 0.0008890304260711489, &#39;miserable&#39;: 0.0008624922043973833, &#39;place&#39;: 0.0008492230935605005, &#39;heard&#39;: 0.0008226848718867349, &#39;love&#39;: 0.0007828775393760864, &#39;clerval&#39;: 0.0007828775393760864, &#39;human&#39;: 0.0007696084285392035, &#39;appeared&#39;: 0.0007563393177023208}
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="visualize-the-result">
+<h1>Visualize the result<a class="headerlink" href="#visualize-the-result" title="Link to this heading">#</a></h1>
+<p>The result of a word frequency analysis is often visualized in a bar chart, because the chart is easier to understand than a table of numbers.</p>
+<p>Below we import the visualization library Matplotlib, <em>import matplotlib.pyplot as plt</em>.
+We store our data (our dictionary) in the variable <em>data</em>. The keys and values ​​are extracted into two different lists, keys (words) and values ​​(frequencies).</p>
+<p>The bar plot (bar plot in English) is made with <em>plt.bar(words, frequencies, color=’skyblue’)</em>. The words appear on the x-axis and the associated words appear on the y-axis.</p>
+<p>We customize the chart by adding relevant markets on the x- and y-axis respectively, as well as title, that way it is easier to read the chart.</p>
+<p>Display of the diagram: <em>plt.tight_layout()</em> adjusts the layout so that there is room to rotate the orders on the x-axis and <em>plt.show()</em> displays the diagram.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">most_common_keywords</span>
+
+<span class="c1"># Extract keys and values</span>
+<span class="n">words</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+<span class="n">frequencies</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+
+<span class="c1"># Create the plot</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">words</span><span class="p">,</span> <span class="n">frequencies</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;skyblue&#39;</span><span class="p">)</span>
+
+<span class="c1"># Customize the plot</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Words&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Frequencies&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Word Frequencies&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="mi">90</span><span class="p">)</span>  <span class="c1"># Rotate x-axis labels for better readability</span>
+
+<span class="c1"># Display the plot</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>  <span class="c1"># Adjust layout to make room for rotated x-axis labels</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/18a224bdb708d694ff6edcf5ee069e645d33fd19d83a2992f6b0cbdd56545ad0.png" src="_images/18a224bdb708d694ff6edcf5ee069e645d33fd19d83a2992f6b0cbdd56545ad0.png" />
+</div>
+</div>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="basic-text-processing-2">
+<h1>Basic text processing 2<a class="headerlink" href="#basic-text-processing-2" title="Link to this heading">#</a></h1>
+<p>Learn to use Python to:</p>
+<ol class="arabic simple">
+<li><p>read text files</p></li>
+<li><p>write a function that cleans text of grammatical characters</p></li>
+<li><p>split text into word lists</p></li>
+<li><p>filter word lists for stop words</p></li>
+</ol>
+<p>Learn at the same time about the concepts:</p>
+<ol class="arabic simple">
+<li><p>functions</p></li>
+<li><p>pandas</p></li>
+<li><p>type token ratio (TTR)</p></li>
+</ol>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="id1">
+<h1>Read text files<a class="headerlink" href="#id1" title="Link to this heading">#</a></h1>
+<p>We get the book Frankenstein from Project Gutenberg and use it for the rest of the workshop. We download the Plain Text UTF-8 version.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="sd">&#39;&#39;&#39;url = &#39;https://gutenberg.org/cache/epub/84/pg84.txt&#39;</span>
+<span class="sd">raw_text = urllib.request.urlopen(url).read().decode()</span>
+<span class="sd"># save for later</span>
+<span class="sd">with open(&#39;Frankenstein.txt&#39;, &#39;w&#39;, encoding=&#39;utf-8&#39;) as f:</span>
+<span class="sd">    f.write(raw_text)</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;Frankenstein.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">raw_text</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The variable raw_text is a <a class="reference external" href="https://www.w3schools.com/python/python_strings.asp">string</a>.</p>
+<p>By calling the method find(‘fictitious text string’) we can get an index number equal to the index number where ‘fictitious text string’ begins.</p>
+<p>Below we use Python’s string method <a class="reference external" href="https://www.w3schools.com/python/ref_string_find.asp">find()</a> to find the index numbers where the text starts and ends, and we use [“slicing strings”] (<a class="reference external" href="https://www.w3schools.com/python/python_strings_slicing.asp">https://www.w3schools.com/python/python_strings_slicing.asp</a>) to slice the text.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">text_start</span> <span class="o">=</span> <span class="n">raw_text</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;*** START OF THE PROJECT GUTENBERG EBOOK FRANKENSTEIN; OR, THE MODERN PROMETHEUS ***&#39;</span><span class="p">)</span>
+<span class="n">text_start</span> <span class="o">=</span> <span class="n">text_start</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="s1">&#39;*** START OF THE PROJECT GUTENBERG EBOOK FRANKENSTEIN; OR, THE MODERN PROMETHEUS ***&#39;</span><span class="p">)</span>
+<span class="n">text_end</span> <span class="o">=</span> <span class="n">raw_text</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;*** END OF THE PROJECT GUTENBERG EBOOK FRANKENSTEIN; OR, THE MODERN PROMETHEUS ***&#39;</span><span class="p">)</span>
+<span class="n">text</span> <span class="o">=</span> <span class="n">raw_text</span><span class="p">[</span><span class="n">text_start</span><span class="p">:</span><span class="n">text_end</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="c1"># Slice</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Look carefully at the text and notice the many \r and \n. It is “<a class="reference external" href="https://www.w3schools.com/python/python_strings_escape.asp">Escape characters</a>”.</p>
+<p>We can use them to split the text into paragraphs. Try to look at the text and find out which sequence of escape characters. which we can use to divide the text into chapters. Maybe you can use find() and “slicing strings”.</p>
+<p>Once we have found which sequence of escape characters we can use to split the text, we must use the python stitch method [.split()](<a class="reference external" href="https://www.w3schools.com/python/ref_string_split">https://www.w3schools.com/python/ref_string_split</a> .asp).</p>
+<p>Click on the link above. On the page you write ‘The split() method splits a string into a <strong>list</strong>.’</p>
+<p>What does this mean and how does it change our text string when it is split into a list?</p>
+<p>Below I split the text and save the result in the variable sections.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#sections = text.split(&#39;\r\n\r\n\r\n\r\n\r\n&#39;)</span>
+<span class="n">sections</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n\n\n\n\n\n\n\n\n\n</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">sections</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">:</span><span class="mi">10000</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;Frankenstein;\n\n\n\nor, the Modern Prometheus\n\n\n\nby Mary Wollstonecraft (Godwin) Shelley\n\n\n\n\n\n CONTENTS\n\n\n\n Letter 1\n\n Letter 2\n\n Letter 3\n\n Letter 4\n\n Chapter 1\n\n Chapter 2\n\n Chapter 3\n\n Chapter 4\n\n Chapter 5\n\n Chapter 6\n\n Chapter 7\n\n Chapter 8\n\n Chapter 9\n\n Chapter 10\n\n Chapter 11\n\n Chapter 12\n\n Chapter 13\n\n Chapter 14\n\n Chapter 15\n\n Chapter 16\n\n Chapter 17\n\n Chapter 18\n\n Chapter 19\n\n Chapter 20\n\n Chapter 21\n\n Chapter 22\n\n Chapter 23\n\n Chapter 24&#39;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="functions">
+<h1>Functions<a class="headerlink" href="#functions" title="Link to this heading">#</a></h1>
+<p>Python has various <a class="reference external" href="https://www.w3schools.com/python/python_ref_functions.asp">built-in functions</a>. But we can also write the <a class="reference external" href="https://www.w3schools.com/python/python_functions.asp">functions</a> ourselves. They consist of code that processes data and returns a result. The code only runs when we call the function.</p>
+<section id="clean-functions">
+<h2>Clean functions<a class="headerlink" href="#clean-functions" title="Link to this heading">#</a></h2>
+<p>We are making a function that can clean text using different regex patterns.</p>
+<p>We reuse the code that we have written before.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Cleaning function</span>
+
+<span class="k">def</span> <span class="nf">text_scrubber</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">regex_str</span><span class="p">):</span>
+    <span class="kn">import</span> <span class="nn">re</span>
+    <span class="n">text_string</span> <span class="o">=</span> <span class="n">text</span>
+    <span class="n">lower_text_string</span> <span class="o">=</span> <span class="n">text_string</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+    <span class="n">text_wo_underscores</span> <span class="o">=</span> <span class="n">lower_text_string</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="c1"># return string</span>
+    
+    <span class="n">list_w_clean_text</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">regex_str</span><span class="p">,</span> <span class="n">text_wo_underscores</span><span class="p">)</span> <span class="c1"># return list</span>
+    
+    <span class="n">clean_text_string</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">list_w_clean_text</span><span class="p">)</span> <span class="c1"># join list items around whitespace and return a string</span>
+
+    <span class="k">return</span> <span class="n">clean_text_string</span> <span class="c1"># output text string </span>
+    
+</pre></div>
+</div>
+</div>
+</div>
+<p>When we need to perform the cleaning of the text with one of our functions, we need to use either a Python <a class="reference external" href="https://www.w3schools.com/python/python_lists_loop.asp">loop</a> or [list comprehension](<a class="reference external" href="https://www">https://www</a> .w3schools.com/python/python_lists_comprehension.asp) because the cleanup function must be applied to each of the text’s sections stored in the list stored in the sections variable. I use a list comprehension below and then inspect the contents of the list’s first element.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">regex_str</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;\w+&#39;</span> 
+<span class="c1">#regex_str = r&#39;\b(\S+)\b&#39;</span>
+<span class="n">text_scrubber</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">regex_str</span><span class="p">)</span>
+<span class="n">sections_clean_text</span> <span class="o">=</span> <span class="p">[</span><span class="n">text_scrubber</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">regex_str</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">sections</span><span class="p">]</span>
+<span class="n">sections_clean_text</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;frankenstein or the modern prometheus by mary wollstonecraft godwin shelley contents letter 1 letter 2 letter 3 letter 4 chapter 1 chapter 2 chapter 3 chapter 4 chapter 5 chapter 6 chapter 7 chapter 8 chapter 9 chapter 10 chapter 11 chapter 12 chapter 13 chapter 14 chapter 15 chapter 16 chapter 17 chapter 18 chapter 19 chapter 20 chapter 21 chapter 22 chapter 23 chapter 24&#39;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="pandas">
+<h1>Pandas<a class="headerlink" href="#pandas" title="Link to this heading">#</a></h1>
+<p>Pandas is a library in Python that is used to work with data that is structured in rows and columns. You will often choose to structure your data in rows and columns if you have collected a lot of data, and there are also many data sets that are already structured this way. With a little knowledge of Pandas, you are well helped on your way to being able to get started with data analysis of larger data sets.</p>
+<p>When you have to work with Pandas, this cheatsheet will be your friend: <a class="reference external" href="https://pandas.pydata.org/Pandas_Cheat_Sheet.pdf">https://pandas.pydata.org/Pandas_Cheat_Sheet.pdf</a></p>
+<p>Open the page and move the mouse over the page. You will find that behind the words there are links to the Pandas documentation.</p>
+<p>Look on the first page, left column. There you see three examples of how you can create a data frame. The first two are fairly accessible, while the third is quite advanced and not widely used.</p>
+<p>Below I have written the three different ways and I have added a fourth way which is the way that I often use. It’s very similar to the first way, because I use lists, but I don’t add an index, because pandas automatically adds a consecutive index.</p>
+<p>I start building my dataframe out of the different versions of the text that we have produced above.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;Section&#39;</span><span class="p">:</span> <span class="n">sections</span><span class="p">,</span> <span class="s1">&#39;Clean_text&#39;</span><span class="p">:</span> <span class="n">sections_clean_text</span><span class="p">})</span>
+
+<span class="n">df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Section</th>
+      <th>Clean_text</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Frankenstein;\n\n\n\nor, the Modern Prometheus...</td>
+      <td>frankenstein or the modern prometheus by mary ...</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Letter 1\n\n\n\n_To Mrs. Saville, England._\n\...</td>
+      <td>letter 1 to mrs saville england st petersburgh...</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Letter 2\n\n\n\n_To Mrs. Saville, England._\n\...</td>
+      <td>letter 2 to mrs saville england archangel 28th...</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Letter 3\n\n\n\n_To Mrs. Saville, England._\n\...</td>
+      <td>letter 3 to mrs saville england july 7th 17 my...</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Letter 4\n\n\n\n\n\n_To Mrs. Saville, England....</td>
+      <td>letter 4 to mrs saville england august 5th 17 ...</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>August 13th, 17—.\n\n\n\n\n\nMy affection for ...</td>
+      <td>august 13th 17 my affection for my guest incre...</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>August 19th, 17—.\n\n\n\n\n\nYesterday the str...</td>
+      <td>august 19th 17 yesterday the stranger said to ...</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>Chapter 1\n\n\n\n\n\nI am by birth a Genevese,...</td>
+      <td>chapter 1 i am by birth a genevese and my fami...</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>Chapter 2\n\n\n\n\n\nWe were brought up togeth...</td>
+      <td>chapter 2 we were brought up together there wa...</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>Chapter 3\n\n\n\n\n\nWhen I had attained the a...</td>
+      <td>chapter 3 when i had attained the age of seven...</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>Chapter 4\n\n\n\n\n\nFrom this day natural phi...</td>
+      <td>chapter 4 from this day natural philosophy and...</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>Chapter 5\n\n\n\n\n\nIt was on a dreary night ...</td>
+      <td>chapter 5 it was on a dreary night of november...</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>Chapter 6\n\n\n\n\n\nClerval then put the foll...</td>
+      <td>chapter 6 clerval then put the following lette...</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>Chapter 7\n\n\n\n\n\nOn my return, I found the...</td>
+      <td>chapter 7 on my return i found the following l...</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>Chapter 8\n\n\n\n\n\nWe passed a few sad hours...</td>
+      <td>chapter 8 we passed a few sad hours until elev...</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>Chapter 9\n\n\n\n\n\nNothing is more painful t...</td>
+      <td>chapter 9 nothing is more painful to the human...</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>Chapter 10\n\n\n\n\n\nI spent the following da...</td>
+      <td>chapter 10 i spent the following day roaming t...</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>Chapter 11\n\n\n\n\n\n“It is with considerable...</td>
+      <td>chapter 11 it is with considerable difficulty ...</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>Chapter 12\n\n\n\n\n\n“I lay on my straw, but ...</td>
+      <td>chapter 12 i lay on my straw but i could not s...</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>Chapter 13\n\n\n\n\n\n“I now hasten to the mor...</td>
+      <td>chapter 13 i now hasten to the more moving par...</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>Chapter 14\n\n\n\n\n\n“Some time elapsed befor...</td>
+      <td>chapter 14 some time elapsed before i learned ...</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>Chapter 15\n\n\n\n\n\n“Such was the history of...</td>
+      <td>chapter 15 such was the history of my beloved ...</td>
+    </tr>
+    <tr>
+      <th>22</th>
+      <td>Chapter 16\n\n\n\n\n\n“Cursed, cursed creator!...</td>
+      <td>chapter 16 cursed cursed creator why did i liv...</td>
+    </tr>
+    <tr>
+      <th>23</th>
+      <td>Chapter 17\n\n\n\n\n\nThe being finished speak...</td>
+      <td>chapter 17 the being finished speaking and fix...</td>
+    </tr>
+    <tr>
+      <th>24</th>
+      <td>Chapter 18\n\n\n\n\n\nDay after day, week afte...</td>
+      <td>chapter 18 day after day week after week passe...</td>
+    </tr>
+    <tr>
+      <th>25</th>
+      <td>Chapter 19\n\n\n\n\n\nLondon was our present p...</td>
+      <td>chapter 19 london was our present point of res...</td>
+    </tr>
+    <tr>
+      <th>26</th>
+      <td>Chapter 20\n\n\n\n\n\nI sat one evening in my ...</td>
+      <td>chapter 20 i sat one evening in my laboratory ...</td>
+    </tr>
+    <tr>
+      <th>27</th>
+      <td>Chapter 21\n\n\n\n\n\nI was soon introduced in...</td>
+      <td>chapter 21 i was soon introduced into the pres...</td>
+    </tr>
+    <tr>
+      <th>28</th>
+      <td>Chapter 22\n\n\n\n\n\nThe voyage came to an en...</td>
+      <td>chapter 22 the voyage came to an end we landed...</td>
+    </tr>
+    <tr>
+      <th>29</th>
+      <td>Chapter 23\n\n\n\n\n\nIt was eight o’clock whe...</td>
+      <td>chapter 23 it was eight o clock when we landed...</td>
+    </tr>
+    <tr>
+      <th>30</th>
+      <td>Chapter 24\n\n\n\n\n\nMy present situation was...</td>
+      <td>chapter 24 my present situation was one in whi...</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="use-own-functions-in-pandas">
+<h1>Use own functions in Pandas<a class="headerlink" href="#use-own-functions-in-pandas" title="Link to this heading">#</a></h1>
+<p>When you need to apply a function to each value (row) in a column, you can use the following method, where you write your function, which you then apply to your data frame using the .apply() function. The output is saved in a new column in the same way as when you normally want to save in a variable.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## Function to remove stop word</span>
+
+<span class="c1"># read stopwords</span>
+<span class="k">def</span> <span class="nf">filter_stopwords</span><span class="p">(</span><span class="n">clean_text</span><span class="p">):</span>
+    <span class="n">word_list</span> <span class="o">=</span> <span class="n">clean_text</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;en.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">stopwords</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span> <span class="c1"># return string</span>
+    <span class="n">stopword_list</span> <span class="o">=</span> <span class="n">stopwords</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span> <span class="c1"># return list</span>
+    <span class="n">word_list_wo_stopwords</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">word_list</span> <span class="k">if</span> <span class="n">i</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">stopword_list</span><span class="p">]</span> <span class="c1"># List comprehension that returns list</span>
+    <span class="n">clean_text_wo_stopwords</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">word_list_wo_stopwords</span><span class="p">)</span> <span class="c1"># join list</span>
+    <span class="k">return</span> <span class="n">clean_text_wo_stopwords</span>
+
+<span class="c1"># apply function to pandas syntax </span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;Clean_text_wo_stopwords&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Clean_text&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">filter_stopwords</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Section</th>
+      <th>Clean_text</th>
+      <th>Clean_text_wo_stopwords</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Frankenstein;\n\n\n\nor, the Modern Prometheus...</td>
+      <td>frankenstein or the modern prometheus by mary ...</td>
+      <td>frankenstein modern prometheus mary wollstonec...</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Letter 1\n\n\n\n_To Mrs. Saville, England._\n\...</td>
+      <td>letter 1 to mrs saville england st petersburgh...</td>
+      <td>letter 1 saville england st petersburgh dec 11...</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Letter 2\n\n\n\n_To Mrs. Saville, England._\n\...</td>
+      <td>letter 2 to mrs saville england archangel 28th...</td>
+      <td>letter 2 saville england archangel 28th march ...</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Letter 3\n\n\n\n_To Mrs. Saville, England._\n\...</td>
+      <td>letter 3 to mrs saville england july 7th 17 my...</td>
+      <td>letter 3 saville england july 7th 17 dear sist...</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Letter 4\n\n\n\n\n\n_To Mrs. Saville, England....</td>
+      <td>letter 4 to mrs saville england august 5th 17 ...</td>
+      <td>letter 4 saville england august 5th 17 strange...</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>August 13th, 17—.\n\n\n\n\n\nMy affection for ...</td>
+      <td>august 13th 17 my affection for my guest incre...</td>
+      <td>august 13th 17 affection guest increases day e...</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>August 19th, 17—.\n\n\n\n\n\nYesterday the str...</td>
+      <td>august 19th 17 yesterday the stranger said to ...</td>
+      <td>august 19th 17 yesterday stranger easily perce...</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>Chapter 1\n\n\n\n\n\nI am by birth a Genevese,...</td>
+      <td>chapter 1 i am by birth a genevese and my fami...</td>
+      <td>chapter 1 birth genevese family distinguished ...</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>Chapter 2\n\n\n\n\n\nWe were brought up togeth...</td>
+      <td>chapter 2 we were brought up together there wa...</td>
+      <td>chapter 2 brought year difference ages strange...</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>Chapter 3\n\n\n\n\n\nWhen I had attained the a...</td>
+      <td>chapter 3 when i had attained the age of seven...</td>
+      <td>chapter 3 attained age seventeen parents resol...</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>Chapter 4\n\n\n\n\n\nFrom this day natural phi...</td>
+      <td>chapter 4 from this day natural philosophy and...</td>
+      <td>chapter 4 day natural philosophy chemistry com...</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>Chapter 5\n\n\n\n\n\nIt was on a dreary night ...</td>
+      <td>chapter 5 it was on a dreary night of november...</td>
+      <td>chapter 5 dreary night november beheld accompl...</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>Chapter 6\n\n\n\n\n\nClerval then put the foll...</td>
+      <td>chapter 6 clerval then put the following lette...</td>
+      <td>chapter 6 clerval letter hands elizabeth deare...</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>Chapter 7\n\n\n\n\n\nOn my return, I found the...</td>
+      <td>chapter 7 on my return i found the following l...</td>
+      <td>chapter 7 return letter father dear victor wai...</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>Chapter 8\n\n\n\n\n\nWe passed a few sad hours...</td>
+      <td>chapter 8 we passed a few sad hours until elev...</td>
+      <td>chapter 8 passed sad hours eleven clock trial ...</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>Chapter 9\n\n\n\n\n\nNothing is more painful t...</td>
+      <td>chapter 9 nothing is more painful to the human...</td>
+      <td>chapter 9 painful human mind feelings worked q...</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>Chapter 10\n\n\n\n\n\nI spent the following da...</td>
+      <td>chapter 10 i spent the following day roaming t...</td>
+      <td>chapter 10 spent day roaming valley stood sour...</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>Chapter 11\n\n\n\n\n\n“It is with considerable...</td>
+      <td>chapter 11 it is with considerable difficulty ...</td>
+      <td>chapter 11 considerable difficulty remember or...</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>Chapter 12\n\n\n\n\n\n“I lay on my straw, but ...</td>
+      <td>chapter 12 i lay on my straw but i could not s...</td>
+      <td>chapter 12 lay straw sleep thought occurrences...</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>Chapter 13\n\n\n\n\n\n“I now hasten to the mor...</td>
+      <td>chapter 13 i now hasten to the more moving par...</td>
+      <td>chapter 13 hasten moving story relate events i...</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>Chapter 14\n\n\n\n\n\n“Some time elapsed befor...</td>
+      <td>chapter 14 some time elapsed before i learned ...</td>
+      <td>chapter 14 time elapsed learned history friend...</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>Chapter 15\n\n\n\n\n\n“Such was the history of...</td>
+      <td>chapter 15 such was the history of my beloved ...</td>
+      <td>chapter 15 history beloved cottagers impressed...</td>
+    </tr>
+    <tr>
+      <th>22</th>
+      <td>Chapter 16\n\n\n\n\n\n“Cursed, cursed creator!...</td>
+      <td>chapter 16 cursed cursed creator why did i liv...</td>
+      <td>chapter 16 cursed cursed creator live instant ...</td>
+    </tr>
+    <tr>
+      <th>23</th>
+      <td>Chapter 17\n\n\n\n\n\nThe being finished speak...</td>
+      <td>chapter 17 the being finished speaking and fix...</td>
+      <td>chapter 17 finished speaking fixed expectation...</td>
+    </tr>
+    <tr>
+      <th>24</th>
+      <td>Chapter 18\n\n\n\n\n\nDay after day, week afte...</td>
+      <td>chapter 18 day after day week after week passe...</td>
+      <td>chapter 18 day day week week passed return gen...</td>
+    </tr>
+    <tr>
+      <th>25</th>
+      <td>Chapter 19\n\n\n\n\n\nLondon was our present p...</td>
+      <td>chapter 19 london was our present point of res...</td>
+      <td>chapter 19 london point rest determined remain...</td>
+    </tr>
+    <tr>
+      <th>26</th>
+      <td>Chapter 20\n\n\n\n\n\nI sat one evening in my ...</td>
+      <td>chapter 20 i sat one evening in my laboratory ...</td>
+      <td>chapter 20 sat evening laboratory sun set moon...</td>
+    </tr>
+    <tr>
+      <th>27</th>
+      <td>Chapter 21\n\n\n\n\n\nI was soon introduced in...</td>
+      <td>chapter 21 i was soon introduced into the pres...</td>
+      <td>chapter 21 introduced presence magistrate bene...</td>
+    </tr>
+    <tr>
+      <th>28</th>
+      <td>Chapter 22\n\n\n\n\n\nThe voyage came to an en...</td>
+      <td>chapter 22 the voyage came to an end we landed...</td>
+      <td>chapter 22 voyage landed proceeded paris overt...</td>
+    </tr>
+    <tr>
+      <th>29</th>
+      <td>Chapter 23\n\n\n\n\n\nIt was eight o’clock whe...</td>
+      <td>chapter 23 it was eight o clock when we landed...</td>
+      <td>chapter 23 clock landed walked short time shor...</td>
+    </tr>
+    <tr>
+      <th>30</th>
+      <td>Chapter 24\n\n\n\n\n\nMy present situation was...</td>
+      <td>chapter 24 my present situation was one in whi...</td>
+      <td>chapter 24 situation voluntary thought swallow...</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="new-systematics">
+<h1>New systematics<a class="headerlink" href="#new-systematics" title="Link to this heading">#</a></h1>
+<section id="add-new-column">
+<h2>add new column<a class="headerlink" href="#add-new-column" title="Link to this heading">#</a></h2>
+<p>We can enrich our data set with a new column using information that we can extract from text strings.</p>
+<p>Below we use the pandas methods .str and .extract together with a RegEX pattern to extract information about the chapters.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Chapter&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Section&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">extract</span><span class="p">(</span><span class="s1">&#39;(^Chapter\s\d{1,2})&#39;</span><span class="p">)</span>
+<span class="n">df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Section</th>
+      <th>Clean_text</th>
+      <th>Clean_text_wo_stopwords</th>
+      <th>Chapter</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Frankenstein;\n\n\n\nor, the Modern Prometheus...</td>
+      <td>frankenstein or the modern prometheus by mary ...</td>
+      <td>frankenstein modern prometheus mary wollstonec...</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Letter 1\n\n\n\n_To Mrs. Saville, England._\n\...</td>
+      <td>letter 1 to mrs saville england st petersburgh...</td>
+      <td>letter 1 saville england st petersburgh dec 11...</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Letter 2\n\n\n\n_To Mrs. Saville, England._\n\...</td>
+      <td>letter 2 to mrs saville england archangel 28th...</td>
+      <td>letter 2 saville england archangel 28th march ...</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Letter 3\n\n\n\n_To Mrs. Saville, England._\n\...</td>
+      <td>letter 3 to mrs saville england july 7th 17 my...</td>
+      <td>letter 3 saville england july 7th 17 dear sist...</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Letter 4\n\n\n\n\n\n_To Mrs. Saville, England....</td>
+      <td>letter 4 to mrs saville england august 5th 17 ...</td>
+      <td>letter 4 saville england august 5th 17 strange...</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>August 13th, 17—.\n\n\n\n\n\nMy affection for ...</td>
+      <td>august 13th 17 my affection for my guest incre...</td>
+      <td>august 13th 17 affection guest increases day e...</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>August 19th, 17—.\n\n\n\n\n\nYesterday the str...</td>
+      <td>august 19th 17 yesterday the stranger said to ...</td>
+      <td>august 19th 17 yesterday stranger easily perce...</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>Chapter 1\n\n\n\n\n\nI am by birth a Genevese,...</td>
+      <td>chapter 1 i am by birth a genevese and my fami...</td>
+      <td>chapter 1 birth genevese family distinguished ...</td>
+      <td>Chapter 1</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>Chapter 2\n\n\n\n\n\nWe were brought up togeth...</td>
+      <td>chapter 2 we were brought up together there wa...</td>
+      <td>chapter 2 brought year difference ages strange...</td>
+      <td>Chapter 2</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>Chapter 3\n\n\n\n\n\nWhen I had attained the a...</td>
+      <td>chapter 3 when i had attained the age of seven...</td>
+      <td>chapter 3 attained age seventeen parents resol...</td>
+      <td>Chapter 3</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>Chapter 4\n\n\n\n\n\nFrom this day natural phi...</td>
+      <td>chapter 4 from this day natural philosophy and...</td>
+      <td>chapter 4 day natural philosophy chemistry com...</td>
+      <td>Chapter 4</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>Chapter 5\n\n\n\n\n\nIt was on a dreary night ...</td>
+      <td>chapter 5 it was on a dreary night of november...</td>
+      <td>chapter 5 dreary night november beheld accompl...</td>
+      <td>Chapter 5</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>Chapter 6\n\n\n\n\n\nClerval then put the foll...</td>
+      <td>chapter 6 clerval then put the following lette...</td>
+      <td>chapter 6 clerval letter hands elizabeth deare...</td>
+      <td>Chapter 6</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>Chapter 7\n\n\n\n\n\nOn my return, I found the...</td>
+      <td>chapter 7 on my return i found the following l...</td>
+      <td>chapter 7 return letter father dear victor wai...</td>
+      <td>Chapter 7</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>Chapter 8\n\n\n\n\n\nWe passed a few sad hours...</td>
+      <td>chapter 8 we passed a few sad hours until elev...</td>
+      <td>chapter 8 passed sad hours eleven clock trial ...</td>
+      <td>Chapter 8</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>Chapter 9\n\n\n\n\n\nNothing is more painful t...</td>
+      <td>chapter 9 nothing is more painful to the human...</td>
+      <td>chapter 9 painful human mind feelings worked q...</td>
+      <td>Chapter 9</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>Chapter 10\n\n\n\n\n\nI spent the following da...</td>
+      <td>chapter 10 i spent the following day roaming t...</td>
+      <td>chapter 10 spent day roaming valley stood sour...</td>
+      <td>Chapter 10</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>Chapter 11\n\n\n\n\n\n“It is with considerable...</td>
+      <td>chapter 11 it is with considerable difficulty ...</td>
+      <td>chapter 11 considerable difficulty remember or...</td>
+      <td>Chapter 11</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>Chapter 12\n\n\n\n\n\n“I lay on my straw, but ...</td>
+      <td>chapter 12 i lay on my straw but i could not s...</td>
+      <td>chapter 12 lay straw sleep thought occurrences...</td>
+      <td>Chapter 12</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>Chapter 13\n\n\n\n\n\n“I now hasten to the mor...</td>
+      <td>chapter 13 i now hasten to the more moving par...</td>
+      <td>chapter 13 hasten moving story relate events i...</td>
+      <td>Chapter 13</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>Chapter 14\n\n\n\n\n\n“Some time elapsed befor...</td>
+      <td>chapter 14 some time elapsed before i learned ...</td>
+      <td>chapter 14 time elapsed learned history friend...</td>
+      <td>Chapter 14</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>Chapter 15\n\n\n\n\n\n“Such was the history of...</td>
+      <td>chapter 15 such was the history of my beloved ...</td>
+      <td>chapter 15 history beloved cottagers impressed...</td>
+      <td>Chapter 15</td>
+    </tr>
+    <tr>
+      <th>22</th>
+      <td>Chapter 16\n\n\n\n\n\n“Cursed, cursed creator!...</td>
+      <td>chapter 16 cursed cursed creator why did i liv...</td>
+      <td>chapter 16 cursed cursed creator live instant ...</td>
+      <td>Chapter 16</td>
+    </tr>
+    <tr>
+      <th>23</th>
+      <td>Chapter 17\n\n\n\n\n\nThe being finished speak...</td>
+      <td>chapter 17 the being finished speaking and fix...</td>
+      <td>chapter 17 finished speaking fixed expectation...</td>
+      <td>Chapter 17</td>
+    </tr>
+    <tr>
+      <th>24</th>
+      <td>Chapter 18\n\n\n\n\n\nDay after day, week afte...</td>
+      <td>chapter 18 day after day week after week passe...</td>
+      <td>chapter 18 day day week week passed return gen...</td>
+      <td>Chapter 18</td>
+    </tr>
+    <tr>
+      <th>25</th>
+      <td>Chapter 19\n\n\n\n\n\nLondon was our present p...</td>
+      <td>chapter 19 london was our present point of res...</td>
+      <td>chapter 19 london point rest determined remain...</td>
+      <td>Chapter 19</td>
+    </tr>
+    <tr>
+      <th>26</th>
+      <td>Chapter 20\n\n\n\n\n\nI sat one evening in my ...</td>
+      <td>chapter 20 i sat one evening in my laboratory ...</td>
+      <td>chapter 20 sat evening laboratory sun set moon...</td>
+      <td>Chapter 20</td>
+    </tr>
+    <tr>
+      <th>27</th>
+      <td>Chapter 21\n\n\n\n\n\nI was soon introduced in...</td>
+      <td>chapter 21 i was soon introduced into the pres...</td>
+      <td>chapter 21 introduced presence magistrate bene...</td>
+      <td>Chapter 21</td>
+    </tr>
+    <tr>
+      <th>28</th>
+      <td>Chapter 22\n\n\n\n\n\nThe voyage came to an en...</td>
+      <td>chapter 22 the voyage came to an end we landed...</td>
+      <td>chapter 22 voyage landed proceeded paris overt...</td>
+      <td>Chapter 22</td>
+    </tr>
+    <tr>
+      <th>29</th>
+      <td>Chapter 23\n\n\n\n\n\nIt was eight o’clock whe...</td>
+      <td>chapter 23 it was eight o clock when we landed...</td>
+      <td>chapter 23 clock landed walked short time shor...</td>
+      <td>Chapter 23</td>
+    </tr>
+    <tr>
+      <th>30</th>
+      <td>Chapter 24\n\n\n\n\n\nMy present situation was...</td>
+      <td>chapter 24 my present situation was one in whi...</td>
+      <td>chapter 24 situation voluntary thought swallow...</td>
+      <td>Chapter 24</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="subsets-rows-and-columns">
+<h2>Subsets - rows and columns<a class="headerlink" href="#subsets-rows-and-columns" title="Link to this heading">#</a></h2>
+<p>In the <a class="reference external" href="https://pandas.pydata.org/Pandas_Cheat_Sheet.pdf">cheatsheets</a> section “Subsets - rows and columns” there are various examples of how you can select a subset. That is, how you can select a smaller part of your data set.</p>
+<ul class="simple">
+<li><p>df.iloc[10:20] # Select rows 10-20.</p></li>
+<li><p>df.iloc[:, [1, 2, 5]] # Select columns in positions 1, 2 and 5 (first column is 0).</p></li>
+<li><p>df.loc[:, ‘x2’:’x4’] # Select all columns between x2 and x4 (inclusive).</p></li>
+<li><p>df.loc[df[‘a’] &gt; 10, [‘a’, ‘c’]] # Select rows meeting logical condition, and only the specific columns.</p></li>
+<li><p>df.iat[1, 2] # Access single value by index</p></li>
+<li><p><a class="reference external" href="http://df.at">df.at</a>[4, ‘A’] # Access single value by label</p></li>
+</ul>
+<p>Let’s try some concrete examples with <a class="reference external" href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.iloc.html">.iloc[ ]</a> and <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.at.html#pandas.DataFrame.at">.at[ ]</a>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">7</span><span class="p">:</span><span class="mi">10</span><span class="p">,</span> <span class="p">:]</span> <span class="c1"># From row eight to ten inclusive, as well as all columns</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Section</th>
+      <th>Clean_text</th>
+      <th>Clean_text_wo_stopwords</th>
+      <th>Chapter</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>7</th>
+      <td>Chapter 1\n\n\n\n\n\nI am by birth a Genevese,...</td>
+      <td>chapter 1 i am by birth a genevese and my fami...</td>
+      <td>chapter 1 birth genevese family distinguished ...</td>
+      <td>Chapter 1</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>Chapter 2\n\n\n\n\n\nWe were brought up togeth...</td>
+      <td>chapter 2 we were brought up together there wa...</td>
+      <td>chapter 2 brought year difference ages strange...</td>
+      <td>Chapter 2</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>Chapter 3\n\n\n\n\n\nWhen I had attained the a...</td>
+      <td>chapter 3 when i had attained the age of seven...</td>
+      <td>chapter 3 attained age seventeen parents resol...</td>
+      <td>Chapter 3</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">7</span><span class="p">:</span><span class="mi">10</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">:]</span> <span class="c1"># From row eight onwards with ten, as well as the two outermost columns on the right</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Clean_text_wo_stopwords</th>
+      <th>Chapter</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>7</th>
+      <td>chapter 1 birth genevese family distinguished ...</td>
+      <td>Chapter 1</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>chapter 2 brought year difference ages strange...</td>
+      <td>Chapter 2</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>chapter 3 attained age seventeen parents resol...</td>
+      <td>Chapter 3</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;Clean_text&#39;</span><span class="p">]</span> <span class="c1"># First row second column</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;frankenstein or the modern prometheus by mary wollstonecraft godwin shelley contents letter 1 letter 2 letter 3 letter 4 chapter 1 chapter 2 chapter 3 chapter 4 chapter 5 chapter 6 chapter 7 chapter 8 chapter 9 chapter 10 chapter 11 chapter 12 chapter 13 chapter 14 chapter 15 chapter 16 chapter 17 chapter 18 chapter 19 chapter 20 chapter 21 chapter 22 chapter 23 chapter 24&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<p>It is also possible to search for text and return the rows that contain the text. For that you use .str.contains. When I select all rows where the ‘Chapter column contains the text ‘Chapter’, I get a subset consisting only of the chapters.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">subset</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Chapter&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s1">&#39;Chapter&#39;</span><span class="p">,</span> <span class="n">na</span><span class="o">=</span><span class="kc">False</span><span class="p">)]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="add-more-columns-and-calculate-type-token-ratio-ttr">
+<h2>Add more columns and calculate type / token ratio (TTR)<a class="headerlink" href="#add-more-columns-and-calculate-type-token-ratio-ttr" title="Link to this heading">#</a></h2>
+<p>A high TTR shows that the text uses a number of different words, which indicates more complex or diverse content. A low TTR shows that the text uses a limited set of words, which indicates a more efficient and repetitive use of words.
+The formula is:</p>
+<div class="math notranslate nohighlight">
+\[
+TTR = \frac{\text{Number of Unique Words (Types)}}{\text{Total Number of Words (Tokens)}}
+\]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Total amount of words</span>
+<span class="n">subset</span><span class="p">[</span><span class="s1">&#39;Word_count&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">subset</span><span class="p">[</span><span class="s1">&#39;Clean_text&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span> <span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">split</span><span class="p">()))</span>
+
+<span class="c1"># Sum of unique words (Types)</span>
+<span class="n">subset</span><span class="p">[</span><span class="s1">&#39;Tokens_count&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">subset</span><span class="p">[</span><span class="s1">&#39;Clean_text&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span> <span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">split</span><span class="p">())))</span>
+
+<span class="c1"># Calculate ttr</span>
+<span class="n">subset</span><span class="p">[</span><span class="s1">&#39;TTR&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">subset</span><span class="p">[</span><span class="s1">&#39;Tokens_count&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">subset</span><span class="p">[</span><span class="s1">&#39;Word_count&#39;</span><span class="p">]</span>
+
+<span class="c1"># Calculate mean ttr</span>
+<span class="n">average</span> <span class="o">=</span> <span class="n">subset</span><span class="p">[</span><span class="s1">&#39;TTR&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+
+<span class="c1"># Calculate difference from mean</span>
+<span class="n">subset</span><span class="p">[</span><span class="s1">&#39;TTR_differences&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">subset</span><span class="p">[</span><span class="s1">&#39;TTR&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">average</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">subset</span><span class="p">[</span><span class="s1">&#39;TTR_differences&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span>
+
+<span class="c1"># Extract keys and values</span>
+<span class="n">chap</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+<span class="n">ttr_values</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+
+<span class="c1"># Create the plot</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">chap</span><span class="p">,</span> <span class="n">ttr_values</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;skyblue&#39;</span><span class="p">)</span>
+
+<span class="c1"># Customize the plot</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Kapitler&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;TTR&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Afvigelse fra gennemsnitlig TTR&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="mi">90</span><span class="p">)</span>  <span class="c1"># Rotate x-axis labels for better readability</span>
+
+<span class="c1"># Display the plot</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>  <span class="c1"># Adjust layout to make room for rotated x-axis labels</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/109c68d45eecc4c55dea535ccf87a241cf6f51f7da2ea282c33e583862bc1e4d.png" src="_images/109c68d45eecc4c55dea535ccf87a241cf6f51f7da2ea282c33e583862bc1e4d.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">subset</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;frankenstein_subset.csv&#39;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="basic-text-processing-3">
+<h1>Basic text processing 3<a class="headerlink" href="#basic-text-processing-3" title="Link to this heading">#</a></h1>
+<p>Learn about:</p>
+<ol class="arabic simple">
+<li><p>the algorithm tf-idf</p></li>
+<li><p>to build a “class” to preprocess text</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">subset</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;frankenstein_subset.csv&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">subset</span><span class="o">.</span><span class="n">columns</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Index([&#39;Section&#39;, &#39;Clean_text&#39;, &#39;Clean_text_wo_stopwords&#39;, &#39;Chapter&#39;,
+       &#39;Word_count&#39;, &#39;Tokens_count&#39;, &#39;TTR&#39;, &#39;TTR_differences&#39;],
+      dtype=&#39;object&#39;)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="functions-to-calculate-tf-idf">
+<h1>Functions to calculate tf-idf<a class="headerlink" href="#functions-to-calculate-tf-idf" title="Link to this heading">#</a></h1>
+<p>TF-IDF stands for Term Frequency-Inverse Document Frequency and is a method that can be used to calculate which data is important or more rare than other data when comparing different data sets, for example when comparing different texts in a corpus.</p>
+<p>To get the tf-idf calculated, we must use the results of three other calculations:</p>
+<p>Result 1: The sum of texts in the corpus (N).</p>
+<p>Result 2. Term Frequency (tf). Tf gives the frequency of a word in each of the texts in the corpus. That is, the ratio between the number of times a word appears in a text and the total number of words in the text. The frequency increases the more often a word appears in the text, and tf is calculated for each text in a corpus.</p>
+<p>Result 3. Inverse Data Frequency (idf). Idf is used to calculate the weight of rare words across the texts in the corpus. The words that rarely occur in the corpus are given a high IDF score.</p>
+<p>It might sound a bit difficult, but let’s try to understand it through a concrete example, where two short texts form a corpus..</p>
+<hr class="docutils" />
+<p><strong>Text_1 = a bicycle drives on the cycle path</strong></p>
+<p><strong>Text_2 = a snail creeps on the forest path</strong>*</p>
+<hr class="docutils" />
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-center"><p>Word</p></th>
+<th class="head text-center"><p>Tf (a)</p></th>
+<th class="head text-center"><p>Tf (b)</p></th>
+<th class="head text-center"><p>If</p></th>
+<th class="head text-center"><p>Tf * Idf (a)</p></th>
+<th class="head text-center"><p>Tf * Idf (b)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-center"><p>a</p></td>
+<td class="text-center"><p>1/5</p></td>
+<td class="text-center"><p>1/5</p></td>
+<td class="text-center"><p>log(2/2) = 0</p></td>
+<td class="text-center"><p>0</p></td>
+<td class="text-center"><p>0</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>bike</p></td>
+<td class="text-center"><p>1/5</p></td>
+<td class="text-center"><p>0</p></td>
+<td class="text-center"><p>log(2/1) = 0.7</p></td>
+<td class="text-center"><p>0.20 * log(2/1) = 1.4</p></td>
+<td class="text-center"><p>0</p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p>snail</p></td>
+<td class="text-center"><p>0</p></td>
+<td class="text-center"><p>1/5</p></td>
+<td class="text-center"><p>log(2/1) = 0.7</p></td>
+<td class="text-center"><p>0</p></td>
+<td class="text-center"><p>0.20 * log(2/1) = 1.4</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>drives</p></td>
+<td class="text-center"><p>1/5</p></td>
+<td class="text-center"><p>0</p></td>
+<td class="text-center"><p>log(2/1) = 0.7</p></td>
+<td class="text-center"><p>0.20 * log(2/1) = 1.4</p></td>
+<td class="text-center"><p>0</p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p>creeps</p></td>
+<td class="text-center"><p>0</p></td>
+<td class="text-center"><p>1/5</p></td>
+<td class="text-center"><p>log(2/1) = 0.7</p></td>
+<td class="text-center"><p>0</p></td>
+<td class="text-center"><p>0.20 * log(2/1) = 1.4</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>on</p></td>
+<td class="text-center"><p>1/5</p></td>
+<td class="text-center"><p>1/5</p></td>
+<td class="text-center"><p>log(2/2) = 0</p></td>
+<td class="text-center"><p>0</p></td>
+<td class="text-center"><p>0</p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p>the</p></td>
+<td class="text-center"><p>1/5</p></td>
+<td class="text-center"><p>1/5</p></td>
+<td class="text-center"><p>log(2/2) = 0</p></td>
+<td class="text-center"><p>0</p></td>
+<td class="text-center"><p>0</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>cycle</p></td>
+<td class="text-center"><p>1/5</p></td>
+<td class="text-center"><p>0</p></td>
+<td class="text-center"><p>log(2/1) = 0.7</p></td>
+<td class="text-center"><p>0.20 * log(2/1) = 1.4</p></td>
+<td class="text-center"><p>0</p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p>forest</p></td>
+<td class="text-center"><p>0</p></td>
+<td class="text-center"><p>1/5</p></td>
+<td class="text-center"><p>log(2/1) = 0.7</p></td>
+<td class="text-center"><p>0</p></td>
+<td class="text-center"><p>0.20 * log(2/1) = 1.4</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>path</p></td>
+<td class="text-center"><p>1/5</p></td>
+<td class="text-center"><p>1/5</p></td>
+<td class="text-center"><p>log(2/2) = 0</p></td>
+<td class="text-center"><p>0</p></td>
+<td class="text-center"><p>0</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr class="docutils" />
+<p>From the table above, we see that the Tf-idf calculation for common words is zero. It shows that they are not special when we compare the texts. The words that have received a high tf-idf score are significant for each text. This is what is the essens in tf-idf; the more common words are, the lower their score.</p>
+<p>We will try to use tf-idf as a method to investigate which words appear as special in each chapter when we compare the chapters in the book.</p>
+<p>When you put it together as a tf-idf algorithm it can look like this..</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">math</span>
+<span class="c1"># make a list where each item is a chapter of the book</span>
+<span class="n">chapters</span> <span class="o">=</span> <span class="n">subset</span><span class="p">[</span><span class="s1">&#39;Clean_text&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">to_list</span><span class="p">()</span>
+
+<span class="c1"># Caculate TF</span>
+<span class="k">def</span> <span class="nf">compute_tf</span><span class="p">(</span><span class="n">chapter</span><span class="p">):</span>
+    <span class="n">tf_dict</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">words</span> <span class="o">=</span> <span class="n">chapter</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+    <span class="n">total_words</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">words</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">words</span><span class="p">:</span>
+        <span class="n">tf_dict</span><span class="p">[</span><span class="n">word</span><span class="p">]</span> <span class="o">=</span> <span class="n">tf_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">word</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">tf_dict</span><span class="p">:</span>
+        <span class="n">tf_dict</span><span class="p">[</span><span class="n">word</span><span class="p">]</span> <span class="o">=</span> <span class="n">tf_dict</span><span class="p">[</span><span class="n">word</span><span class="p">]</span> <span class="o">/</span> <span class="n">total_words</span>
+    <span class="k">return</span> <span class="n">tf_dict</span>
+
+<span class="c1"># Caculate IDF</span>
+<span class="k">def</span> <span class="nf">compute_idf</span><span class="p">(</span><span class="n">chapters</span><span class="p">):</span>
+    <span class="n">idf_dict</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">total_chapters</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">chapters</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">chapter</span> <span class="ow">in</span> <span class="n">chapters</span><span class="p">:</span>
+        <span class="n">words</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">chapter</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
+        <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">words</span><span class="p">:</span>
+            <span class="n">idf_dict</span><span class="p">[</span><span class="n">word</span><span class="p">]</span> <span class="o">=</span> <span class="n">idf_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">word</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">idf_dict</span><span class="p">:</span>
+        <span class="n">idf_dict</span><span class="p">[</span><span class="n">word</span><span class="p">]</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">total_chapters</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="n">idf_dict</span><span class="p">[</span><span class="n">word</span><span class="p">]))</span>
+    <span class="k">return</span> <span class="n">idf_dict</span>
+
+<span class="c1"># Caculate TF-IDF</span>
+<span class="k">def</span> <span class="nf">compute_tfidf</span><span class="p">(</span><span class="n">tf</span><span class="p">,</span> <span class="n">idf</span><span class="p">):</span>
+    <span class="n">tfidf</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">tf</span><span class="p">:</span>
+        <span class="n">tfidf</span><span class="p">[</span><span class="n">word</span><span class="p">]</span> <span class="o">=</span> <span class="n">tf</span><span class="p">[</span><span class="n">word</span><span class="p">]</span> <span class="o">*</span> <span class="n">idf</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">word</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">tfidf</span>
+
+
+<span class="c1"># Caculate TF for each chapter</span>
+<span class="n">tf_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">compute_tf</span><span class="p">(</span><span class="n">chapter</span><span class="p">)</span> <span class="k">for</span> <span class="n">chapter</span> <span class="ow">in</span> <span class="n">chapters</span><span class="p">]</span>
+
+<span class="c1"># Caculate IDF for all chapters</span>
+<span class="n">idf</span> <span class="o">=</span> <span class="n">compute_idf</span><span class="p">(</span><span class="n">chapters</span><span class="p">)</span>
+
+<span class="c1"># Caculate TF-IDF for each chapter</span>
+<span class="n">tfidf_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">compute_tfidf</span><span class="p">(</span><span class="n">tf</span><span class="p">,</span> <span class="n">idf</span><span class="p">)</span> <span class="k">for</span> <span class="n">tf</span> <span class="ow">in</span> <span class="n">tf_list</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Extract the top ten items with the highest values from each dictionary in the list</span>
+<span class="k">def</span> <span class="nf">get_top_ten_items</span><span class="p">(</span><span class="n">dict_list</span><span class="p">):</span>
+    <span class="n">top_ten_items_list</span> <span class="o">=</span> <span class="p">[]</span>
+    
+    <span class="k">for</span> <span class="n">dictionary</span> <span class="ow">in</span> <span class="n">dict_list</span><span class="p">:</span>
+        <span class="c1"># Sort the dictionary items by value in descending order</span>
+        <span class="n">sorted_items</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">dictionary</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">item</span><span class="p">:</span> <span class="n">item</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        
+        <span class="c1"># Get the top ten items</span>
+        <span class="n">top_ten_items</span> <span class="o">=</span> <span class="n">sorted_items</span><span class="p">[:</span><span class="mi">10</span><span class="p">]</span>
+        
+        <span class="c1"># Store the top ten items in the result list</span>
+        <span class="n">top_ten_items_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">top_ten_items</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">top_ten_items_list</span>
+
+<span class="c1"># Back to the subset dataframe</span>
+<span class="n">subset</span><span class="p">[</span><span class="s1">&#39;tfidf&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">get_top_ten_items</span><span class="p">(</span><span class="n">tfidf_list</span><span class="p">)</span> <span class="c1"># return a list of tuples</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tfidf_data</span> <span class="o">=</span> <span class="n">subset</span><span class="p">[</span><span class="s1">&#39;tfidf&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">to_list</span><span class="p">()</span>
+
+<span class="c1"># Plotting each list of words and values</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">tfidf_list</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">tfidf_data</span><span class="p">):</span>
+    <span class="n">words</span><span class="p">,</span> <span class="n">values</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">tfidf_list</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">words</span><span class="p">,</span> <span class="n">values</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;skyblue&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Words&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;TF-IDF Values&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Distinct words for chapter </span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="mi">45</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/d8124f2af119669462be0b6742d6755769644a1a694f944e6359202eb4bb457b.png" src="_images/d8124f2af119669462be0b6742d6755769644a1a694f944e6359202eb4bb457b.png" />
+<img alt="_images/b08de7945a5b225c99750341106a13a63462425e73180abd2fddc95fa1884a7a.png" src="_images/b08de7945a5b225c99750341106a13a63462425e73180abd2fddc95fa1884a7a.png" />
+<img alt="_images/2cbb62a9128f28b087e7748f911a5169a5089c76ae8374d0a032cb23eee88fb0.png" src="_images/2cbb62a9128f28b087e7748f911a5169a5089c76ae8374d0a032cb23eee88fb0.png" />
+<img alt="_images/932d2d4ca709e9b021c9abf70109c9d77aa7534e598bedc040b72eb7229229c6.png" src="_images/932d2d4ca709e9b021c9abf70109c9d77aa7534e598bedc040b72eb7229229c6.png" />
+<img alt="_images/e66d725b11d9f2a7a0826dea6ec1bc3cde04b60527037e582ea3e185ef656a95.png" src="_images/e66d725b11d9f2a7a0826dea6ec1bc3cde04b60527037e582ea3e185ef656a95.png" />
+<img alt="_images/f6079a07ccb366378e8dd67b658b4b77c5581f5993853abfd924137a9b66d65c.png" src="_images/f6079a07ccb366378e8dd67b658b4b77c5581f5993853abfd924137a9b66d65c.png" />
+<img alt="_images/4735a95d9ff2059aed834901d1d2b0d7d01e9a5b7d90303c75d050b38aa7f641.png" src="_images/4735a95d9ff2059aed834901d1d2b0d7d01e9a5b7d90303c75d050b38aa7f641.png" />
+<img alt="_images/f803e66041162ed0d176cf4ce8148999660878f9ec0e3ed91a16917c25663e2f.png" src="_images/f803e66041162ed0d176cf4ce8148999660878f9ec0e3ed91a16917c25663e2f.png" />
+<img alt="_images/6af4235ba83c7b272544c55a7a82ea3f4f2f3a7de7be45a68299dde1fab6f617.png" src="_images/6af4235ba83c7b272544c55a7a82ea3f4f2f3a7de7be45a68299dde1fab6f617.png" />
+<img alt="_images/671dfed8baaeb28a31587a2ae61c53d7d2dfcfe715e71fbf2430af34668fc634.png" src="_images/671dfed8baaeb28a31587a2ae61c53d7d2dfcfe715e71fbf2430af34668fc634.png" />
+<img alt="_images/a6f5097a6e735a130d6303ee1053874e3dcbf428f41b4557296fd4fe35d1bf14.png" src="_images/a6f5097a6e735a130d6303ee1053874e3dcbf428f41b4557296fd4fe35d1bf14.png" />
+<img alt="_images/7db478df5f6e3f08145ddeb2b7f94228f252b8b651066ddca20b51b327de4ae8.png" src="_images/7db478df5f6e3f08145ddeb2b7f94228f252b8b651066ddca20b51b327de4ae8.png" />
+<img alt="_images/e92015ae9e2bdc4d704b4176df5d70956a28833accaf74fb134f33bd546d2b71.png" src="_images/e92015ae9e2bdc4d704b4176df5d70956a28833accaf74fb134f33bd546d2b71.png" />
+<img alt="_images/ebd4cb563090b3085eaf9fb0111165938f12325c883f5ff4a521513a454cf582.png" src="_images/ebd4cb563090b3085eaf9fb0111165938f12325c883f5ff4a521513a454cf582.png" />
+<img alt="_images/49d49ed0e55e0fae87109807c4f874dcfafe39b48be180d33aab6e87eb432850.png" src="_images/49d49ed0e55e0fae87109807c4f874dcfafe39b48be180d33aab6e87eb432850.png" />
+<img alt="_images/5ebc6ec6fad620a730249e139cd44c75b962a570e26d64258d1caf341f48bc2c.png" src="_images/5ebc6ec6fad620a730249e139cd44c75b962a570e26d64258d1caf341f48bc2c.png" />
+<img alt="_images/aa6b748fb2d41138d25bb8b5f0fde9989fe797d25168b8e88c26117d2b7dfecf.png" src="_images/aa6b748fb2d41138d25bb8b5f0fde9989fe797d25168b8e88c26117d2b7dfecf.png" />
+<img alt="_images/5731dff0f968e953f208e893796534d0d93cabad888f46ce337c49e4c34f9a7c.png" src="_images/5731dff0f968e953f208e893796534d0d93cabad888f46ce337c49e4c34f9a7c.png" />
+<img alt="_images/43dba02d3198f9abda2ff8d93f521c3266e1422a1ff7d2ddafa51fc67013876b.png" src="_images/43dba02d3198f9abda2ff8d93f521c3266e1422a1ff7d2ddafa51fc67013876b.png" />
+<img alt="_images/1ff37e80594a7c313b797ee644274e2ddb1587f495e617cd60eb576c7630715e.png" src="_images/1ff37e80594a7c313b797ee644274e2ddb1587f495e617cd60eb576c7630715e.png" />
+<img alt="_images/2a741253cee717f288564826e2edf8a6acc2c6095dc02ffe59ede545fe58f4db.png" src="_images/2a741253cee717f288564826e2edf8a6acc2c6095dc02ffe59ede545fe58f4db.png" />
+<img alt="_images/8210ab8bab63f9f7a6c95230674d3ea921e9418f3b264cdd87eac3fc819f571b.png" src="_images/8210ab8bab63f9f7a6c95230674d3ea921e9418f3b264cdd87eac3fc819f571b.png" />
+<img alt="_images/0d04d11d0483cd05259bab1c49575eb810478cf9f0ae51a18e1c0f2aa4a141f9.png" src="_images/0d04d11d0483cd05259bab1c49575eb810478cf9f0ae51a18e1c0f2aa4a141f9.png" />
+<img alt="_images/966e49e202d4e49c9b02d6eeea65007700e4f8ff92797b5dd2092c9289abb09b.png" src="_images/966e49e202d4e49c9b02d6eeea65007700e4f8ff92797b5dd2092c9289abb09b.png" />
+</div>
+</div>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="objects">
+<h1>Objects<a class="headerlink" href="#objects" title="Link to this heading">#</a></h1>
+<p>Now it should be about <a class="reference external" href="https://www.w3schools.com/python/python_classes.asp">objects</a>.</p>
+<p>Below we build an object that has two methods that can clean text by removing grammatical characters and filtering out stop words.</p>
+<p>The script starts with the class keyword, which creates the object. The class name is defined as ‘PreprocessText’.</p>
+<p>We don’t need to use the name self. It can be different, but it must be the same name at the beginning of all functions in the object.</p>
+<p>This is followed by two functions; text_scrubber and filter stopwords.</p>
+<p>Text_scrubber:</p>
+<ul class="simple">
+<li><p>The method starts by converting the input text to lowercase</p></li>
+<li><p>It then removes underscores from the text</p></li>
+<li><p>Findall allows specifying a RegEX pattern and returns a list of words</p></li>
+<li><p>The word list is joined with ‘ ‘.join() to a single text string separated by spaces</p></li>
+<li><p>The resulting sanitized text string is returned</p></li>
+</ul>
+<p>Filter_stopwords:</p>
+<ul class="simple">
+<li><p>the split method splits the entered cleaned text into a word list</p></li>
+<li><p>with open() it loads stop words from a file named ‘en.txt’</p></li>
+<li><p>It filters the stop words using a list comprehension</p></li>
+<li><p>The remaining words are gathered in a single text string separated by spaces</p></li>
+<li><p>Text string without stop words is returned</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">re</span>
+<span class="k">class</span> <span class="nc">PreprocessText</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">text_scrubber</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="n">regex_str</span><span class="p">):</span>
+        <span class="c1"># Convert text to lowercase</span>
+        <span class="n">lower_text_string</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+        <span class="c1"># Remove underscores</span>
+        <span class="n">text_wo_underscores</span> <span class="o">=</span> <span class="n">lower_text_string</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="c1"># Find all matches of the regex pattern</span>
+        <span class="n">list_w_clean_text</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">regex_str</span><span class="p">,</span> <span class="n">text_wo_underscores</span><span class="p">)</span>
+        <span class="c1"># Join list items into a single string</span>
+        <span class="n">clean_text_string</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">list_w_clean_text</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">clean_text_string</span>
+
+    <span class="k">def</span> <span class="nf">filter_stopwords</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">clean_text</span><span class="p">):</span>
+        <span class="c1"># Split the clean text into words</span>
+        <span class="n">word_list</span> <span class="o">=</span> <span class="n">clean_text</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+        <span class="c1"># Read stopwords from file</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;en.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">stopwords</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">splitlines</span><span class="p">()</span> <span class="c1"># splitlines() anvendes i stedet for .split(&#39;\n&#39;) </span>
+        <span class="c1"># Filter out stopwords</span>
+        <span class="n">word_list_wo_stopwords</span> <span class="o">=</span> <span class="p">[</span><span class="n">word</span> <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">word_list</span> <span class="k">if</span> <span class="n">word</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">stopwords</span><span class="p">]</span>
+        <span class="c1"># Join the filtered words into a single string</span>
+        <span class="n">clean_text_wo_stopwords</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">word_list_wo_stopwords</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">clean_text_wo_stopwords</span>
+
+<span class="n">preprocess</span> <span class="o">=</span> <span class="n">PreprocessText</span><span class="p">()</span>
+<span class="n">scrubbed_text</span> <span class="o">=</span> <span class="n">preprocess</span><span class="o">.</span><span class="n">text_scrubber</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;\w+&#39;</span><span class="p">)</span>
+<span class="n">filtered_text</span> <span class="o">=</span> <span class="n">preprocess</span><span class="o">.</span><span class="n">filter_stopwords</span><span class="p">(</span><span class="n">scrubbed_text</span><span class="p">)</span>
+
+<span class="nb">print</span> <span class="p">(</span><span class="n">scrubbed_text</span><span class="p">[</span><span class="mi">1000</span><span class="p">:</span><span class="mi">2000</span><span class="p">])</span>
+<span class="nb">print</span> <span class="p">(</span><span class="mi">10</span><span class="o">*</span><span class="s1">&#39;*&#39;</span><span class="p">)</span>
+<span class="nb">print</span> <span class="p">(</span><span class="n">filtered_text</span><span class="p">[</span><span class="mi">1000</span><span class="p">:</span><span class="mi">2000</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ancing gives me a foretaste of those icy climes inspirited by this wind of promise my daydreams become more fervent and vivid i try in vain to be persuaded that the pole is the seat of frost and desolation it ever presents itself to my imagination as the region of beauty and delight there margaret the sun is for ever visible its broad disk just skirting the horizon and diffusing a perpetual splendour there for with your leave my sister i will put some trust in preceding navigators there snow and frost are banished and sailing over a calm sea we may be wafted to a land surpassing in wonders and in beauty every region hitherto discovered on the habitable globe its productions and features may be without example as the phenomena of the heavenly bodies undoubtedly are in those undiscovered solitudes what may not be expected in a country of eternal light i may there discover the wondrous power which attracts the needle and may regulate a thousand celestial observations that require only thi
+**********
+er will trust preceding navigators snow frost banished sailing calm sea wafted land surpassing wonders beauty region hitherto discovered habitable globe productions features example phenomena heavenly bodies undoubtedly undiscovered solitudes expected country eternal light discover wondrous power attracts needle regulate celestial observations require voyage render eccentricities consistent satiate ardent curiosity sight visited tread land imprinted foot man enticements sufficient conquer fear danger death induce commence laborious voyage joy child feels embarks boat holiday mates expedition discovery native river supposing conjectures false contest inestimable benefit confer mankind generation discovering passage pole countries reach months requisite ascertaining secret magnet effected undertaking mine reflections dispelled agitation began letter feel heart glow enthusiasm elevates heaven contributes tranquillise mind steady purpose point soul intellectual eye expedition favourite dre
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Analyse_text</span><span class="p">:</span>
+   
+    <span class="k">def</span> <span class="nf">term_freq</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scrubbed_text</span><span class="p">,</span> <span class="n">filtered_text</span><span class="p">):</span>
+        <span class="n">tf_dict</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">total_words</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">scrubbed_text</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
+        <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">filtered_text</span><span class="o">.</span><span class="n">split</span><span class="p">():</span>
+            <span class="n">tf_dict</span><span class="p">[</span><span class="n">word</span><span class="p">]</span> <span class="o">=</span> <span class="n">tf_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">word</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span> <span class="c1"># adding item og .get method</span>
+        
+        <span class="c1"># return relative frequence</span>
+        <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">tf_dict</span><span class="p">:</span>
+            <span class="n">tf_dict</span><span class="p">[</span><span class="n">word</span><span class="p">]</span> <span class="o">=</span> <span class="n">tf_dict</span><span class="p">[</span><span class="n">word</span><span class="p">]</span> <span class="o">/</span> <span class="n">total_words</span> <span class="c1"># return relative frequence of raw frequence </span>
+        
+        <span class="c1"># Sort dictionary</span>
+        <span class="n">tf_dict_sorted</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">tf_dict</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">item</span><span class="p">:</span> <span class="n">item</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+                
+        <span class="c1"># choose items with the 25 highest values</span>
+        <span class="n">most_common</span> <span class="o">=</span> <span class="mi">25</span>
+        <span class="n">most_common_keywords</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">tf_dict_sorted</span><span class="o">.</span><span class="n">items</span><span class="p">())[:</span><span class="n">most_common</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">most_common_keywords</span>
+
+
+<span class="n">analysis</span> <span class="o">=</span> <span class="n">Analyse_text</span><span class="p">()</span>
+<span class="n">most_common_terms</span> <span class="o">=</span> <span class="n">analysis</span><span class="o">.</span><span class="n">term_freq</span><span class="p">(</span><span class="n">scrubbed_text</span><span class="p">,</span> <span class="n">filtered_text</span><span class="p">)</span>
+<span class="nb">print</span> <span class="p">(</span><span class="n">most_common_terms</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;will&#39;: 0.002574207502355267, &#39;man&#39;: 0.0018178681846529464, &#39;father&#39;: 0.0017780608521422978, &#39;life&#39;: 0.0015259477462415245, &#39;eyes&#39;: 0.0013799875270358133, &#39;time&#39;: 0.0013003728620145164, &#39;night&#39;: 0.0012340273078301023, &#39;elizabeth&#39;: 0.0012207581969932194, &#39;mind&#39;: 0.0011278744211350397, &#39;day&#39;: 0.0010880670886243913, &#39;heart&#39;: 0.0010747979777875085, &#39;felt&#39;: 0.0010615288669506256, &#39;death&#39;: 0.0010482597561137428, &#39;feelings&#39;: 0.0010084524236030944, &#39;thought&#39;: 0.0009819142019293287, &#39;dear&#39;: 0.0009553759802555631, &#39;friend&#39;: 0.0009421068694186802, &#39;passed&#39;: 0.0008890304260711489, &#39;miserable&#39;: 0.0008624922043973833, &#39;place&#39;: 0.0008492230935605005, &#39;heard&#39;: 0.0008226848718867349, &#39;love&#39;: 0.0007828775393760864, &#39;clerval&#39;: 0.0007828775393760864, &#39;human&#39;: 0.0007696084285392035, &#39;appeared&#39;: 0.0007563393177023208}
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Basic text processing 1</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#read-text-files">Read text files</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#strings">Strings</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#clean-text-for-grammatical-characters">Clean text for grammatical characters</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#split-text-into-word-lists">Split text into word lists</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lists">Lists</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#filter-word-lists-for-stop-words">Filter word lists for stop words</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#word-frequency-analysis">Word frequency analysis</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dictionaries">Dictionaries</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#visualize-the-result">Visualize the result</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-text-processing-2">Basic text processing 2</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Read text files</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#functions">Functions</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#clean-functions">Clean functions</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#pandas">Pandas</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#use-own-functions-in-pandas">Use own functions in Pandas</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#new-systematics">New systematics</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#add-new-column">add new column</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#subsets-rows-and-columns">Subsets - rows and columns</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#add-more-columns-and-calculate-type-token-ratio-ttr">Add more columns and calculate type / token ratio (TTR)</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-text-processing-3">Basic text processing 3</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#functions-to-calculate-tf-idf">Functions to calculate tf-idf</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#objects">Objects</a></li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By KUB Datalab
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+<div class="extra_footer">
+  <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank"> <img class="license" alt="Creative Commons License" src="https://i.creativecommons.org/l/by-nc-sa/4.0/80x15.png" /></a> Licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">Creative Commons BY-NC-SA 4.0 License</a>.
+</div>
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
