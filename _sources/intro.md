@@ -1,4 +1,4 @@
-# Welcome to the KUB Datalab Python-toolbox course site.
+# Welcome to the KUB Datalab Python-toolbox course site
 
 
 This site is a collection of individual notebooks. It is not intended as a single course.
