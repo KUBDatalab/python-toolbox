@@ -4,7 +4,9 @@
 format: jb-book
 root: intro
 chapters:
-- file: Preprocessing and analysing of Chinese text
+- file: Preprocessing and analysing Chinese text
 - file: Tf-idf example
 - file: Identify textual changes
-- file: Regex
+- file: Regex and digitized books
+- file: Text preprocessing pipeline
+- file: Harvest text from the web

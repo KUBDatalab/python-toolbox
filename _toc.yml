@@ -8,3 +8,5 @@ chapters:
 - file: Tf-idf example
 - file: Identify textual changes
 - file: Regex and digitized books
+- file: Text preprocessing pipeline
+- file: Harvest text from the web
