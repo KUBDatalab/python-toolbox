@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Jupyter notebook hacks &#8212; Python Toolkit</title>
+    <title>A data preprocessing pipeline &#8212; Python Toolkit</title>
   
   
   
@@ -30,7 +30,7 @@
   <link href="_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
 <link href="_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
@@ -60,9 +60,11 @@
     <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'jupyter notebook hacks';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'Text preprocessing pipeline';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Harvest text from the web" href="Harvest%20text%20from%20the%20web.html" />
+    <link rel="prev" title="Regex and digitized books" href="Regex%20and%20digitized%20books.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
@@ -117,8 +119,6 @@
       
       
       
-        
-      
       <dialog id="pst-primary-sidebar-modal"></dialog>
       <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
         
@@ -171,7 +171,7 @@
                 </a>
             </li>
         </ul>
-        <ul class="nav bd-sidenav">
+        <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="Preprocessing%20and%20analysing%20Chinese%20text.html">Preprocessing and analysing Chinese text</a></li>
 
 
@@ -181,6 +181,16 @@
 <li class="toctree-l1"><a class="reference internal" href="Tf-idf%20example.html">TF-IDF example</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Identify%20textual%20changes.html">Identify textual changes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Regex%20and%20digitized%20books.html">Regex and digitized books</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">A data preprocessing pipeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Harvest%20text%20from%20the%20web.html">Harvest text from the web</a></li>
+
+
+
+
+
+
+
+
 </ul>
 
     </div>
@@ -252,7 +262,7 @@
       
       
       
-      <li><a href="https://github.com/KUBDatalab/python-toolbox/issues/new?title=Issue%20on%20page%20%2Fjupyter notebook hacks.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/KUBDatalab/python-toolbox/issues/new?title=Issue%20on%20page%20%2FText preprocessing pipeline.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -282,7 +292,7 @@
       
       
       
-      <li><a href="_sources/jupyter notebook hacks.ipynb" target="_blank"
+      <li><a href="_sources/Text preprocessing pipeline.ipynb" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -358,7 +368,7 @@
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Jupyter notebook hacks</h1>
+    <h1>A data preprocessing pipeline</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -368,12 +378,7 @@
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#headings">Headings</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#emphasis">Emphasis</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#code">Code</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#table">Table</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#external-link">External link</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#image-insertion">Image insertion</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cleaning-text-data">Cleaning text data</a></li>
 </ul>
             </nav>
         </div>
@@ -385,88 +390,75 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="jupyter-notebook-hacks">
-<h1>Jupyter notebook hacks<a class="headerlink" href="#jupyter-notebook-hacks" title="Link to this heading">#</a></h1>
-<div class="alert alert-block alert-info"> <b>NOTE</b> Use blue boxes for Tips and notes. </div>
-<div class="alert alert-block alert-success"> Use green boxes sparingly, and only for some specific purpose that the other boxes can't cover. For example, if you have a lot of related content to link to, maybe you decide to use green boxes for related links from each section of a notebook. </div>
-<div class="alert alert-block alert-warning"> Use yellow boxes for examples that are not inside code cells, or use for mathematical formulas if needed. </div>
-<div class="alert alert-block alert-danger"> In general, just avoid the red boxes. </div>
-<p><em>Source: <a class="reference external" href="https://gist.github.com/DanielKotik/4b81480c479a57e0dd13ac4d153e4451">https://gist.github.com/DanielKotik/4b81480c479a57e0dd13ac4d153e4451</a></em></p>
-<section id="headings">
-<h2>Headings<a class="headerlink" href="#headings" title="Link to this heading">#</a></h2>
-<p>Use the number sign (#) followed by a blank space for notebook titles and section headings:</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>    # for titles
-    ## for major headings
-    ### for subheadings
-    #### for 4th level subheadings
+  <section class="tex2jax_ignore mathjax_ignore" id="a-data-preprocessing-pipeline">
+<h1>A data preprocessing pipeline<a class="headerlink" href="#a-data-preprocessing-pipeline" title="Link to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">urllib.request</span>
+
+
+<span class="c1"># Get the 1818 edition of Frankenstein</span>
+<span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;https://gutenberg.org/cache/epub/41445/pg41445.txt&#39;</span>
+<span class="n">raw_text</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="n">url</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span>
+<span class="c1"># Get text</span>
+<span class="n">text_start</span> <span class="o">=</span> <span class="n">raw_text</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;PREFACE.&#39;</span><span class="p">)</span>
+<span class="n">text_end</span> <span class="o">=</span> <span class="n">raw_text</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;*** END OF THE PROJECT GUTENBERG EBOOK FRANKENSTEIN; OR, THE MODERN PROMETHEUS ***&#39;</span><span class="p">)</span>
+<span class="n">text</span> <span class="o">=</span> <span class="n">raw_text</span><span class="p">[</span><span class="n">text_start</span><span class="p">:</span><span class="n">text_end</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="c1"># Slice</span>
 </pre></div>
 </div>
-</section>
-<section id="emphasis">
-<h2>Emphasis<a class="headerlink" href="#emphasis" title="Link to this heading">#</a></h2>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>    Bold text: __string__ or **string**
-    Italic text: _string_ or *string*
+</div>
+</div>
+<section id="cleaning-text-data">
+<h2>Cleaning text data<a class="headerlink" href="#cleaning-text-data" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Identify noise</span>
+<span class="n">text</span><span class="p">[:</span><span class="mi">3000</span><span class="p">]</span>
 </pre></div>
 </div>
-<p><em>Source: <a class="reference external" href="https://www.ibm.com/docs/en/watson-studio-local/1.2.3?topic=notebooks-markdown-jupyter-cheatsheet">https://www.ibm.com/docs/en/watson-studio-local/1.2.3?topic=notebooks-markdown-jupyter-cheatsheet</a></em></p>
-</section>
-<section id="code">
-<h2>Code<a class="headerlink" href="#code" title="Link to this heading">#</a></h2>
-<p>You can get the syntax highlighting of code if programming language name is mentioned after the ‘```’ three ticks (GitHub flavored markdown):</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;PREFACE.\r\n\r\n\r\nThe event on which this fiction is founded has been supposed, by Dr.\r\nDarwin, and some of the physiological writers of Germany, as not of\r\nimpossible occurrence. I shall not be supposed as according the remotest\r\ndegree of serious faith to such an imagination; yet, in assuming it as\r\nthe basis of a work of fancy, I have not considered myself as merely\r\nweaving a series of supernatural terrors. The event on which the\r\ninterest of the story depends is exempt from the disadvantages of a mere\r\ntale of spectres or enchantment. It was recommended by the novelty of\r\nthe situations which it developes; and, however impossible as a physical\r\nfact, affords a point of view to the imagination for the delineating of\r\nhuman passions more comprehensive and commanding than any which the\r\nordinary relations of existing events can yield.\r\n\r\nI have thus endeavoured to preserve the truth of the elementary\r\nprinciples of human nature, while I have not scrupled to innovate\r\nupon their combinations. The _Iliad_, the tragic poetry of\r\nGreece,—Shakespeare, in the _Tempest_ and _Midsummer Night’s\r\nDream_,—and most especially Milton, in _Paradise Lost_, conform to this\r\nrule; and the most humble novelist, who seeks to confer or receive\r\namusement from his labours, may, without presumption, apply to prose\r\nfiction a licence, or rather a rule, from the adoption of which so many\r\nexquisite combinations of human feeling have resulted in the highest\r\nspecimens of poetry.\r\n\r\nThe circumstance on which my story rests was suggested in casual\r\nconversation. It was commenced, partly as a source of amusement, and\r\npartly as an expedient for exercising any untried resources of mind.\r\nOther motives were mingled with these, as the work proceeded. I am by no\r\nmeans indifferent to the manner in which whatever moral tendencies exist\r\nin the sentiments or characters it contains shall affect the reader; yet\r\nmy chief concern in this respect has been limited to the avoiding of the\r\nenervating effects of the novels of the present day, and to the\r\nexhibitions of the amiableness of domestic affection, and the excellence\r\nof universal virtue. The opinions which naturally spring from the\r\ncharacter and situation of the hero are by no means to be conceived as\r\nexisting always in my own conviction; nor is any inference justly to be\r\ndrawn from the following pages as prejudicing any philosophical doctrine\r\nof whatever kind.\r\n\r\nIt is a subject also of additional interest to the author, that this\r\nstory was begun in the majestic region where the scene is principally\r\nlaid, and in society which cannot cease to be regretted. I passed the\r\nsummer of 1816 in the environs of Geneva. The season was cold and rainy,\r\nand in the evenings we crowded around a blazing wood fire, and\r\noccasionally amused ourselves with some German stories of ghosts, which\r\nhappened to fall into our hands. These tales excited in us a playful\r\ndesire of imitation. Two other friends (a tale from the pen of one of\r\nwhom wou&#39;
 </pre></div>
 </div>
-</section>
-<section id="table">
-<h2>Table<a class="headerlink" href="#table" title="Link to this heading">#</a></h2>
-<p>You can use ‘|’ to separate each column and ‘-’ to create the headers:</p>
-<div class="pst-scrollable-table-container"><table class="table">
-<thead>
-<tr class="row-odd"><th class="head text-left"><p>Algorithm</p></th>
-<th class="head text-left"><p>Jaccard</p></th>
-<th class="head text-left"><p>F1-score</p></th>
-<th class="head text-left"><p>LogLoss</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td class="text-left"><p>KNN</p></td>
-<td class="text-left"><p>?</p></td>
-<td class="text-left"><p>?</p></td>
-<td class="text-left"><p>NA</p></td>
-</tr>
-<tr class="row-odd"><td class="text-left"><p>Decision Tree</p></td>
-<td class="text-left"><p>?</p></td>
-<td class="text-left"><p>?</p></td>
-<td class="text-left"><p>NA</p></td>
-</tr>
-<tr class="row-even"><td class="text-left"><p>SVM</p></td>
-<td class="text-left"><p>?</p></td>
-<td class="text-left"><p>?</p></td>
-<td class="text-left"><p>NA</p></td>
-</tr>
-<tr class="row-odd"><td class="text-left"><p>LogisticRegression</p></td>
-<td class="text-left"><p>?</p></td>
-<td class="text-left"><p>?</p></td>
-<td class="text-left"><p>?</p></td>
-</tr>
-</tbody>
-</table>
 </div>
-<p>Note: Colons can be used to align columns.</p>
-<p>: — — Left align</p>
-<p>— -: Right align</p>
-<p>: — -: Center align</p>
-</section>
-<section id="external-link">
-<h2>External link<a class="headerlink" href="#external-link" title="Link to this heading">#</a></h2>
-<p>You can use [text link](URL for the site), where the text link enclosed in a square bracket and the URL for the site is enclosed in a parenthesis followed by the URL:</p>
-<p><a class="reference external" href="https://www.google.com">Google</a></p>
-</section>
-<section id="image-insertion">
-<h2>Image insertion<a class="headerlink" href="#image-insertion" title="Link to this heading">#</a></h2>
-<p>You can add an exclamation mark (!), followed by alt text in brackets, and the path or URL to the image asset in parentheses:</p>
-<p><img alt="" src="https://jupyter.org/assets/homepage/main-logo.svg" /></p>
-<p><em>Source: <a class="reference external" href="https://medium.com/&#64;us.panliu/most-useful-jupyter-notebook-markdown-tutorial-d270fb065bd2">https://medium.com/&#64;us.panliu/most-useful-jupyter-notebook-markdown-tutorial-d270fb065bd2</a></em></p>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">re</span>
+<span class="k">def</span> <span class="nf">clean</span><span class="p">(</span><span class="n">text</span><span class="p">):</span> 
+    
+    <span class="c1"># match a variety of punctuation and special characters</span>
+    <span class="c1"># backslash \ and the pipe symbols | plays important roles, for example here \? </span>
+    <span class="c1"># Now it is a good idea to look up a see what \ and | does </span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;\.|,|:|;|!|\?|\(|\)|\||\+|</span><span class="se">\&#39;</span><span class="s1">|\&quot;|‘|’|“|”|</span><span class="se">\&#39;</span><span class="s1">|\’|…|\-|_|–|—|\$|&amp;|\*|&gt;|&lt;|\/|\[|\]&#39;</span><span class="p">,</span> <span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
+
+    <span class="c1"># Regex pattern to match numbers and words containing numbers</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;\b\w*\d\w*\b&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
+    
+    <span class="c1"># Remove words with length 2 or less</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;\b\w{1,2}\b&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
+    
+    <span class="c1"># sequences of white spaces </span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;\s+&#39;</span><span class="p">,</span> <span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span> 
+
+    <span class="c1"># lower the letters</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+
+    <span class="c1"># return the text</span>
+    <span class="k">return</span> <span class="n">text</span>
+    
+
+<span class="n">clean</span><span class="p">(</span><span class="n">text</span><span class="p">)[:</span><span class="mi">3000</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;preface the event which this fiction founded has been supposed darwin and some the physiological writers germany not impossible occurrence shall not supposed according the remotest degree serious faith such imagination yet assuming the basis work fancy have not considered myself merely weaving series supernatural terrors the event which the interest the story depends exempt from the disadvantages mere tale spectres enchantment was recommended the novelty the situations which developes and however impossible physical fact affords point view the imagination for the delineating human passions more comprehensive and commanding than any which the ordinary relations existing events can yield have thus endeavoured preserve the truth the elementary principles human nature while have not scrupled innovate upon their combinations the iliad the tragic poetry greece shakespeare the tempest and midsummer night dream and most especially milton paradise lost conform this rule and the most humble novelist who seeks confer receive amusement from his labours may without presumption apply prose fiction licence rather rule from the adoption which many exquisite combinations human feeling have resulted the highest specimens poetry the circumstance which story rests was suggested casual conversation was commenced partly source amusement and partly expedient for exercising any untried resources mind other motives were mingled with these the work proceeded means indifferent the manner which whatever moral tendencies exist the sentiments characters contains shall affect the reader yet chief concern this respect has been limited the avoiding the enervating effects the novels the present day and the exhibitions the amiableness domestic affection and the excellence universal virtue the opinions which naturally spring from the character and situation the hero are means conceived existing always own conviction nor any inference justly drawn from the following pages prejudicing any philosophical doctrine whatever kind subject also additional interest the author that this story was begun the majestic region where the scene principally laid and society which cannot cease regretted passed the summer the environs geneva the season was cold and rainy and the evenings crowded around blazing wood fire and occasionally amused ourselves with some german stories ghosts which happened fall into our hands these tales excited playful desire imitation two other friends tale from the pen one whom would far more acceptable the public than any thing can ever hope produce and myself agreed write each story founded some supernatural occurrence the weather however suddenly became serene and two friends left journey among the alps and lost the magnificent scenes which they present all memory their ghostly visions the following tale the only one which has been completed frankenstein the modern prometheus letter mrs saville england petersburgh dec you will rejoice hear that disaster has accompanied &#39;
+</pre></div>
+</div>
+</div>
+</div>
 </section>
 </section>
 
@@ -500,6 +492,24 @@
                 <footer class="prev-next-footer d-print-none">
                   
 <div class="prev-next-area">
+    <a class="left-prev"
+       href="Regex%20and%20digitized%20books.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Regex and digitized books</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="Harvest%20text%20from%20the%20web.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Harvest text from the web</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
 </div>
                 </footer>
               
@@ -517,12 +527,7 @@
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#headings">Headings</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#emphasis">Emphasis</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#code">Code</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#table">Table</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#external-link">External link</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#image-insertion">Image insertion</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cleaning-text-data">Cleaning text data</a></li>
 </ul>
   </nav></div>
 
