@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>A data preprocessing pipeline &#8212; Python Toolkit</title>
+    <title>A text preprocessing pipeline &#8212; Python Toolkit</title>
   
   
   
@@ -181,7 +181,7 @@
 <li class="toctree-l1"><a class="reference internal" href="Tf-idf%20example.html">TF-IDF example</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Identify%20textual%20changes.html">Identify textual changes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Regex%20and%20digitized%20books.html">Regex and digitized books</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">A data preprocessing pipeline</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">A text preprocessing pipeline</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Harvest%20text%20from%20the%20web.html">Harvest text from the web</a></li>
 
 
@@ -368,7 +368,7 @@
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>A data preprocessing pipeline</h1>
+    <h1>A text preprocessing pipeline</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -390,12 +390,14 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="a-data-preprocessing-pipeline">
-<h1>A data preprocessing pipeline<a class="headerlink" href="#a-data-preprocessing-pipeline" title="Link to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="a-text-preprocessing-pipeline">
+<h1>A text preprocessing pipeline<a class="headerlink" href="#a-text-preprocessing-pipeline" title="Link to this heading">#</a></h1>
+<p>The purpose is to provide a way to create uniform text data that is ready for analysis.</p>
+<p>To get the purpose in goal we need text data and we can use the novel Frankenstein, which is available on <a class="reference external" href="http://Gutenberg.org">Gutenberg.org</a>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">urllib.request</span>
-
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># import libaries</span>
+<span class="kn">import</span> <span class="nn">urllib.request</span>
 
 <span class="c1"># Get the 1818 edition of Frankenstein</span>
 <span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;https://gutenberg.org/cache/epub/41445/pg41445.txt&#39;</span>
@@ -408,11 +410,9 @@
 </div>
 </div>
 </div>
-<section id="cleaning-text-data">
-<h2>Cleaning text data<a class="headerlink" href="#cleaning-text-data" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Identify noise</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Identify noise in the text</span>
 <span class="n">text</span><span class="p">[:</span><span class="mi">3000</span><span class="p">]</span>
 </pre></div>
 </div>
@@ -423,6 +423,8 @@
 </div>
 </div>
 </div>
+<section id="cleaning-text-data">
+<h2>Cleaning text data<a class="headerlink" href="#cleaning-text-data" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">re</span>
