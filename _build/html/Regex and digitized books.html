@@ -1,0 +1,878 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Regex and digitized books &#8212; Python Toolkit</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!-- 
+    this give us a css class that will be invisible only if js is disabled 
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'Regex and digitized books';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Identify textual changes" href="Identify%20textual%20changes.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+<aside class="bd-header-announcement" aria-label="Announcement">
+  <div class="bd-header-announcement__content"><p class='mystyle'><a href='https://kubkalender.kb.dk/calendar/datalab?cid=6416&t=d&d=0000-00-00&cal=6416&inc=0' target='_blank' style='color: white;'>KUB Datalab Upcomming Events</a></p></div>
+</aside>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/kub datalab improve data skills chord diagram.png" class="logo__image only-light" alt="Python Toolkit - Home"/>
+    <img src="_static/kub datalab improve data skills chord diagram.png" class="logo__image only-dark pst-js-only" alt="Python Toolkit - Home"/>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Welcome to the KUB Datalab Python-toolbox course site
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="Preprocessing%20and%20analysing%20Chinese%20text.html">Preprocessing and analysing Chinese text</a></li>
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="Tf-idf%20example.html">TF-IDF example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Identify%20textual%20changes.html">Identify textual changes</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Regex and digitized books</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/KUBDatalab/python-toolbox" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/KUBDatalab/python-toolbox/issues/new?title=Issue%20on%20page%20%2FRegex and digitized books.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/Regex and digitized books.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Regex and digitized books</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#get-text-data">Get text data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#regex-to-clean-preprocess-text">RegEx to clean / preprocess text</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#write-a-function-to-clean-text">Write a function to clean text</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#w-together-with-b">w+ together with \b</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#more-metacharacters-as-well-as-pipes-lists-and-question-marks">More metacharacters, as well as pipes, lists and question marks</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#curly-brackets-for-a-concordance-tool">Curly brackets for a concordance tool</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#square-brackets-a-z">Square brackets [A-Z]</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fuzzy-searches-in-ocr-text">Fuzzy searches in ocr text</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="regex-and-digitized-books">
+<h1>Regex and digitized books<a class="headerlink" href="#regex-and-digitized-books" title="Link to this heading">#</a></h1>
+<section id="get-text-data">
+<h2>Get text data<a class="headerlink" href="#get-text-data" title="Link to this heading">#</a></h2>
+<p>Let us download one of the digitized books from The Royal Danish Library. The digitized books are ocr scanned (Optical Character Recognition) and available as pdf-files.</p>
+<p>The book is <a class="reference external" href="https://soeg.kb.dk/permalink/45KBDK_KGL/1pioq0f/alma99122806627205763">Macdonald, James. Travels through Denmark and Part of Sweden during the Winter and Spring of the Year 1809 : Containing Authentic Particulars of the Domestic Condition of Those Countries, the Opinions of the Inhabitants, and the State of Agriculture. 2015.</a></p>
+<p>We download the book, extract the text content and store it in a variable called full_text.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#! pip install PyPDF2</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">from</span> <span class="nn">io</span> <span class="kn">import</span> <span class="n">BytesIO</span>
+<span class="kn">from</span> <span class="nn">PyPDF2</span> <span class="kn">import</span> <span class="n">PdfReader</span>
+
+<span class="c1"># URL to the ocr scanned, pdf verison of the text</span>
+<span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://www.kb.dk/e-mat/dod/130014244515_bw.pdf&quot;</span>
+
+<span class="c1"># Download the pdf file</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+<span class="n">response</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>  <span class="c1"># Check if the request was successful</span>
+
+<span class="c1"># Open the pdf file in memory</span>
+<span class="n">pdf_file</span> <span class="o">=</span> <span class="n">BytesIO</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
+
+<span class="c1"># Create a PDF reader object</span>
+<span class="n">reader</span> <span class="o">=</span> <span class="n">PdfReader</span><span class="p">(</span><span class="n">pdf_file</span><span class="p">)</span>
+
+<span class="c1"># Extract text from each page starting from page 5</span>
+<span class="n">text_content</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">page</span> <span class="ow">in</span> <span class="n">reader</span><span class="o">.</span><span class="n">pages</span><span class="p">[</span><span class="mi">4</span><span class="p">:]:</span>
+    <span class="n">text_content</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">extract_text</span><span class="p">())</span>
+
+<span class="c1"># Join all the text content into a single string</span>
+<span class="n">full_text</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">text_content</span><span class="p">)</span>
+
+<span class="c1"># Print the extracted text</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">full_text</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">1000</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>TRAVELS
+\
+THROUGH
+D E N M A B K ,
+%
+AND PART OF
+S W E D E N ,
+%
+DURING THE WINTER AND SPRING OF THE YEAR
+1809 :
+i
+CONTAINING&#39;
+f »
+#
+é •
+AUTHENTIC PARTICULARS OF THE DOMESTIC CONDITION  
+OF THOSE COUNTRIES, THE OPINIONS OF THE INHA-
+BITANTS, AND THE STATE OF AGRICULTURE.
+&#39;  /
+B Y  JAM ES MACDONALD.
+f\
+\
+\
+LONDON:
+^  4
+PRINTED FOR RICHARD PH ILLIPS,
+BRIDGE STREET, BLACKFRIARS,  
+liy B. MC MIEI.AN, BOW STREET, COVENT GARDEN.&#39;
+
+5 .
+I.’ V - ■
+II
+l
+V.‘  l&#39;;
+\ *  ;• •(
+I
+* :  &#39;* J  \;■&gt;- •  4
+1  ^
+i
+1
+\
+i
+t
+&gt;
+\if; ■ &#39;■V
+5 , ■  ‘ , r
+r *  . ■ ; &#39;  p O V : t h .&#39; V &#39; : H
+*x&#39;t;&#39;r. V  i . }C ,&quot;&#39;.. ■  V r f V
+’ f&#39;At ’ -V * ■ &#39; .  f\*
+■ r.-&#39;i , r &#39; - 1.;&#39; ;*-L  &#39;^ V . - &#39;t  .  ■  &#39; ■  &#39;*  - c v J * &#39;  •  j
+&#39; Z &quot; ^ x - ,  u&#39;.-&#39;--V &quot;
+;&#39; - i.• ■  i\
+
+ADVERTISEMENT.
+IN  a letter to the Publisher, the Author of the follow«  
+ing pages informs -him, that his desultory Jovirnal was  
+written during a tour in the Spring of 1809, through some  
+Danish and Swedish Provinces; and he cannot but think,  
+that 
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="regex-to-clean-preprocess-text">
+<h2>RegEx to clean / preprocess text<a class="headerlink" href="#regex-to-clean-preprocess-text" title="Link to this heading">#</a></h2>
+<p>When we work with Regex, the website <a class="reference external" href="https://regex101.com/">regex101.com</a> is a brilliant tool. We can help partly to understand Regex, partly to write a Regex pattern. It is a good idea to take ten minutes to familiarize yourself with the page.</p>
+<p>Try inserting this text string in the ‘TEXT STRING’ field:</p>
+<p><em>He observes, that he has not only committed to paper his<br />
+own opinions, but also, those of persons with wliom he con-<br />
+versed in the above-mcnt ioned eountries</em> i</p>
+<p>In the ‘REGULAR EXPRESSION’ field you can write this pattern <code class="docutils literal notranslate"><span class="pre">'W+\'</span></code>.</p>
+<p>What happens when you start typing?</p>
+<p>In the field EXPLANATION, at the top of the right side, you can read an explanation of the regex pattern.</p>
+<section id="write-a-function-to-clean-text">
+<h3>Write a function to clean text<a class="headerlink" href="#write-a-function-to-clean-text" title="Link to this heading">#</a></h3>
+<p>The <a class="reference external" href="https://www.w3schools.com/python/python_functions.asp">Python function</a> ‘clean’ below we use to clean the text of all characters other than letters.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">re</span>
+<span class="k">def</span> <span class="nf">clean</span><span class="p">(</span><span class="n">text</span><span class="p">):</span> 
+    
+    <span class="c1"># match a variety of punctuation and special characters</span>
+    <span class="c1"># backslash \ and the pipe symbols | plays important roles, for example here \? </span>
+    <span class="c1"># Now it is a good idea to look up a see what \ and | does </span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;\.|,|:|;|!|\?|\(|\)|\||\+|</span><span class="se">\&#39;</span><span class="s1">|\&quot;|‘|’|“|”|</span><span class="se">\&#39;</span><span class="s1">|\’|…|\-|_|–|—|\$|&amp;|\*|&gt;|&lt;|\/|\[|\]&#39;</span><span class="p">,</span> <span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
+
+    <span class="c1"># Regex pattern to match numbers and words containing numbers</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;\b\w*\d\w*\b&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
+     
+
+    <span class="c1"># lower the letters</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+
+    <span class="c1"># replace sequences of non-word characters (&#39;\W+&#39;) with a single space. </span>
+    <span class="c1"># The &#39;strip()&#39; removes any leading or tailing whitespaces that could come from the substitution.</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;\W+&#39;</span><span class="p">,</span> <span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+    
+    <span class="k">return</span> <span class="n">text</span>
+    
+
+<span class="n">text</span> <span class="o">=</span> <span class="n">clean</span><span class="p">(</span><span class="n">full_text</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">text</span><span class="p">[:</span><span class="mi">3000</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;travels through d e n m a b k and part of s w e d e n during the winter and spring of the year i containing f é authentic particulars of the domestic condition of those countries the opinions of the inha bitants and the state of agriculture b y jam es macdonald f london printed for richard ph illips bridge street blackfriars liy b mc miei an bow street covent garden i v ii l v l i j i i t if v r r p o v t h v h x t r v i c v r f v f at v f r i r l v t c v j j z x u v i i advertisement in a letter to the publisher the author of the follow ing pages informs him that his desultory jovirnal was written during a tour in the spring of through some danish and swedish provinces and he cannot but think that its perusal may draw the attention of onr countrymen from the temporary subjects of the moment to such matters as are connected with the permanent interests of the britisk empire he observes that he has not only committed to paper his own opinions but also those of persons with wliom he con versed in the above mcnt ioned eountries u and have done tilis he adds with frankness and impartiality and with the feelings of a man w ho in the hour of misfor tune experienced equally from the enemies and the allies of his country the humanity of christians and the kindncss of friends and who after five different journies through va rious parts of the continent of europe has hcre written without the assistance of a single paper or a single book the observations made on the spot upon wliat he saw and felt during a period peculiarly eventful to the kingdoms to which his journal refers u if my opinions concerning zeeland should appear extra vagant to any one not accustomed to reflect upon the present situation of the northern powcrs i have only to assure him i am by no means singtilar in my opinions but on thecontrary coincide in every point with the most intelli gent british and foreign gentlemen with whoip i havelately had the pleasure of conversing u i have to add as another motivefor publishing whatbh i t i i i i l id s l id i r i i n b i to raany readers may appear uninteresting that tlie treat ment experienced from the danes by myself and my fellow sufferers as well as by the survivors of the crew of his ma jesty s late ship the crescent imposes it upon me as a duty to give all possible publicity to circumstances so honourable to that nation and which may eventually soften the spiritof mutual hostility which at present subsists between the two countries and procure for the danish prisoners in britain as kind a treatment as the circumstances of the times permit i should ill deserve the liberty which their generosity so readily granted me did i not seize the earliest opportu nity of thanking the danish monarch and nation for their kindness towards me and that too in the way wortliy of both namely in the plain language of sincerity and truth the editor bas takep the liberty of altering the monotony of the author s journal by dividing his communications into the mo&#39;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="w-together-with-b">
+<h2>w+ together with \b<a class="headerlink" href="#w-together-with-b" title="Link to this heading">#</a></h2>
+<p>Why does anything happen on sunday, monday or yesterday?</p>
+<p>Find words with special endings, e.g. <em>day</em>, can be a help to gain insight into where and when the literature takes place.</p>
+<p>The regex pattern <code class="docutils literal notranslate"><span class="pre">\w+day</span></code> is used to find sequences of word characters that end with the letter ‘day’.</p>
+<p><code class="docutils literal notranslate"><span class="pre">\b</span></code> finds the bounderies of where letters starts or ends.</p>
+<p>You can also use the endings to find grammatical forms, e.g. words with a special suffix like ‘-ly’ would be relatively easy to identify. Try it.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ending</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;\w+day\b&#39;</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">ending</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;sunday&#39;, &#39;monday&#39;, &#39;yesterday&#39;, &#39;yesterday&#39;, &#39;terday&#39;, &#39;yesterday&#39;, &#39;yesterday&#39;, &#39;yesterday&#39;, &#39;yesterday&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="more-metacharacters-as-well-as-pipes-lists-and-question-marks">
+<h2>More metacharacters, as well as pipes, lists and question marks<a class="headerlink" href="#more-metacharacters-as-well-as-pipes-lists-and-question-marks" title="Link to this heading">#</a></h2>
+<p>In literature, comparisons are often used to illustrate points more clearly by putting pictures on what you want to describe. Comparisons also contribute to making the text more lively and interesting.</p>
+<p>But regex makes it a manageable task to retrieve examples of comparisons, because we can find text strings that follow the pattern in a typical comparison.</p>
+<p>We can illustrate it in the following way. We look for phrases whose pattern is either as a … or as an ….</p>
+<p>There are two different ways.</p>
+<p>First way is to use pipe <code class="docutils literal notranslate"><span class="pre">|</span></code>. Pipe means “or”. The regex pattern will then look like this: <code class="docutils literal notranslate"><span class="pre">'as\sa\s\w+|as\san\s\w+'</span></code></p>
+<p>Another way is to use the list character <code class="docutils literal notranslate"><span class="pre">[]</span></code>? It looks like this: <code class="docutils literal notranslate"><span class="pre">'as\sa[n]?\s\w+'</span></code>.</p>
+<p>In the list, letters can be added that can stand in that place in the word. The question mark indicates that the letter may or may not be there.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">comparison</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;as\sa\s\w+&#39;</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
+<span class="nb">print</span> <span class="p">(</span><span class="n">comparison</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;as a duty&#39;, &#39;as a decoy&#39;, &#39;as a short&#39;, &#39;as a sensible&#39;, &#39;as a considerable&#39;, &#39;as a spy&#39;, &#39;as a guard&#39;, &#39;as a stranger&#39;, &#39;as a german&#39;, &#39;as a troop&#39;, &#39;as a prison&#39;, &#39;as a guard&#39;, &#39;as a boat&#39;, &#39;as a midshipman&#39;, &#39;as a one&#39;, &#39;as a matter&#39;, &#39;as a real&#39;, &#39;as a coward&#39;, &#39;as a proof&#39;, &#39;as a real&#39;, &#39;as a prisoaeria&#39;, &#39;as a very&#39;, &#39;as a bitter&#39;, &#39;as a long&#39;, &#39;as a v&#39;, &#39;as a knowledge&#39;, &#39;as a matter&#39;, &#39;as a biessing&#39;, &#39;as a dead&#39;, &#39;as a military&#39;, &#39;as a peculiar&#39;, &#39;as a good&#39;, &#39;as a bad&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">comparison</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;as\sa\s\w+|as\san\s\w+&#39;</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
+<span class="nb">print</span> <span class="p">(</span><span class="n">comparison</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;as a duty&#39;, &#39;as a decoy&#39;, &#39;as an arduous&#39;, &#39;as a short&#39;, &#39;as a sensible&#39;, &#39;as a considerable&#39;, &#39;as a spy&#39;, &#39;as a guard&#39;, &#39;as a stranger&#39;, &#39;as a german&#39;, &#39;as a troop&#39;, &#39;as a prison&#39;, &#39;as a guard&#39;, &#39;as a boat&#39;, &#39;as a midshipman&#39;, &#39;as a one&#39;, &#39;as a matter&#39;, &#39;as an odious&#39;, &#39;as a real&#39;, &#39;as a coward&#39;, &#39;as a proof&#39;, &#39;as an arrow&#39;, &#39;as a real&#39;, &#39;as a prisoaeria&#39;, &#39;as a very&#39;, &#39;as a bitter&#39;, &#39;as a long&#39;, &#39;as a v&#39;, &#39;as a knowledge&#39;, &#39;as an abundance&#39;, &#39;as a matter&#39;, &#39;as an university&#39;, &#39;as a biessing&#39;, &#39;as a dead&#39;, &#39;as a military&#39;, &#39;as an inde&#39;, &#39;as a peculiar&#39;, &#39;as a good&#39;, &#39;as a bad&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">comparison</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;as\sa[n]?\s\w+&#39;</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
+<span class="nb">print</span> <span class="p">(</span><span class="n">comparison</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;as a duty&#39;, &#39;as a decoy&#39;, &#39;as an arduous&#39;, &#39;as a short&#39;, &#39;as a sensible&#39;, &#39;as a considerable&#39;, &#39;as a spy&#39;, &#39;as a guard&#39;, &#39;as a stranger&#39;, &#39;as a german&#39;, &#39;as a troop&#39;, &#39;as a prison&#39;, &#39;as a guard&#39;, &#39;as a boat&#39;, &#39;as a midshipman&#39;, &#39;as a one&#39;, &#39;as a matter&#39;, &#39;as an odious&#39;, &#39;as a real&#39;, &#39;as a coward&#39;, &#39;as a proof&#39;, &#39;as an arrow&#39;, &#39;as a real&#39;, &#39;as a prisoaeria&#39;, &#39;as a very&#39;, &#39;as a bitter&#39;, &#39;as a long&#39;, &#39;as a v&#39;, &#39;as a knowledge&#39;, &#39;as an abundance&#39;, &#39;as a matter&#39;, &#39;as an university&#39;, &#39;as a biessing&#39;, &#39;as a dead&#39;, &#39;as a military&#39;, &#39;as an inde&#39;, &#39;as a peculiar&#39;, &#39;as a good&#39;, &#39;as a bad&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="curly-brackets-for-a-concordance-tool">
+<h2>Curly brackets for a concordance tool<a class="headerlink" href="#curly-brackets-for-a-concordance-tool" title="Link to this heading">#</a></h2>
+<p>We’re going to try using curly brackets in our RegEx, and we’ll try it out in a concrete example of how curly brackets can be used to build a concordance tool. A concordance tool is used to extract text snippets based on keywords and a range.</p>
+<p>We will find snippets containing the keyword <em>eye</em>. It is a concrete example of how we can point down in the text and see how the term is used exactly. In horror novels, I would imagine that words like eyes is playing a special role.</p>
+<p>For the task we would also need the full stop sign( <code class="docutils literal notranslate"><span class="pre">.</span></code> ), because it returns any word characters and the curly brackets like this: <code class="docutils literal notranslate"><span class="pre">{30}.</span></code> It checks that we get 30 word characters.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">concordance_tool</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;.</span><span class="si">{30}</span><span class="s1">\beye[s]?\b.</span><span class="si">{30}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
+
+<span class="n">concordance_tool</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;trict around us as far as the eye could reach on a clear day th&#39;,
+ &#39; him and the expression of my eyes and features were a complete &#39;,
+ &#39;see them drowned before their eyes some of the stoutest and who &#39;,
+ &#39;nd however is a relief to the eye on a broad passage and though&#39;,
+ &#39; spread like a map under your eyes the isle of amak which is the&#39;,
+ &#39;n the island of saltholm your eye follows the swedish coast for&#39;,
+ &#39; forfarshire dialect and with eyes sparkling with pleasure for i&#39;,
+ &#39;ack and very seldoni red long eye lashes beauti fully arched ey&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="square-brackets-a-z">
+<h2>Square brackets [A-Z]<a class="headerlink" href="#square-brackets-a-z" title="Link to this heading">#</a></h2>
+<p>Find words that begins with capital letters.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">upper_case_words</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;[A-Z]\w+&#39;</span><span class="p">,</span> <span class="n">full_text</span><span class="p">)</span>
+<span class="n">upper_case_words</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">upper_case_words</span> <span class="k">if</span> <span class="n">i</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">full_text</span><span class="p">]</span>
+
+<span class="nb">print</span> <span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">upper_case_words</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;Buonaparte&#39;, &#39;Feeyn&#39;, &#39;Mayficld&#39;, &#39;Jpoor&#39;, &#39;Engaged&#39;, &#39;ILLIPS&#39;, &#39;Elsinorc&#39;, &#39;Prussian&#39;, &#39;Stdhce&#39;, &#39;Aarhusto&#39;, &#39;Tbey&#39;, &#39;DENM&#39;, &#39;Westphalia&#39;, &#39;Greeks&#39;, &#39;S7&#39;, &#39;Scot&#39;, &#39;Callundborg&#39;, &#39;Gade&#39;, &#39;Liimfiord&#39;, &#39;JSighl&#39;, &#39;Frpnch&#39;, &#39;Thcse&#39;, &#39;Powcrs&#39;, &#39;Sleswig&#39;, &#39;Altona&#39;, &#39;Canada&#39;, &#39;Spanish&#39;, &#39;Heyne&#39;, &#39;Corsoer&#39;, &#39;Grundsteuen&#39;, &#39;Belts&#39;, &#39;Publisher&#39;, &#39;Sabbath&#39;, &#39;Jesus&#39;, &#39;Suffolk&#39;, &#39;Landscrona&#39;, &#39;BH&#39;, &#39;Hirschholm&#39;, &#39;Judånders&#39;, &#39;RELIGION&#39;, &#39;Frenchmen&#39;, &#39;Borgere&#39;, &#39;Lulherans&#39;, &#39;IucIi&#39;, &#39;Grecian&#39;, &#39;Jovirnal&#39;, &#39;Tiumbers&#39;, &#39;Xenophon&#39;, &#39;Ireland&#39;, &#39;Saleraonis&#39;, &#39;Falken&#39;, &#39;James&#39;, &#39;Sieswig&#39;, &#39;Warberg&#39;, &#39;Temple&#39;, &#39;Elsiqore&#39;, &#39;Iceland&#39;, &#39;Jlussia&#39;, &#39;Scotchman&#39;, &#39;Balfic&#39;, &#39;Ringstad&#39;, &#39;ISweden&#39;, &#39;Soou&#39;, &#39;Sunday&#39;, &#39;Arundo&#39;, &#39;Arhoos&#39;, &#39;Wenta&#39;, &#39;Droch&#39;, &#39;Ljttle&#39;, &#39;Ilaly&#39;, &#39;Iaw&#39;, &#39;Konge&#39;, &#39;Karna&#39;, &#39;Jutland&#39;, &#39;Drackenberg&#39;, &#39;Lanca&#39;, &#39;Julland&#39;, &#39;Getmanv&#39;, &#39;Humboldt&#39;, &#39;Norskes&#39;, &#39;Britaiu&#39;, &#39;Goltonburgh&#39;, &#39;Sietly&#39;, &#39;America&#39;, &#39;J8O&#39;, &#39;Malmoe&#39;, &#39;Forfarshire&#39;, &#39;Highlanders&#39;, &#39;Cullen&#39;, &#39;Corinthian&#39;, &#39;Tuiew&#39;, &#39;BLACKFRIARS&#39;, &#39;Jtw&#39;, &#39;Gothenburgh&#39;, &#39;Elsinore&#39;, &#39;Christian&#39;, &#39;Communications&#39;, &#39;Aalborgers&#39;, &#39;Faroe&#39;, &#39;Jannary&#39;, &#39;Brahe&#39;, &#39;Cormvall&#39;, &#39;MACDONALD&#39;, &#39;Somé&#39;, &#39;Dauislr&#39;, &#39;Spanisk&#39;, &#39;Zee&#39;, &#39;ItTS&#39;, &#39;Denmark&#39;, &#39;TUMULT&#39;, &#39;Sundays&#39;, &#39;Theshore&#39;, &#39;Danisb&#39;, &#39;Cattegat&#39;, &#39;Copenhngen&#39;, &#39;Trojans&#39;, &#39;Lunger&#39;, &#39;Sonic&#39;, &#39;Moen&#39;, &#39;England&#39;, &#39;Brilish&#39;, &#39;S09&#39;, &#39;Christians&#39;, &#39;Ogilvy&#39;, &#39;Evangelists&#39;, &#39;Svvedish&#39;, &#39;Yarmouth&#39;, &#39;December&#39;, &#39;Johns&#39;, &#39;Hobre&#39;, &#39;Holsfeiners&#39;, &#39;Swedcs&#39;, &#39;Christiansburg&#39;, &#39;Westenbolz&#39;, &#39;Griesbach&#39;, &#39;Fladstrand&#39;, &#39;Gothenburg&#39;, &#39;Duntzvelt&#39;, &#39;Aarhus&#39;, &#39;Skanderborg&#39;, &#39;ENGELHOLM&#39;, &#39;LONDON&#39;, &#39;Argyleshire&#39;, &#39;Denraark&#39;, &#39;Wellesley&#39;, &#39;Troad&#39;, &#39;Saxon&#39;, &#39;Hebrides&#39;, &#39;Theresources&#39;, &#39;NAUTICAL&#39;, &#39;Germans&#39;, &#39;Moldenhawor&#39;, &#39;I80p&#39;, &#39;Catteau&#39;, &#39;Caltcgat&#39;, &#39;Ordnance&#39;, &#39;COVENT&#39;, &#39;Nijborg&#39;, &#39;Cairo&#39;, &#39;Jodgc&#39;, &#39;Lonstrup&#39;, &#39;Scotland&#39;, &#39;Eoglishman&#39;, &#39;Dondon&#39;, &#39;Greece&#39;, &#39;Gertnany&#39;, &#39;SWEDEN&#39;, &#39;Odense&#39;, &#39;Baggesen&#39;, &#39;Jews&#39;, &#39;Editor&#39;, &#39;Thine&#39;, &#39;Meanwhile&#39;, &#39;Jeremin&#39;, &#39;Halmstadt&#39;, &#39;Leith&#39;, &#39;Crescent&#39;, &#39;Banffshire&#39;, &#39;Dåne&#39;, &#39;Helsingborg&#39;, &#39;NORWEGIANS&#39;, &#39;Fahrenheit&#39;, &#39;Kongens&#39;, &#39;Merino&#39;, &#39;Scotcli&#39;, &#39;Josay&#39;, &#39;Reaumur&#39;, &#39;Butter&#39;, &#39;Ihrovvn&#39;, &#39;Ifyou&#39;, &#39;Englisil&#39;, &#39;Nijlorg&#39;, &#39;Greenwich&#39;, &#39;January&#39;, &#39;Iecland&#39;, &#39;Swedisb&#39;, &#39;Swedish&#39;, &#39;Nyhurg&#39;, &#39;Oresund&#39;, &#39;Jut&#39;, &#39;Fiinen&#39;, &#39;Rmean&#39;, &#39;Highlands&#39;, &#39;Fanen&#39;, &#39;Saltholm&#39;, &#39;Scotch&#39;, &#39;Middlesex&#39;, &#39;Frauce&#39;, &#39;London&#39;, &#39;JUTLANRERS&#39;, &#39;Almighty&#39;, &#39;Sprde&#39;, &#39;Britisk&#39;, &#39;SWEDENV&#39;, &#39;Frederick&#39;, &#39;CQtland&#39;, &#39;Copenhageu&#39;, &#39;Britisb&#39;, &#39;Flora&#39;, &#39;Amongothers&#39;, &#39;Botany&#39;, &#39;Hberal&#39;, &#39;Windows&#39;, &#39;Dryer&#39;, &#39;Amalien&#39;, &#39;Southern&#39;, &#39;Northum&#39;, &#39;Copenhagen&#39;, &#39;European&#39;, &#39;Ileaveu&#39;, &#39;Funen&#39;, &#39;Thames&#39;, &#39;Schleswig&#39;, &#39;Theshock&#39;, &#39;Brun&#39;, &#39;Scarcelv&#39;, &#39;Amak&#39;, &#39;Capital&#39;, &#39;RICHARD&#39;, &#39;Copen&#39;, &#39;Danes&#39;, &#39;Whor&#39;, &#39;Baltic&#39;, &#39;CtJLATIONS&#39;, &#39;AUTHENTIC&#39;, &#39;Dauish&#39;, &#39;Uvcen&#39;, &#39;Kent&#39;, &#39;Thaarup&#39;, &#39;HENMARK&#39;, &#39;Prussia&#39;, &#39;Brazil&#39;, &#39;Thespecies&#39;, &#39;November&#39;, &#39;Keates&#39;, &#39;Sciences&#39;, &#39;English&#39;, &#39;Crescentand&#39;, &#39;Iieavy&#39;, &#39;Chinese&#39;, &#39;Briton&#39;, &#39;Nyelorg&#39;, &#39;Bodoni&#39;, &#39;Cronborg&#39;, &#39;Foulises&#39;, &#39;Viborg&#39;, &#39;Littie&#39;, &#39;Falster&#39;, &#39;Skagen&#39;, &#39;Horsens&#39;, &#39;Folkets&#39;, &#39;Dorsetshire&#39;, &#39;Patients&#39;, &#39;Middelfa&#39;, &#39;Christmas&#39;, &#39;Roskilde&#39;, &#39;Tycho&#39;, &#39;Osterbrandersler&#39;, &#39;Orandt&#39;, &#39;British&#39;, &#39;Germany&#39;, &#39;Ramlbsa&#39;, &#39;Officiis&#39;, &#39;Frussian&#39;, &#39;Salzburgh&#39;, &#39;Brandenbnrgher&#39;, &#39;Scottish&#39;, &#39;Cicero&#39;, &#39;Iltese&#39;, &#39;Laholm&#39;, &#39;Europe&#39;, &#39;Danisii&#39;, &#39;Norvvegians&#39;, &#39;Norway&#39;, &#39;Thecxertion&#39;, &#39;Jike&#39;, &#39;Goschen&#39;, &#39;THllOUGH&#39;, &#39;Hutton&#39;, &#39;Europc&#39;, &#39;Otia&#39;, &#39;Greek&#39;, &#39;Avindows&#39;, &#39;Juttish&#39;, &#39;October&#39;, &#39;Aboul&#39;, &#39;Kioge&#39;, &#39;Lessoe&#39;, &#39;Welsh&#39;, &#39;JAM&#39;, &#39;Palais&#39;, &#39;Romana&#39;, &#39;Champagne&#39;, &#39;Banes&#39;, &#39;Plantations&#39;, &#39;Blackwood&#39;, &#39;Svvedcs&#39;, &#39;September&#39;, &#39;Nonvegian&#39;, &#39;Slagelse&#39;, &#39;Kutton&#39;, &#39;Danica&#39;, &#39;Tunen&#39;, &#39;Gerinan&#39;, &#39;Dentnark&#39;, &#39;Italian&#39;, &#39;Weirnar&#39;, &#39;Irerne&#39;, &#39;Englisli&#39;, &#39;Switzerland&#39;, &#39;VCDONALD&#39;, &#39;Banish&#39;, &#39;Englishman&#39;, &#39;Scotlnnd&#39;, &#39;Indånders&#39;, &#39;Avards&#39;, &#39;ACDOXALD&#39;, &#39;Langeland&#39;, &#39;Engtisli&#39;, &#39;Russians&#39;, &#39;Jutlaud&#39;, &#39;Grceks&#39;, &#39;Spain&#39;, &#39;Jul&#39;, &#39;Spahiards&#39;, &#39;Swedisl&#39;, &#39;WINTEIt&#39;, &#39;Frederik&#39;, &#39;Aenf&#39;, &#39;Norvvay&#39;, &#39;EDEM&#39;, &#39;Biisching&#39;, &#39;Riark&#39;, &#39;Lancnshire&#39;, &#39;CRONBOItG&#39;, &#39;Middelfahrt&#39;, &#39;Spanisb&#39;, &#39;Banflshire&#39;, &#39;Hamburgh&#39;, &#39;Sprbe&#39;, &#39;Bertuch&#39;, &#39;Jullaud&#39;, &#39;Norwegians&#39;, &#39;Hamlet&#39;, &#39;Englisb&#39;, &#39;TUAVELS&#39;, &#39;Baskerville&#39;, &#39;DENSfARK&#39;, &#39;Bardenfleth&#39;, &#39;DANES&#39;, &#39;Wcrc&#39;, &#39;Zeeland&#39;, &#39;Elsineur&#39;, &#39;Tranquebar&#39;, &#39;Westenholz&#39;, &#39;Flcmish&#39;, &#39;Klopstock&#39;, &#39;Continental&#39;, &#39;Monday&#39;, &#39;Tntland&#39;, &#39;Essex&#39;, &#39;India&#39;, &#39;Turkey&#39;, &#39;Lappens&#39;, &#39;I8O9&#39;, &#39;Euglish&#39;, &#39;CHARACTERISTICS&#39;, &#39;Holstein&#39;, &#39;Aalborg&#39;, &#39;Mauy&#39;, &#39;Avortby&#39;, &#39;Euro&#39;, &#39;Copcnlingcn&#39;, &#39;Scaw&#39;, &#39;HOBROE&#39;, &#39;Gothenlurgh&#39;, &#39;Danskes&#39;, &#39;Swcden&#39;, &#39;Britain&#39;, &#39;Sæbye&#39;, &#39;Odensee&#39;, &#39;Hungary&#39;, &#39;Corsber&#39;, &#39;Unlcss&#39;, &#39;MACJJONALD&#39;, &#39;SWEDISIi&#39;, &#39;Engelholm&#39;, &#39;April&#39;, &#39;Jutlanders&#39;, &#39;John&#39;, &#39;OENMARR&#39;, &#39;Swedes&#39;, &#39;Ihey&#39;, &#39;Snoghoj&#39;, &#39;Danisli&#39;, &#39;Yorkshire&#39;, &#39;Bntch&#39;, &#39;Leipzig&#39;, &#39;Virgil&#39;, &#39;Gospel&#39;, &#39;Demnark&#39;, &#39;Sourid&#39;, &#39;Sivedes&#39;, &#39;American&#39;, &#39;Dancs&#39;, &#39;Scolland&#39;, &#39;Litet&#39;, &#39;Austria&#39;, &#39;Suhm&#39;, &#39;France&#39;, &#39;Sprogoe&#39;, &#39;Yætelorgh&#39;, &#39;Norwegian&#39;, &#39;Stuarts&#39;, &#39;Composts&#39;, &#39;Naze&#39;, &#39;Covent&#39;, &#39;Eisinore&#39;, &#39;Whoever&#39;, &#39;Utility&#39;, &#39;Laaland&#39;, &#39;Bardenfletb&#39;, &#39;Kongs&#39;, &#39;Angus&#39;, &#39;Ruris&#39;, &#39;Blote&#39;, &#39;Bonpland&#39;, &#39;Irish&#39;, &#39;Hween&#39;, &#39;Avhere&#39;, &#39;Jiatred&#39;, &#39;Norfolk&#39;, &#39;S08&#39;, &#39;ELSINOItE&#39;, &#39;JiLin&#39;, &#39;Crossing&#39;, &#39;AVestenholz&#39;, &#39;God&#39;, &#39;Qih&#39;, &#39;Spaniards&#39;, &#39;Ringsted&#39;, &#39;Hobroe&#39;, &#39;Avliich&#39;, &#39;Norweginns&#39;, &#39;Uvays&#39;, &#39;Baskervilles&#39;, &#39;Ilolstein&#39;, &#39;Crcscent&#39;, &#39;Hivated&#39;, &#39;MIEI&#39;, &#39;Syvende&#39;, &#39;German&#39;, &#39;Sweden&#39;, &#39;Bralrc&#39;, &#39;Gailic&#39;, &#39;Denmavk&#39;, &#39;Arthur&#39;, &#39;Bardcnfleth&#39;, &#39;Henne&#39;, &#39;Samsde&#39;, &#39;Buehan&#39;, &#39;Kuttner&#39;, &#39;Tostand&#39;, &#39;Scavv&#39;, &#39;Homer&#39;, &#39;Scolch&#39;, &#39;Dutcli&#39;, &#39;ADVERTISEMENT&#39;, &#39;AKK&#39;, &#39;DENMARK&#39;}
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="fuzzy-searches-in-ocr-text">
+<h2>Fuzzy searches in ocr text<a class="headerlink" href="#fuzzy-searches-in-ocr-text" title="Link to this heading">#</a></h2>
+<p>Regex can also be used for performing a fuzzy search on OCR processed text. Let’s try to locate instances of the word “danish” or “danili” within the text, allowing for slight variations or errors that might occur during OCR processing.</p>
+<p><code class="docutils literal notranslate"><span class="pre">.{30}</span></code>: Matching any 30 characters before and after the target word, providing context around the match.</p>
+<p><code class="docutils literal notranslate"><span class="pre">danis[h|li]?</span></code>: Looking for the word “danish” or “danili”, where:</p>
+<p><code class="docutils literal notranslate"><span class="pre">danis</span></code> is the fixed part of the word.</p>
+<p><code class="docutils literal notranslate"><span class="pre">[h|li]?</span></code> allows for either “h” or “li” to follow “danis”, accommodating potential OCR errors or variations.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fuzzy_search</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;.</span><span class="si">{30}</span><span class="s1">danis[h|li]?.</span><span class="si">{30}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
+
+<span class="n">fuzzy_search</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;in the spring of through some danish and swedish provinces and he &#39;,
+ &#39;countries and procure for the danish prisoners in britain as kind &#39;,
+ &#39; opportu nity of thanking the danish monarch and nation for their &#39;,
+ &#39;mber f o n f in e d here in a danisli prison i have abundance of t&#39;,
+ &#39;be plundered the moment their danish enemies could ap proach the s&#39;,
+ &#39; a lifeless con dition by the danish boatmen but was soon restored&#39;,
+ &#39;leaned and at the rate of one danish mile per hour they devise man&#39;,
+ &#39;ore where in the space of one danisli or four english milesand thr&#39;,
+ &#39;of the sailors and one of the danish soldiers were much bruised by&#39;,
+ &#39;e and lieutenant henne of the danish navy treated me with all poss&#39;,
+ &#39;t any ceremony six masters of danish pri vateers half drunk togeth&#39;,
+ &#39;en and brought in bertfby thc danish pri vateers there are twenty &#39;,
+ &#39;e language commonly spoken is danish but the peoplc ot rank and ed&#39;,
+ &#39;jackets of their own and some danish jackets or great coats lent t&#39;,
+ &#39;asts of norway sweden and the danish dominions the frost has set i&#39;,
+ &#39;defained hero waiting for his danish ma iesty s answer to my repre&#39;,
+ &#39; the bravery and power of the danisli nation and is sometirnes abs&#39;,
+ &#39;eir own i must however do the danish offi cers liere the justfee t&#39;,
+ &#39;ous journey and also save his danish majesty and myself tlie troub&#39;,
+ &#39;s are so infinitely below the danish carts and implements s i brit&#39;,
+ &#39;eet and keep to ourselves the danish ships and property which have&#39;,
+ &#39;l run of officers both in the danisb array and navy and especiall&#39;,
+ &#39;oney of jutland is the common danish currency universal over the p&#39;,
+ &#39;e jutlanrers the value of the danish dollar in was four shillings &#39;,
+ &#39;ge called hobre six and a halfdanish or about tliirty and one thir&#39;,
+ &#39; and frozen indifference of a danish landlady in a country village&#39;,
+ &#39;ery thing doneon board by the danish sailors was u slow clumsy and&#39;,
+ &#39;and agricultural model of the danish states rests merely upon its &#39;,
+ &#39; to travel at the rate of one danisii mile per hour i f he fail in&#39;,
+ &#39;h money in tomb stonos as the danisb tbe cburches are all iull of&#39;,
+ &#39;language fban eornmen peasant danisli in fbis predicament i as usu&#39;,
+ &#39;y understood all my vants her danisli and my german mixed witb dan&#39;,
+ &#39;ommon in fiinen as in all the danish isles oak and eltier as well &#39;,
+ &#39; march immediately two mortal danish miles to a place called slage&#39;,
+ &#39;ner travelling in winter over danish ferrics ought to be well supp&#39;,
+ &#39;ionary pru dence ofenglish or danish sailors alas after dining on &#39;,
+ &#39;the prospect of any more long danish ferries that the sooncr we we&#39;,
+ &#39;ll when you tell them that we danish women have female hearts like&#39;,
+ &#39; slagelse like almost all the danish villages havelately soen sulf&#39;,
+ &#39;ection on the morality of the danish people and still less on the &#39;,
+ &#39;s through densfark and m of a danish mile all tke way from corsoer&#39;,
+ &#39;been the burial placø o f the danish royal fainily i conclude the &#39;,
+ &#39;ac count of the state of tlie danish capital letter x i i elsinore&#39;,
+ &#39;t impor tant division of tlie danish monaichy it contains the me t&#39;,
+ &#39;t possession of that queen of danisli isles the fertile and beauti&#39;,
+ &#39; of magnificence becoming the danish capital and monarchy i had th&#39;,
+ &#39; figures the bibleused by the danish missionaries at tranquebar in&#39;,
+ &#39;etwixt tliat language and the danish tbey k v r v ih i ri v t f i &#39;,
+ &#39;actice of child murder in the danish metropolis it would require a&#39;,
+ &#39;tragedies and comedies in the danish tc ngue i liad such vågne and&#39;,
+ &#39; sweden i other in dondon the danish ship would be found nearly on&#39;,
+ &#39;ng conversation to day with a danish gentle man uponthe expediency&#39;,
+ &#39;l er the question between the danish gentleman and myself i concei&#39;,
+ &#39;t of the present state of the danish monarchy to assert that its r&#39;,
+ &#39;e abolition of slavery in the danish colonies much of the public f&#39;,
+ &#39;e of long continuance let the danish government return to its old &#39;,
+ &#39;by theactive aid of six stout danish seamen the distance is only t&#39;,
+ &#39;iest blockhead traversing the danish provinces must learn if he kn&#39;,
+ &#39;houses is more wealthy on the danish side i feel however more plea&#39;,
+ &#39;in travelling the swedish and danish dollar were formerly of the s&#39;,
+ &#39; nearly so but at present the danish rix dollar is only worth two &#39;,
+ &#39;valued at three shillings the danish dollar consists oi forty eigh&#39;,
+ &#39;ivers or ninety six skillings danish the swedish of forty eight sk&#39;,
+ &#39;rough the greater part of the danish dominions agriculture excepti&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="Identify%20textual%20changes.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Identify textual changes</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#get-text-data">Get text data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#regex-to-clean-preprocess-text">RegEx to clean / preprocess text</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#write-a-function-to-clean-text">Write a function to clean text</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#w-together-with-b">w+ together with \b</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#more-metacharacters-as-well-as-pipes-lists-and-question-marks">More metacharacters, as well as pipes, lists and question marks</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#curly-brackets-for-a-concordance-tool">Curly brackets for a concordance tool</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#square-brackets-a-z">Square brackets [A-Z]</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fuzzy-searches-in-ocr-text">Fuzzy searches in ocr text</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By KUB Datalab
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+<div class="extra_footer">
+  <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank"> <img class="license" alt="Creative Commons License" src="https://i.creativecommons.org/l/by-nc-sa/4.0/80x15.png" /></a> Licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">Creative Commons BY-NC-SA 4.0 License</a>.
+</div>
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

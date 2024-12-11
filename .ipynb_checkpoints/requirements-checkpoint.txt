@@ -1,0 +1,14 @@
+jupyter-book
+matplotlib
+numpy
+pandas
+nltk
+urllib
+BeautifulSoup
+jieba
+re
+nltk
+request
+os
+fuzzywuzzy
+fuzz
