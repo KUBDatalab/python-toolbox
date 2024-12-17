@@ -30,7 +30,7 @@
   <link href="_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
 <link href="_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b76e3c8a" />
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
@@ -63,7 +63,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'Preprocessing and analysing Chinese text';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="TF-IDF example" href="Tf-idf%20example.html" />
+    <link rel="next" title="Havest Peoples Daily from june 1989" href="Havest%20Peoples%20Daily%20from%20june%201989.html" />
     <link rel="prev" title="Welcome to the KUB Datalab Python-toolbox course site" href="intro.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -173,24 +173,14 @@
         </ul>
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Preprocessing and analysing Chinese text</a></li>
-
-
-
-
-
-<li class="toctree-l1"><a class="reference internal" href="Tf-idf%20example.html">TF-IDF example</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Identify%20textual%20changes.html">Identify textual changes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Regex%20and%20digitized%20books.html">Regex and digitized books</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Text%20preprocessing%20pipeline.html">A text preprocessing pipeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Havest%20Peoples%20Daily%20from%20june%201989.html">Havest Peoples Daily from june 1989</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Harvest%20text%20from%20the%20web.html">Harvest text from the web</a></li>
-
-
-
-
-
-
-
-
+<li class="toctree-l1"><a class="reference internal" href="Tf-idf%20example.html">TF-IDF example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Regex%20and%20digitized%20books.html">Regex and digitized books</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Collocation%20and%20digitized%20books.html">Collocation and digitized books</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Lemmatization%20pos%20tagging%20and%20digitized%20books.html">Lemmatization, pos tagging, and digitized books</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Text%20preprocessing%20pipeline.html">A text preprocessing pipeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Identify%20textual%20changes.html">Identify textual changes</a></li>
 </ul>
 
     </div>
@@ -378,18 +368,16 @@
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Preprocessing and analysing Chinese text</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#preparation-of-text">Preparation of text</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cleaning">Cleaning</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#text-segmentation-tokenisation">Text segmentation / tokenisation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preparation-of-text">Preparation of text</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cleaning">Cleaning</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#text-segmentation-tokenisation">Text segmentation / tokenisation</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#part-of-speech-tagging-pos">Part of Speech Tagging (POS)</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#task-try-replacing-v-with-other-tags">Task: try replacing ‘v’ with other tags.</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#stop-words">Stop words</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#nltk-methods">NLTK methods</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-of-speech-tagging-pos">Part of Speech Tagging (POS)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#task-try-replacing-v-with-other-tags">Task: try replacing ‘v’ with other tags.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#stop-words">Stop words</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nltk-methods">NLTK methods</a></li>
 </ul>
-
             </nav>
         </div>
     </div>
@@ -400,7 +388,7 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="preprocessing-and-analysing-chinese-text">
+  <section class="tex2jax_ignore mathjax_ignore" id="preprocessing-and-analysing-chinese-text">
 <h1>Preprocessing and analysing Chinese text<a class="headerlink" href="#preprocessing-and-analysing-chinese-text" title="Link to this heading">#</a></h1>
 <p>The course covers basic Python code that can get you started using programming as a tool for text processing, quantitative analysis and text and data mining.</p>
 <p>In more technical terms, we review concepts such as variables, values, the data types text strings, lists and loops.</p>
@@ -423,20 +411,6 @@
 <span class="kn">import</span> <span class="nn">jieba</span>
 <span class="kn">import</span> <span class="nn">nltk</span>
 <span class="kn">import</span> <span class="nn">re</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">line</span> <span class="mi">6</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="kn">import</span> <span class="nn">requests</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="c1"># For preprocessing and analysing</span>
-<span class="ne">----&gt; </span><span class="mi">6</span> <span class="kn">import</span> <span class="nn">jieba</span>
-<span class="g g-Whitespace">      </span><span class="mi">7</span> <span class="kn">import</span> <span class="nn">nltk</span>
-<span class="g g-Whitespace">      </span><span class="mi">8</span> <span class="kn">import</span> <span class="nn">re</span>
-
-<span class="ne">ModuleNotFoundError</span>: No module named &#39;jieba&#39;
 </pre></div>
 </div>
 </div>
@@ -486,11 +460,10 @@
 </div>
 </div>
 </div>
-</section>
 <section id="preparation-of-text">
-<h1>Preparation of text<a class="headerlink" href="#preparation-of-text" title="Link to this heading">#</a></h1>
+<h2>Preparation of text<a class="headerlink" href="#preparation-of-text" title="Link to this heading">#</a></h2>
 <section id="cleaning">
-<h2>Cleaning<a class="headerlink" href="#cleaning" title="Link to this heading">#</a></h2>
+<h3>Cleaning<a class="headerlink" href="#cleaning" title="Link to this heading">#</a></h3>
 <p>The text consists of Latin letters and Chinese characters.</p>
 <p>If you want to sort out the Latin letters, you can use the code below.</p>
 <p>Sources:</p>
@@ -557,7 +530,7 @@
 </div>
 </section>
 <section id="text-segmentation-tokenisation">
-<h2>Text segmentation / tokenisation<a class="headerlink" href="#text-segmentation-tokenisation" title="Link to this heading">#</a></h2>
+<h3>Text segmentation / tokenisation<a class="headerlink" href="#text-segmentation-tokenisation" title="Link to this heading">#</a></h3>
 <p>In the jieba.lcut method, we insert a text string or, as in this case, a variable containing a text string, and we control the cut mode. The L in .lcut() indicates that the method returns a list. ‘Cut_all=True’ should give the most possible hyphenation of the text, be fast, but less accurate. ‘Cut_all=False’ should be more accurate than the first, and thus more suitable for text analysis. <em>Source: <a class="github reference external" href="https://github.com/fxsjy/jieba">fxsjy/jieba</a></em></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -567,9 +540,15 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Building prefix dict from the default dictionary ...
-Loading model from cache C:\Users\lakj\AppData\Local\Temp\jieba.cache
-Loading model cost 0.744 seconds.
-Prefix dict has been built successfully.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Loading model from cache C:\Users\lakj\AppData\Local\Temp\jieba.cache
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Loading model cost 0.727 seconds.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Prefix dict has been built successfully.
 </pre></div>
 </div>
 </div>
@@ -664,7 +643,7 @@ Prefix dict has been built successfully.
 </section>
 </section>
 <section id="part-of-speech-tagging-pos">
-<h1>Part of Speech Tagging (POS)<a class="headerlink" href="#part-of-speech-tagging-pos" title="Link to this heading">#</a></h1>
+<h2>Part of Speech Tagging (POS)<a class="headerlink" href="#part-of-speech-tagging-pos" title="Link to this heading">#</a></h2>
 <p>Jieba’s part of speech tagger returns the words and tags in two different elements. To use the pos tagger, import ‘import jieba.posseg as pseg’.</p>
 <p>According to the documentation, you use pseg after .cut( ‘text_string’ ). Source: “4. Part of Speech Tagging <a class="github reference external" href="https://github.com/fxsjy/jieba">fxsjy/jieba</a>”</p>
 <p>We get returned words and tags. They are in .word and .flag. In the documentation, the programmer shows how to print words and tags, but I would like to have all words and tags stored as pairs in a list. Therefore I use a tuple which is a python data type and add each word and tag pair to a list which I call ‘pos’. Source: Python Tuples <a class="reference external" href="https://www.w3schools.com/python/python_tuples.asp_">https://www.w3schools.com/python/python_tuples.asp_</a></p>
@@ -775,15 +754,15 @@ Prefix dict has been built successfully.
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel=&#39;Samples&#39;, ylabel=&#39;Counts&#39;&gt;
 </pre></div>
 </div>
-<img alt="_images/ae5576e0abcb6729cf566dee67f5d9f8a532ed672acde2141d1419b5deb226b7.png" src="_images/ae5576e0abcb6729cf566dee67f5d9f8a532ed672acde2141d1419b5deb226b7.png" />
+<img alt="_images/65b47d480dd4e81b7505b14915b76edad509b9babb0af4c65723819fc5dcace1.png" src="_images/65b47d480dd4e81b7505b14915b76edad509b9babb0af4c65723819fc5dcace1.png" />
 </div>
 </div>
 </section>
 <section id="task-try-replacing-v-with-other-tags">
-<h1>Task: try replacing ‘v’ with other tags.<a class="headerlink" href="#task-try-replacing-v-with-other-tags" title="Link to this heading">#</a></h1>
+<h2>Task: try replacing ‘v’ with other tags.<a class="headerlink" href="#task-try-replacing-v-with-other-tags" title="Link to this heading">#</a></h2>
 </section>
 <section id="stop-words">
-<h1>Stop words<a class="headerlink" href="#stop-words" title="Link to this heading">#</a></h1>
+<h2>Stop words<a class="headerlink" href="#stop-words" title="Link to this heading">#</a></h2>
 <p>Stop words are small words that are often not meaningful words.</p>
 <p>We therefore need to load a stop word list. It is online at Science data at this link: <a class="reference external" href="https://sciencedata.dk/shared/93a217a0533d949d9b2c675cd3c99cfd?download">https://sciencedata.dk/shared/93a217a0533d949d9b2c675cd3c99cfd?download</a>.</p>
 <p>To retrieve the file we use “from urllib.request import urlopen”.</p>
@@ -817,7 +796,7 @@ Prefix dict has been built successfully.
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/39d9928443e12e04ba9e2fcb5a5b793c27c4d0a5c15d6393b393b4bd84aead06.png" src="_images/39d9928443e12e04ba9e2fcb5a5b793c27c4d0a5c15d6393b393b4bd84aead06.png" />
+<img alt="_images/f19ec33bb5d4789a1821b6a502084bb1d709b446546679a2f78d17abbb56d4a0.png" src="_images/f19ec33bb5d4789a1821b6a502084bb1d709b446546679a2f78d17abbb56d4a0.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -838,12 +817,12 @@ Prefix dict has been built successfully.
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/40d0948f751134f9a4d7a3eeae567f52305b46060a46cd630a59870cf9ad78b2.png" src="_images/40d0948f751134f9a4d7a3eeae567f52305b46060a46cd630a59870cf9ad78b2.png" />
+<img alt="_images/5ddd5ff96bd742cda84e4c554d34132f39a8c0de1337646e7875372b1c4f2fb2.png" src="_images/5ddd5ff96bd742cda84e4c554d34132f39a8c0de1337646e7875372b1c4f2fb2.png" />
 </div>
 </div>
 </section>
 <section id="nltk-methods">
-<h1>NLTK methods<a class="headerlink" href="#nltk-methods" title="Link to this heading">#</a></h1>
+<h2>NLTK methods<a class="headerlink" href="#nltk-methods" title="Link to this heading">#</a></h2>
 <p>I have used nltk many times, but never with Chinese text. We experiment and create an nltk text object which should allow us to use various nltk methods.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -916,13 +895,13 @@ Prefix dict has been built successfully.
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>派 与 民主派 代表 均 认为 需要 对话 来 解决问题 并 暂缓 国歌 法 草案 恢复 二读 审议 并 于 月 日 大规模 爆发 的 社会
-危机 阻止 暴力 升级 月 日 海外 港人 在 全球 生活 成本 中 名列 第四位 香港 去 工业化 后 转向 知识型 经济 发展 等 情况
-造成 的 根据 香港城市大学 的 调查 疑似 抑郁症 的 比率 上升 至 过半 的 与此同时 欧洲 与 美国 的 政 商界 和 国际 社会
-关注 促使 美国 介入 宣布 通过 香港 制订 国家 安全法 的 决定 月 日 中国 民用 航空局 规定 而 处理 参与 抗议 的 目的
-香港 部分 市民 在 立法会 大楼 外 示威 试图 阻止 二读 程序 示威者 不断 向 警方 投掷 杂物 砖头 与 警方 发生 了 激烈
-冲突 事后 警方 发布公告 将 示威 行动 如翠 雅山 房 用作 隔离 营 风波 香港 疫情 在 年 月 宣布 解散 示威 浪潮 由于 香港
-司法 机构
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>派 与 民主派 代表 均 认为 需要 对话 来 解决问题 并 暂缓 国歌 法 草案 恢复 二读 审议 并 于 月 日 太子 站 事件 后令
+示威 行动 进一步 升级 理大及 中大 两所 大学 发生 激烈 警民 冲突 示威者 开始 投掷 燃烧弹 纵火 与 警方 之间 的 冲突 加剧
+后续 的 升级 作出 谴责 寄望 尽快 回复 安宁 与 法治 香港 总商会 要求 撤回 逃犯 条例 修订 反送 中 争议 国民党 始终 坚定
+秉持 四项 立场 一 不 乐见 香港 抗争 情事 不可收拾 香港 是 一个 有 法治 基础 的 社会 运动 逾万人 被捕 此次 运动 并 无
+统一 的 组织 带领 和 呼吁 下 示威者 透过 互联网 平台 号召 英语 发起 各式 抗议 活动 采取 越趋 激进 的 策略 香港 网友
+将 其 翻译 为 流水 革命 或 夏水 革命 又 或 直称 时代 革命 等 口号 行动 方式 除了 民间 人权 阵线 举办 传统 的
+集会游行 活动 外
 </pre></div>
 </div>
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Building ngram index...
@@ -930,6 +909,7 @@ Prefix dict has been built successfully.
 </div>
 </div>
 </div>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -972,11 +952,11 @@ Prefix dict has been built successfully.
       </div>
     </a>
     <a class="right-next"
-       href="Tf-idf%20example.html"
+       href="Havest%20Peoples%20Daily%20from%20june%201989.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">TF-IDF example</p>
+        <p class="prev-next-title">Havest Peoples Daily from june 1989</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -997,18 +977,16 @@ Prefix dict has been built successfully.
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Preprocessing and analysing Chinese text</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#preparation-of-text">Preparation of text</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cleaning">Cleaning</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#text-segmentation-tokenisation">Text segmentation / tokenisation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preparation-of-text">Preparation of text</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cleaning">Cleaning</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#text-segmentation-tokenisation">Text segmentation / tokenisation</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#part-of-speech-tagging-pos">Part of Speech Tagging (POS)</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#task-try-replacing-v-with-other-tags">Task: try replacing ‘v’ with other tags.</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#stop-words">Stop words</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#nltk-methods">NLTK methods</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-of-speech-tagging-pos">Part of Speech Tagging (POS)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#task-try-replacing-v-with-other-tags">Task: try replacing ‘v’ with other tags.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#stop-words">Stop words</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nltk-methods">NLTK methods</a></li>
 </ul>
-
   </nav></div>
 
 </div></div>

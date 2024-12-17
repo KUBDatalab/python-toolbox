@@ -30,7 +30,7 @@
   <link href="_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
 <link href="_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b76e3c8a" />
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
@@ -63,7 +63,8 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'Harvest text from the web';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="A text preprocessing pipeline" href="Text%20preprocessing%20pipeline.html" />
+    <link rel="next" title="TF-IDF example" href="Tf-idf%20example.html" />
+    <link rel="prev" title="Havest Peoples Daily from june 1989" href="Havest%20Peoples%20Daily%20from%20june%201989.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
@@ -172,24 +173,14 @@
         </ul>
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="Preprocessing%20and%20analysing%20Chinese%20text.html">Preprocessing and analysing Chinese text</a></li>
-
-
-
-
-
-<li class="toctree-l1"><a class="reference internal" href="Tf-idf%20example.html">TF-IDF example</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Identify%20textual%20changes.html">Identify textual changes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Regex%20and%20digitized%20books.html">Regex and digitized books</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Text%20preprocessing%20pipeline.html">A text preprocessing pipeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Havest%20Peoples%20Daily%20from%20june%201989.html">Havest Peoples Daily from june 1989</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Harvest text from the web</a></li>
-
-
-
-
-
-
-
-
+<li class="toctree-l1"><a class="reference internal" href="Tf-idf%20example.html">TF-IDF example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Regex%20and%20digitized%20books.html">Regex and digitized books</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Collocation%20and%20digitized%20books.html">Collocation and digitized books</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Lemmatization%20pos%20tagging%20and%20digitized%20books.html">Lemmatization, pos tagging, and digitized books</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Text%20preprocessing%20pipeline.html">A text preprocessing pipeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Identify%20textual%20changes.html">Identify textual changes</a></li>
 </ul>
 
     </div>
@@ -377,20 +368,18 @@
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Harvest text from the web</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction-html">Introduction HTML</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#attributes">Attributes</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#working-with-html-with-python">Working with HTML with Python</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#find-and-find-all">Find and find_all</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction-html">Introduction HTML</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#attributes">Attributes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#working-with-html-with-python">Working with HTML with Python</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#find-and-find-all">Find and find_all</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#scrape-a-webpage">Scrape a webpage</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#customize-your-header">Customize your header</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#scrape-a-wiki-page">Scrape a wiki page</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#parse-extract-data-from-the-html">Parse / extract data from the HTML</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#read-more">Read more:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#scrape-a-webpage">Scrape a webpage</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#customize-your-header">Customize your header</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#scrape-a-wiki-page">Scrape a wiki page</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#parse-extract-data-from-the-html">Parse / extract data from the HTML</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#read-more">Read more:</a></li>
 </ul>
-
             </nav>
         </div>
     </div>
@@ -401,13 +390,12 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="harvest-text-from-the-web">
+  <section class="tex2jax_ignore mathjax_ignore" id="harvest-text-from-the-web">
 <h1>Harvest text from the web<a class="headerlink" href="#harvest-text-from-the-web" title="Link to this heading">#</a></h1>
 <p>The purpose is to gain knowledge about how to scrape data from the web in order to obtain text data for digital text analysis.</p>
 <p>To achieve this, we start with a very brief introduction to HTML and continues with the libraries BeautifulSoup and Requests.</p>
-</section>
 <section id="introduction-html">
-<h1>Introduction HTML<a class="headerlink" href="#introduction-html" title="Link to this heading">#</a></h1>
+<h2>Introduction HTML<a class="headerlink" href="#introduction-html" title="Link to this heading">#</a></h2>
 <p>Read your first html file, and let us inspect it.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -435,7 +423,7 @@ It is a <strong>html tag</strong>.</p>
 The second line begins with a <strong>&lt;p&gt;</strong> tag, and it defines a paragraph. The tag is <strong>nested</strong>. Which is a way of saying that it is embedded inside the <div> section. The text <em>This is a paragraph</em> is the text that will be displayed on a webpage. Now follows the <strong>&lt;/p&gt;</strong>. The <strong>&lt;/</strong> indicates this is a closing tag. A closing tag means that the nested piece is over. This is opposite to the opening of the tag <strong>&lt;</strong>.</p>
 </section>
 <section id="attributes">
-<h1>Attributes<a class="headerlink" href="#attributes" title="Link to this heading">#</a></h1>
+<h2>Attributes<a class="headerlink" href="#attributes" title="Link to this heading">#</a></h2>
 <p>Read another html file and look at the first line. Inside the div tag we have added an <strong>attribute</strong> called <strong>class</strong>. The attributes has “content” as a value. Besides class is <strong>id</strong> a common attribute.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -459,7 +447,7 @@ The second line begins with a <strong>&lt;p&gt;</strong> tag, and it defines a p
 </div>
 </section>
 <section id="working-with-html-with-python">
-<h1>Working with HTML with Python<a class="headerlink" href="#working-with-html-with-python" title="Link to this heading">#</a></h1>
+<h2>Working with HTML with Python<a class="headerlink" href="#working-with-html-with-python" title="Link to this heading">#</a></h2>
 <p>You would often see, that when people are working with HTML with Python then they will use the libraries BeautifulSoup, Selenium, and Regex; or a combination of the three libraries.</p>
 <p>This notebook sticks with BeautifulSoup alone.</p>
 <p>To install BeautifulSoup you can use either <a class="reference external" href="https://pypi.org/project/beautifulsoup4/">pip install beautifulsoup4</a> or <a class="reference external" href="https://anaconda.org/anaconda/beautifulsoup4">conda install anaconda::beautifulsoup4</a> .</p>
@@ -551,7 +539,7 @@ The second line begins with a <strong>&lt;p&gt;</strong> tag, and it defines a p
 </div>
 </div>
 <section id="find-and-find-all">
-<h2>Find and find_all<a class="headerlink" href="#find-and-find-all" title="Link to this heading">#</a></h2>
+<h3>Find and find_all<a class="headerlink" href="#find-and-find-all" title="Link to this heading">#</a></h3>
 <p>.find returns the first tag.</p>
 <p>.find_all returns a list of tags.</p>
 <div class="cell docutils container">
@@ -733,7 +721,7 @@ My third paragraph
 </section>
 </section>
 <section id="scrape-a-webpage">
-<h1>Scrape a webpage<a class="headerlink" href="#scrape-a-webpage" title="Link to this heading">#</a></h1>
+<h2>Scrape a webpage<a class="headerlink" href="#scrape-a-webpage" title="Link to this heading">#</a></h2>
 <p>When scraping data from the web, you should behave properly. Here are some rules of thumb that you can take with you.</p>
 <ol class="arabic simple">
 <li><p>Take only the data you need, so think about whether you can save the data that you harvest instead of harvesting the same data many times</p></li>
@@ -765,14 +753,14 @@ My third paragraph
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;{\n  &quot;headers&quot;: {\n    &quot;Accept&quot;: &quot;*/*&quot;, \n    &quot;Accept-Encoding&quot;: &quot;gzip, deflate&quot;, \n    &quot;Host&quot;: &quot;httpbin.org&quot;, \n    &quot;User-Agent&quot;: &quot;python-requests/2.32.3&quot;, \n    &quot;X-Amzn-Trace-Id&quot;: &quot;Root=1-67599e5f-6a478a6670296dde2ae54ea2&quot;\n  }\n}\n&#39;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;{\n  &quot;headers&quot;: {\n    &quot;Accept&quot;: &quot;*/*&quot;, \n    &quot;Accept-Encoding&quot;: &quot;gzip, deflate, br, zstd&quot;, \n    &quot;Host&quot;: &quot;httpbin.org&quot;, \n    &quot;User-Agent&quot;: &quot;python-requests/2.32.3&quot;, \n    &quot;X-Amzn-Trace-Id&quot;: &quot;Root=1-6761ec37-22cede7978759b7d562362bf&quot;\n  }\n}\n&#39;
 </pre></div>
 </div>
 </div>
 </div>
 </section>
 <section id="customize-your-header">
-<h1>Customize your header<a class="headerlink" href="#customize-your-header" title="Link to this heading">#</a></h1>
+<h2>Customize your header<a class="headerlink" href="#customize-your-header" title="Link to this heading">#</a></h2>
 <p>When running the code below you can see the User-Agent tells that you are using python requests.</p>
 <p>Some guides to webscraping will encouraged you to change the value of the User-Agent, because some websites will block requests from headers containing python requests.</p>
 <p>If you wish to change the value of User-Agent then open <a class="reference external" href="https://httpbin.org/headers">https://httpbin.org/headers</a> in your default browser to get the data to add to your customized header.</p>
@@ -788,7 +776,7 @@ My third paragraph
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;{\n  &quot;headers&quot;: {\n    &quot;Accept&quot;: &quot;*/*&quot;, \n    &quot;Accept-Encoding&quot;: &quot;gzip, deflate&quot;, \n    &quot;Host&quot;: &quot;httpbin.org&quot;, \n    &quot;User-Agent&quot;: &quot;python-requests/2.32.3&quot;, \n    &quot;X-Amzn-Trace-Id&quot;: &quot;Root=1-67599e5f-1b66b5ec108c8eec0581944b&quot;\n  }\n}\n&#39;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;{\n  &quot;headers&quot;: {\n    &quot;Accept&quot;: &quot;*/*&quot;, \n    &quot;Accept-Encoding&quot;: &quot;gzip, deflate, br, zstd&quot;, \n    &quot;Host&quot;: &quot;httpbin.org&quot;, \n    &quot;User-Agent&quot;: &quot;python-requests/2.32.3&quot;, \n    &quot;X-Amzn-Trace-Id&quot;: &quot;Root=1-6761ec38-31818d4c6ee3ba7c6c55cd0a&quot;\n  }\n}\n&#39;
 </pre></div>
 </div>
 </div>
@@ -807,14 +795,14 @@ My third paragraph
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;{\n  &quot;headers&quot;: {\n    &quot;Accept&quot;: &quot;*/*&quot;, \n    &quot;Accept-Encoding&quot;: &quot;gzip, deflate&quot;, \n    &quot;E-Mail&quot;: &quot;add e-mail&quot;, \n    &quot;Host&quot;: &quot;httpbin.org&quot;, \n    &quot;Name&quot;: &quot;Add your name here. Collects data in connection with a course&quot;, \n    &quot;User-Agent&quot;: &quot;python-requests/2.32.3&quot;, \n    &quot;X-Amzn-Trace-Id&quot;: &quot;Root=1-67599e60-3b733b4879ae906d50778a28&quot;\n  }\n}\n&#39;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;{\n  &quot;headers&quot;: {\n    &quot;Accept&quot;: &quot;*/*&quot;, \n    &quot;Accept-Encoding&quot;: &quot;gzip, deflate, br, zstd&quot;, \n    &quot;E-Mail&quot;: &quot;add e-mail&quot;, \n    &quot;Host&quot;: &quot;httpbin.org&quot;, \n    &quot;Name&quot;: &quot;Add your name here. Collects data in connection with a course&quot;, \n    &quot;User-Agent&quot;: &quot;python-requests/2.32.3&quot;, \n    &quot;X-Amzn-Trace-Id&quot;: &quot;Root=1-6761ec3b-0d327d01051e1a9012393b38&quot;\n  }\n}\n&#39;
 </pre></div>
 </div>
 </div>
 </div>
 </section>
 <section id="scrape-a-wiki-page">
-<h1>Scrape a wiki page<a class="headerlink" href="#scrape-a-wiki-page" title="Link to this heading">#</a></h1>
+<h2>Scrape a wiki page<a class="headerlink" href="#scrape-a-wiki-page" title="Link to this heading">#</a></h2>
 <p>In the script below we:</p>
 <ul class="simple">
 <li><p>Store the url to the wikipedia page as a string in a variable called url.</p></li>
@@ -837,7 +825,7 @@ My third paragraph
 </div>
 </section>
 <section id="parse-extract-data-from-the-html">
-<h1>Parse / extract data from the HTML<a class="headerlink" href="#parse-extract-data-from-the-html" title="Link to this heading">#</a></h1>
+<h2>Parse / extract data from the HTML<a class="headerlink" href="#parse-extract-data-from-the-html" title="Link to this heading">#</a></h2>
 <p>When we parse data from the HTML we have to use the inspect tool. I use Firefox and when I right click on the wikipedia page I can choose a tool called Inspect from the popup window. Take a look at this video for more information on how to use Inspect: <a class="reference external" href="https://www.youtube.com/watch?v=_tdW6n7lUX4&amp;amp;t=50s">Python for Digital Humanities - 21: Beautiful Soup</a></p>
 <p>The title tag is in the ‘h1’ (headline) tag that has a attribute called ‘id’ with the value ‘firstHeading’.</p>
 <p>We can use .find and add the dictionary as an argument. Then we store the returned values in a variable (title_tag). In the second line we can add .text to the variable to extract the text string for the tag. We send the textstring to the variable title and print it.</p>
@@ -880,10 +868,11 @@ My third paragraph
 <p>You can clean the text before you start analysing it. To do so take a look at the “Text preprocessing pipeline”.</p>
 </section>
 <section id="read-more">
-<h1>Read more:<a class="headerlink" href="#read-more" title="Link to this heading">#</a></h1>
+<h2>Read more:<a class="headerlink" href="#read-more" title="Link to this heading">#</a></h2>
 <p>Dr. W.J.B. Mattingly <a class="reference external" href="https://python-textbook.pythonhumanities.com/intro.html">Introduction to Python for Humanists</a></p>
 <p>Dr. W.J.B. Mattingly <a class="reference external" href="https://www.youtube.com/&#64;python-programming">Python Tutorials for Digital Humanities</a></p>
 <p>John Watson Rooney <a class="reference external" href="https://www.google.com/search?q=add+Scraping-Info+to+header&amp;amp;client=firefox-b-d&amp;amp;sca_esv=da052a448206c26a&amp;amp;sxsrf=ADLYWIJWhu8dXpWqbQPdYUsEBcHUwtVEig%3A1733822113466&amp;amp;ei=oQZYZ-iVHM3LwPAPkeDawAk&amp;amp;ved=0ahUKEwio6rTZ7pyKAxXNJRAIHRGwFpgQ4dUDCBA&amp;amp;uact=5&amp;amp;oq=add+Scraping-Info+to+header&amp;amp;gs_lp=Egxnd3Mtd2l6LXNlcnAiG2FkZCBTY3JhcGluZy1JbmZvIHRvIGhlYWRlcjIFECEYoAFI3GVQrAZY7GRwAXgBkAEBmAGRAaAB5gmqAQQxMS4zuAEDyAEA-AEBmAIOoAKECcICChAAGLADGNYEGEfCAggQABiABBiiBMICBxAjGLACGCfCAgYQABgNGB7CAgcQIRigARgKmAMAiAYBkAYIkgcEMTIuMqAH7yM&amp;amp;sclient=gws-wiz-serp#fpstate=ive&amp;amp;vld=cid:fb61f8c6,vid:Oz902cJcCUg,st:163">Request Headers for Web Scraping</a></p>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -917,13 +906,22 @@ My third paragraph
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="Text%20preprocessing%20pipeline.html"
+       href="Havest%20Peoples%20Daily%20from%20june%201989.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">A text preprocessing pipeline</p>
+        <p class="prev-next-title">Havest Peoples Daily from june 1989</p>
       </div>
+    </a>
+    <a class="right-next"
+       href="Tf-idf%20example.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">TF-IDF example</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
     </a>
 </div>
                 </footer>
@@ -942,20 +940,18 @@ My third paragraph
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Harvest text from the web</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction-html">Introduction HTML</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#attributes">Attributes</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#working-with-html-with-python">Working with HTML with Python</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#find-and-find-all">Find and find_all</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction-html">Introduction HTML</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#attributes">Attributes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#working-with-html-with-python">Working with HTML with Python</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#find-and-find-all">Find and find_all</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#scrape-a-webpage">Scrape a webpage</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#customize-your-header">Customize your header</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#scrape-a-wiki-page">Scrape a wiki page</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#parse-extract-data-from-the-html">Parse / extract data from the HTML</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#read-more">Read more:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#scrape-a-webpage">Scrape a webpage</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#customize-your-header">Customize your header</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#scrape-a-wiki-page">Scrape a wiki page</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#parse-extract-data-from-the-html">Parse / extract data from the HTML</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#read-more">Read more:</a></li>
 </ul>
-
   </nav></div>
 
 </div></div>
