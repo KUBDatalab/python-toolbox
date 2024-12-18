@@ -1,0 +1,50 @@
+Traceback (most recent call last):
+  File "C:\Users\lakj\AppData\Local\anaconda3\Lib\site-packages\jupyter_cache\executors\utils.py", line 58, in single_nb_execution
+    executenb(
+  File "C:\Users\lakj\AppData\Local\anaconda3\Lib\site-packages\nbclient\client.py", line 1305, in execute
+    return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lakj\AppData\Local\anaconda3\Lib\site-packages\jupyter_core\utils\__init__.py", line 165, in wrapped
+    return loop.run_until_complete(inner)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lakj\AppData\Local\anaconda3\Lib\asyncio\base_events.py", line 687, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "C:\Users\lakj\AppData\Local\anaconda3\Lib\site-packages\nbclient\client.py", line 705, in async_execute
+    await self.async_execute_cell(
+  File "C:\Users\lakj\AppData\Local\anaconda3\Lib\site-packages\nbclient\client.py", line 1058, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "C:\Users\lakj\AppData\Local\anaconda3\Lib\site-packages\nbclient\client.py", line 914, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+lists_of_a_tags_linking_to_individual_articles = [] 
+
+def get_links_to_articles(another_soups):
+    card_mt2 = another_soups.find_all('div', {'class' : 'card mt-2'})
+    
+    def get_a_tags(i):
+        return i.find_all('a')
+    
+    listoflists = [get_a_tags(i) for i in card_mt2]
+    
+    a_tag_list = [i for y in listoflists for i in y]
+    
+    return a_tag_list
+
+
+lists_of_a_tags_linking_to_individual_articles = [get_links_to_articles(another_soup) for another_soup in soups_from_each_day]
+flatten_lists_of_a_tags_linking_to_individual_articles = [i for y in lists_of_a_tags_linking_to_individual_articles for i in y]
+------------------
+
+
+[1;31m---------------------------------------------------------------------------[0m
+[1;31mNameError[0m                                 Traceback (most recent call last)
+Cell [1;32mIn[4], line 16[0m
+[0;32m     11[0m     a_tag_list [38;5;241m=[39m [i [38;5;28;01mfor[39;00m y [38;5;129;01min[39;00m listoflists [38;5;28;01mfor[39;00m i [38;5;129;01min[39;00m y]
+[0;32m     13[0m     [38;5;28;01mreturn[39;00m a_tag_list
+[1;32m---> 16[0m lists_of_a_tags_linking_to_individual_articles [38;5;241m=[39m [get_links_to_articles(another_soup) [38;5;28;01mfor[39;00m another_soup [38;5;129;01min[39;00m soups_from_each_day]
+[0;32m     17[0m flatten_lists_of_a_tags_linking_to_individual_articles [38;5;241m=[39m [i [38;5;28;01mfor[39;00m y [38;5;129;01min[39;00m lists_of_a_tags_linking_to_individual_articles [38;5;28;01mfor[39;00m i [38;5;129;01min[39;00m y]
+
+[1;31mNameError[0m: name 'soups_from_each_day' is not defined
+

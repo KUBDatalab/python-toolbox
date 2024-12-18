@@ -1,0 +1,743 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Lemmatization, pos tagging, and digitized books &#8212; Python Toolkit</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!-- 
+    this give us a css class that will be invisible only if js is disabled 
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'Lemmatization pos tagging and digitized books';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="A text preprocessing pipeline" href="Text%20preprocessing%20pipeline.html" />
+    <link rel="prev" title="Collocation and digitized books" href="Collocation%20and%20digitized%20books.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+<aside class="bd-header-announcement" aria-label="Announcement">
+  <div class="bd-header-announcement__content"><p class='mystyle'><a href='https://kubkalender.kb.dk/calendar/datalab?cid=6416&t=d&d=0000-00-00&cal=6416&inc=0' target='_blank' style='color: white;'>KUB Datalab Upcomming Events</a></p></div>
+</aside>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/kub datalab improve data skills chord diagram.png" class="logo__image only-light" alt="Python Toolkit - Home"/>
+    <img src="_static/kub datalab improve data skills chord diagram.png" class="logo__image only-dark pst-js-only" alt="Python Toolkit - Home"/>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Welcome to the KUB Datalab Python-toolbox course site
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="Preprocessing%20and%20analysing%20Chinese%20text.html">Preprocessing and analysing Chinese text</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Havest%20Peoples%20Daily%20from%20june%201989.html">Havest Peoples Daily from june 1989</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Harvest%20text%20from%20the%20web.html">Harvest text from the web</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tf-idf%20example.html">TF-IDF example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Regex%20and%20digitized%20books.html">Regex and digitized books</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Collocation%20and%20digitized%20books.html">Collocation and digitized books</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Lemmatization, pos tagging, and digitized books</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Text%20preprocessing%20pipeline.html">A text preprocessing pipeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Identify%20textual%20changes.html">Identify textual changes</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/KUBDatalab/python-toolbox" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/KUBDatalab/python-toolbox/issues/new?title=Issue%20on%20page%20%2FLemmatization pos tagging and digitized books.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/Lemmatization pos tagging and digitized books.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Lemmatization, pos tagging, and digitized books</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dowload-a-digitized-book-from-the-royal-danish-library">Dowload a digitized book from the Royal Danish Library</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#remove-stopwords">Remove stopwords</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lemmatization">Lemmatization</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sources">Sources:</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="lemmatization-pos-tagging-and-digitized-books">
+<h1>Lemmatization, pos tagging, and digitized books<a class="headerlink" href="#lemmatization-pos-tagging-and-digitized-books" title="Link to this heading">#</a></h1>
+<p>Lemmatization of words is to find the base form of a word. The base form is called a lemma.</p>
+<p>To do this, we need to know the grammatical category of words; noun, verb, adjective, or adverb. Because the same word can have different base form depending on its word class. The process of getting to know the grammatical category of words is called “Part-Of-Speech tagging”.</p>
+<p>The NLTK library can be used in this process. Other libraries can be used as well, for example Spacy.</p>
+<p>In the script below, the <code class="docutils literal notranslate"><span class="pre">nltk.pos_tag</span></code> is used to add the grammatical category to each word. These tags must then be converted to WordNet format using a function called <code class="docutils literal notranslate"><span class="pre">pos_tagger</span></code>.</p>
+<p>WordNet is a comprehensive lexical database for the English language, where words are organized into synsets (synonym sets) based on their meaning.</p>
+<p>WordNet uses specific conventions to represent grammatical categories: <code class="docutils literal notranslate"><span class="pre">wordnet.ADJ</span></code> for adjectives, <code class="docutils literal notranslate"><span class="pre">wordnet.VERB</span></code> for verbs, <code class="docutils literal notranslate"><span class="pre">wordnet.NOUN</span></code> for nouns, and <code class="docutils literal notranslate"><span class="pre">wordnet.ADV</span></code> for adverbs.</p>
+<p>When POS-tags are converted to WordNet format, the <code class="docutils literal notranslate"><span class="pre">WordNetLemmatizer</span></code> can be used to lemmatize the words correctly. If a word does not have an available POS-tag, then the word is included without changes.</p>
+<p>A lemmatization of the text data will often be part of the preprocessing of the text data, and it will occur as a prelude to an analysis. This means that before we get to lemmatization, we need to load the text, clean it, and remove stop words. After lemmatization, we perform a visualization of some of the words that frequently appear in the text. The visualization is intended as an example of why lemmatization can be a smart thing to do.</p>
+<section id="dowload-a-digitized-book-from-the-royal-danish-library">
+<h2>Dowload a digitized book from the Royal Danish Library<a class="headerlink" href="#dowload-a-digitized-book-from-the-royal-danish-library" title="Link to this heading">#</a></h2>
+<p>In this note book we wil work with the book <em><a class="reference external" href="https://soeg.kb.dk/permalink/45KBDK_KGL/1pioq0f/alma99122600818605763">Carr, John. A Northern Summer: Or Travels Round the Baltic, through Denmark, Sweden, Russia, Prussia, and Part of Germany, in the Year 1804. 1805.
+</a></em></p>
+<p>The deals with travel experiences, cultural observations, and historical contexts countries around the Baltic Sea,</p>
+<p>The book was digitized in 2017 and was originally categorized under the subject History - The Three Nordic Kingdoms.</p>
+<p>This is the link to the online edition: <a class="reference external" href="https://www.kb.dk/e-mat/dod/130022078187_bw.pdf">https://www.kb.dk/e-mat/dod/130022078187_bw.pdf</a></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#! pip install PyPDF2</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">from</span> <span class="nn">io</span> <span class="kn">import</span> <span class="n">BytesIO</span>
+<span class="kn">from</span> <span class="nn">PyPDF2</span> <span class="kn">import</span> <span class="n">PdfReader</span>
+
+<span class="c1"># URL to the ocr scanned, pdf verison of the text</span>
+<span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://www.kb.dk/e-mat/dod/130022078187_bw.pdf&quot;</span>
+
+<span class="c1"># Download the pdf file</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+<span class="n">response</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>  <span class="c1"># Check if the request was successful</span>
+
+<span class="c1"># Open the pdf file in memory</span>
+<span class="n">pdf_file</span> <span class="o">=</span> <span class="n">BytesIO</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
+
+<span class="c1"># Create a PDF reader object</span>
+<span class="n">reader</span> <span class="o">=</span> <span class="n">PdfReader</span><span class="p">(</span><span class="n">pdf_file</span><span class="p">)</span>
+
+<span class="c1"># Extract text from each page starting from page 5</span>
+<span class="n">text_content</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">page</span> <span class="ow">in</span> <span class="n">reader</span><span class="o">.</span><span class="n">pages</span><span class="p">[</span><span class="mi">7</span><span class="p">:]:</span>
+    <span class="n">text_content</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">extract_text</span><span class="p">())</span>
+
+<span class="c1"># Join all the text content into a single string</span>
+<span class="n">full_text</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">text_content</span><span class="p">)</span>
+
+<span class="c1"># Print the extracted text</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">full_text</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">100</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>A« »
+N O R T H E R N  SU M M E R  ;
+OR
+TRAV L &#39;S
+ROUND
+T H E  B A LTIC ,
+THROUGH
+DENMARK, SW E D E N
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">re</span>
+<span class="k">def</span> <span class="nf">clean</span><span class="p">(</span><span class="n">text</span><span class="p">):</span> 
+
+    <span class="c1"># solving a hyphen-newline issue. </span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;-</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+    
+    <span class="c1"># match a variety of punctuation and special characters</span>
+    <span class="c1"># backslash \ and the pipe symbols | plays important roles, for example here \? </span>
+    <span class="c1"># Now it is a good idea to look up a see what \ and | does </span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;\.|«|,|:|;|!|\?|\(|\)|\||\+|</span><span class="se">\&#39;</span><span class="s1">|\&quot;|‘|’|“|”|</span><span class="se">\&#39;</span><span class="s1">|\’|…|\-|_|–|—|\$|&amp;|\*|&gt;|&lt;|\/|\[|\]&#39;</span><span class="p">,</span> <span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
+
+    <span class="c1"># Regex pattern to match numbers and words containing numbers</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;\b\w*\d\w*\b&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
+    
+    <span class="c1"># remove all characters that are not letters</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;[^a-zA-Z]+&#39;</span><span class="p">,</span> <span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
+  
+    <span class="c1"># Remove words with length 2 or less</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;\b\w{1,2}\b&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
+    
+    <span class="c1"># sequences of white spaces </span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;\s+&#39;</span><span class="p">,</span> <span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span> 
+
+    <span class="c1"># lower the letters</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+
+    <span class="c1"># return the text</span>
+    <span class="k">return</span> <span class="n">text</span>
+    
+
+<span class="n">clean_full_text</span> <span class="o">=</span> <span class="n">clean</span><span class="p">(</span><span class="n">full_text</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">clean_full_text</span><span class="p">[:</span><span class="mi">1000</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39; trav round ltic through denmark russia and year carr esq aothor the steanger francs src hond print for richard phillips bridge street blackfriars gili salisbury square arf the honourable sir james mackintosh knt recorder bombay sir while you imparting new light those regions gloriously illuminated the genius and the virtues the late sir william jon will you allow traveller expr his thoughts you contemplating your character and situ ation cannot but felicitate that race fel low creatures who are placed within the protection your judicial care yet recollecting how mmany listened you with dehght this country feel your distance from iri one point view source national regret conscious that these sentiments are sincere encouraged them request that you will honour with indulgent acceptance book whose author has endeavoured unite amusement and information doubtful success each his purposes anxious conciliate favour introclucing his performance the public under the shelter your name name that &#39;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="remove-stopwords">
+<h2>Remove stopwords<a class="headerlink" href="#remove-stopwords" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># remove stopwords</span>
+<span class="kn">import</span> <span class="nn">urllib.request</span>
+
+<span class="c1">#import an English stopword list</span>
+<span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://sciencedata.dk/shared/5dad7af4b0c257e968111dd0ce19eb99?download&quot;</span>
+<span class="n">en_stop_words</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="n">url</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+<span class="c1"># Add additional stopwords using Pythons list append() method</span>
+<span class="n">en_stop_words</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="s1">&#39;■&#39;</span><span class="p">,</span> <span class="s1">&#39;%&#39;</span><span class="p">,</span> <span class="s1">&#39;»&#39;</span><span class="p">,</span> <span class="s1">&#39;•&#39;</span><span class="p">,</span> <span class="s1">&#39;^&#39;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="se">\\</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;-&#39;</span><span class="p">])</span>
+
+<span class="c1"># text data in</span>
+<span class="n">text</span> <span class="o">=</span> <span class="n">clean_full_text</span>
+
+<span class="c1"># Change text to wordlist</span>
+<span class="n">tokens</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+<span class="n">tokens_wo_stopwords</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">tokens</span> <span class="k">if</span> <span class="n">i</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">en_stop_words</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="lemmatization">
+<h2>Lemmatization<a class="headerlink" href="#lemmatization" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Importing the Natural Language Toolkit (nltk) library</span>
+<span class="kn">import</span> <span class="nn">nltk</span>
+<span class="kn">from</span> <span class="nn">nltk.stem</span> <span class="kn">import</span> <span class="n">WordNetLemmatizer</span>
+
+<span class="c1"># Downloading the &#39;averaged_perceptron_tagger&#39; model, which is used for part-of-speech tagging</span>
+<span class="n">nltk</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="s1">&#39;averaged_perceptron_tagger&#39;</span><span class="p">)</span>
+
+<span class="c1"># Importing the WordNet corpus from nltk, which is used for lemmatization</span>
+<span class="kn">from</span> <span class="nn">nltk.corpus</span> <span class="kn">import</span> <span class="n">wordnet</span>
+
+<span class="c1"># Initializing the WordNetLemmatizer, which is used to lemmatize words</span>
+<span class="n">lemmatizer</span> <span class="o">=</span> <span class="n">WordNetLemmatizer</span><span class="p">()</span>
+
+<span class="c1"># Function to convert nltk POS tags to WordNet POS tags</span>
+<span class="k">def</span> <span class="nf">pos_tagger</span><span class="p">(</span><span class="n">nltk_tag</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">nltk_tag</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;J&#39;</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">wordnet</span><span class="o">.</span><span class="n">ADJ</span>  <span class="c1"># Adjective</span>
+    <span class="k">elif</span> <span class="n">nltk_tag</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;V&#39;</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">wordnet</span><span class="o">.</span><span class="n">VERB</span>  <span class="c1"># Verb</span>
+    <span class="k">elif</span> <span class="n">nltk_tag</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;N&#39;</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">wordnet</span><span class="o">.</span><span class="n">NOUN</span>  <span class="c1"># Noun</span>
+    <span class="k">elif</span> <span class="n">nltk_tag</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;R&#39;</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">wordnet</span><span class="o">.</span><span class="n">ADV</span>  <span class="c1"># Adverb</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>  <span class="c1"># If the tag doesn&#39;t match, return None</span>
+
+<span class="c1"># Send in a list of words</span>
+<span class="n">in_data_list</span> <span class="o">=</span> <span class="n">tokens_wo_stopwords</span>
+
+<span class="c1"># Performing part-of-speech tagging on the input data list</span>
+<span class="n">pos_tagged</span> <span class="o">=</span> <span class="n">nltk</span><span class="o">.</span><span class="n">pos_tag</span><span class="p">(</span><span class="n">in_data_list</span><span class="p">)</span>
+
+<span class="c1"># Mapping the nltk POS tags to WordNet POS tags</span>
+<span class="n">wordnet_tagged</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">pos_tagger</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])),</span> <span class="n">pos_tagged</span><span class="p">))</span>
+
+<span class="c1"># Initializing an empty list to store lemmatized words</span>
+<span class="n">lemmatized_word_list</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="c1"># Iterating over the word and its corresponding WordNet POS tag</span>
+<span class="k">for</span> <span class="n">word</span><span class="p">,</span> <span class="n">tag</span> <span class="ow">in</span> <span class="n">wordnet_tagged</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">tag</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="c1"># If no valid WordNet POS tag, append the original word</span>
+        <span class="n">lemmatized_word_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">word</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># Lemmatize the word using the WordNet POS tag</span>
+        <span class="n">lemmatized_word_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">lemmatizer</span><span class="o">.</span><span class="n">lemmatize</span><span class="p">(</span><span class="n">word</span><span class="p">,</span> <span class="n">tag</span><span class="p">))</span>
+
+<span class="c1"># List of lemmatized words</span>
+<span class="c1">#lemmatized_word_list[0:10]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[nltk_data] Downloading package averaged_perceptron_tagger to
+[nltk_data]     C:\Users\lakj\AppData\Roaming\nltk_data...
+[nltk_data]   Package averaged_perceptron_tagger is already up-to-
+[nltk_data]       date!
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="n">fdist_filtered</span> <span class="o">=</span> <span class="n">nltk</span><span class="o">.</span><span class="n">FreqDist</span><span class="p">(</span><span class="n">lemmatized_word_list</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Some of the most frequent words&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/cf6be3c64e2671c40e0000385514b83d77c595107bdeb55a6b31d75d71fbb18f.png" src="_images/cf6be3c64e2671c40e0000385514b83d77c595107bdeb55a6b31d75d71fbb18f.png" />
+</div>
+</div>
+<section id="sources">
+<h3>Sources:<a class="headerlink" href="#sources" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.nltk.org/book/ch05.html">https://www.nltk.org/book/ch05.html</a></p></li>
+<li><p><a class="reference external" href="https://www.nltk.org/howto/wordnet.html">https://www.nltk.org/howto/wordnet.html</a></p></li>
+<li><p><a class="reference external" href="https://www.geeksforgeeks.org/python-lemmatization-approaches-with-examples/">https://www.geeksforgeeks.org/python-lemmatization-approaches-with-examples/</a></p></li>
+<li><p><a class="reference external" href="https://medium.com/&#64;kevinnjagi83/lemmatization-in-nlp-2a61012c5d66">https://medium.com/&#64;kevinnjagi83/lemmatization-in-nlp-2a61012c5d66</a></p></li>
+<li><p><a class="reference external" href="https://soeg.kb.dk/permalink/45KBDK_KGL/1pioq0f/alma99122600818605763">Carr, John. A Northern Summer: Or Travels Round the Baltic, through Denmark, Sweden, Russia, Prussia, and Part of Germany, in the Year 1804. 1805.
+</a></p></li>
+</ul>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="Collocation%20and%20digitized%20books.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Collocation and digitized books</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="Text%20preprocessing%20pipeline.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">A text preprocessing pipeline</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dowload-a-digitized-book-from-the-royal-danish-library">Dowload a digitized book from the Royal Danish Library</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#remove-stopwords">Remove stopwords</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lemmatization">Lemmatization</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sources">Sources:</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By KUB Datalab
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+<div class="extra_footer">
+  <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank"> <img class="license" alt="Creative Commons License" src="https://i.creativecommons.org/l/by-nc-sa/4.0/80x15.png" /></a> Licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">Creative Commons BY-NC-SA 4.0 License</a>.
+</div>
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
