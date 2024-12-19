@@ -30,11 +30,11 @@
   <link href="_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
 <link href="_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -414,6 +414,20 @@
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">line</span> <span class="mi">6</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="kn">import</span> <span class="nn">requests</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="c1"># For preprocessing and analysing</span>
+<span class="ne">----&gt; </span><span class="mi">6</span> <span class="kn">import</span> <span class="nn">jieba</span>
+<span class="g g-Whitespace">      </span><span class="mi">7</span> <span class="kn">import</span> <span class="nn">nltk</span>
+<span class="g g-Whitespace">      </span><span class="mi">8</span> <span class="kn">import</span> <span class="nn">re</span>
+
+<span class="ne">ModuleNotFoundError</span>: No module named &#39;jieba&#39;
+</pre></div>
+</div>
+</div>
 </div>
 <p>We create a variable that we use to store the url to the pages that we want to webscrape.</p>
 <p>We need to scrape this wikipedia page: 反对逃犯条例修订草案运动</p>
@@ -454,11 +468,6 @@
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;反对逃犯条例修订草案运动 其他诉求：\n 中央政府：\n 香港政府：\n 反对《逃犯条例修订草案》运动（英语：Anti-Extradition Law Amendment Bill Movement），是指&#39;
-</pre></div>
-</div>
-</div>
 </div>
 <section id="preparation-of-text">
 <h2>Preparation of text<a class="headerlink" href="#preparation-of-text" title="Link to this heading">#</a></h2>
@@ -482,30 +491,6 @@
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;反对逃犯条例修订草案运动&#39;,
- &#39;其他诉求&#39;,
- &#39;中央政府&#39;,
- &#39;香港政府&#39;,
- &#39;反对&#39;,
- &#39;逃犯条例修订草案&#39;,
- &#39;运动&#39;,
- &#39;英语&#39;,
- &#39;是指香港自&#39;,
- &#39;年&#39;,
- &#39;月&#39;,
- &#39;日开始&#39;,
- &#39;月&#39;,
- &#39;日大规模爆发的社会运动&#39;,
- &#39;逾万人被捕&#39;,
- &#39;此次运动并无统一的领导&#39;,
- &#39;主要以社交媒体号召的方式组织&#39;,
- &#39;运动支持者以游行示威&#39;,
- &#39;集会&#39;,
- &#39;静坐&#39;]
-</pre></div>
-</div>
-</div>
 </div>
 <p>The list can then be assembled into a text string again with .join()</p>
 <p><em>Source: “<a class="reference external" href="https://www.w3schools.com/python/ref_string_join.asp">https://www.w3schools.com/python/ref_string_join.asp</a>”</em></p>
@@ -522,11 +507,6 @@
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;反对逃犯条例修订草案运动 其他诉求 中央政府 香港政府 反对 逃犯条例修订草案 运动 英语 是指香港自 年 月 日开始 月 日大规模爆发的社会运动 逾万人被捕 此次运动并无统一的领导 主要以社交媒体号召的方式组织 运动支持者以游行示威 集会 静坐 唱歌 呐喊 三罢 行动 设置连侬墙 不合作运动 堵塞道路干道 起底 私了 纵火 破坏商铺及公共设施等一系列行为 要求香港政府撤回其提出的 逃犯条例 修订&#39;
-</pre></div>
-</div>
-</div>
 </div>
 </section>
 <section id="text-segmentation-tokenisation">
@@ -538,48 +518,10 @@
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Building prefix dict from the default dictionary ...
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Loading model from cache C:\Users\lakj\AppData\Local\Temp\jieba.cache
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Loading model cost 0.730 seconds.
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Prefix dict has been built successfully.
-</pre></div>
-</div>
-</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">seg_list1</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">20</span><span class="p">]</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;反对&#39;,
- &#39;逃犯&#39;,
- &#39;条例&#39;,
- &#39;修订&#39;,
- &#39;草案&#39;,
- &#39;运动&#39;,
- &#39; &#39;,
- &#39;其他&#39;,
- &#39;诉求&#39;,
- &#39; &#39;,
- &#39;中央政府&#39;,
- &#39; &#39;,
- &#39;香港政府&#39;,
- &#39; &#39;,
- &#39;反对&#39;,
- &#39; &#39;,
- &#39;逃犯&#39;,
- &#39;条例&#39;,
- &#39;修订&#39;,
- &#39;草案&#39;]
 </pre></div>
 </div>
 </div>
@@ -599,30 +541,6 @@
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;反对&#39;,
- &#39;逃犯&#39;,
- &#39;条例&#39;,
- &#39;修订&#39;,
- &#39;草案&#39;,
- &#39;运动&#39;,
- &#39;其他&#39;,
- &#39;诉求&#39;,
- &#39;中央政府&#39;,
- &#39;香港政府&#39;,
- &#39;反对&#39;,
- &#39;逃犯&#39;,
- &#39;条例&#39;,
- &#39;修订&#39;,
- &#39;草案&#39;,
- &#39;运动&#39;,
- &#39;英语&#39;,
- &#39;是&#39;,
- &#39;指&#39;,
- &#39;香港&#39;]
-</pre></div>
-</div>
-</div>
 </div>
 <p>As shown above, lists are made using square brackets ( [ ] ).</p>
 <p>You can access the elements in the list by referring to the index number. Again, we can use both positive and negative numbers. Remember that in Python the first index number is 0 and not 1, which means we access the first and last element of the list like this:</p>
@@ -630,12 +548,6 @@
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span> <span class="p">(</span><span class="n">seg_list2</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 <span class="nb">print</span> <span class="p">(</span><span class="n">seg_list2</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>反对
-引用
 </pre></div>
 </div>
 </div>
@@ -666,30 +578,6 @@
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[(&#39;反对&#39;, &#39;d&#39;),
- (&#39;逃犯&#39;, &#39;v&#39;),
- (&#39;条例&#39;, &#39;n&#39;),
- (&#39;修订&#39;, &#39;v&#39;),
- (&#39;草案&#39;, &#39;n&#39;),
- (&#39;运动&#39;, &#39;vn&#39;),
- (&#39;其他&#39;, &#39;r&#39;),
- (&#39;诉求&#39;, &#39;v&#39;),
- (&#39;中央政府&#39;, &#39;nt&#39;),
- (&#39;香港政府&#39;, &#39;nt&#39;),
- (&#39;反对&#39;, &#39;d&#39;),
- (&#39;逃犯&#39;, &#39;v&#39;),
- (&#39;条例&#39;, &#39;n&#39;),
- (&#39;修订&#39;, &#39;v&#39;),
- (&#39;草案&#39;, &#39;n&#39;),
- (&#39;运动&#39;, &#39;vn&#39;),
- (&#39;英语&#39;, &#39;nz&#39;),
- (&#39;是&#39;, &#39;v&#39;),
- (&#39;指&#39;, &#39;n&#39;),
- (&#39;香港&#39;, &#39;ns&#39;)]
-</pre></div>
-</div>
-</div>
 </div>
 <p>I am writing a for loop that contains a condition (‘if’). With the loop I go through the list of tuples. If the first element of the ‘tuple’ ([1]) is equal to ‘v’ I add the first element ([0]) to the list ‘words’.</p>
 <div class="cell docutils container">
@@ -705,30 +593,6 @@
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">words</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">20</span><span class="p">]</span> 
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;逃犯&#39;,
- &#39;修订&#39;,
- &#39;诉求&#39;,
- &#39;逃犯&#39;,
- &#39;修订&#39;,
- &#39;是&#39;,
- &#39;开始&#39;,
- &#39;爆发&#39;,
- &#39;被捕&#39;,
- &#39;无&#39;,
- &#39;号召&#39;,
- &#39;组织&#39;,
- &#39;静坐&#39;,
- &#39;呐喊&#39;,
- &#39;罢&#39;,
- &#39;堵塞&#39;,
- &#39;干道&#39;,
- &#39;起底&#39;,
- &#39;纵火&#39;,
- &#39;破坏&#39;]
 </pre></div>
 </div>
 </div>
@@ -749,12 +613,6 @@
 <span class="n">nltk</span><span class="o">.</span><span class="n">FreqDist</span><span class="p">(</span><span class="n">pos_tags</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel=&#39;Samples&#39;, ylabel=&#39;Counts&#39;&gt;
-</pre></div>
-</div>
-<img alt="_images/65b47d480dd4e81b7505b14915b76edad509b9babb0af4c65723819fc5dcace1.png" src="_images/65b47d480dd4e81b7505b14915b76edad509b9babb0af4c65723819fc5dcace1.png" />
 </div>
 </div>
 </section>
@@ -795,9 +653,6 @@
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<img alt="_images/f19ec33bb5d4789a1821b6a502084bb1d709b446546679a2f78d17abbb56d4a0.png" src="_images/f19ec33bb5d4789a1821b6a502084bb1d709b446546679a2f78d17abbb56d4a0.png" />
-</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -815,9 +670,6 @@
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fdist_filtered</span> <span class="o">=</span> <span class="n">nltk</span><span class="o">.</span><span class="n">FreqDist</span><span class="p">(</span><span class="n">long_tokens</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Længste ord&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<img alt="_images/5ddd5ff96bd742cda84e4c554d34132f39a8c0de1337646e7875372b1c4f2fb2.png" src="_images/5ddd5ff96bd742cda84e4c554d34132f39a8c0de1337646e7875372b1c4f2fb2.png" />
 </div>
 </div>
 </section>
@@ -838,36 +690,11 @@
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[(&#39;总领事馆&#39;, &#39;外交官&#39;), (&#39;电视广播&#39;, &#39;有限公司&#39;), (&#39;总书记&#39;, &#39;习近平&#39;), (&#39;香港中文大学&#39;, &#39;学生会&#39;)]
-</pre></div>
-</div>
-</div>
 </div>
 <p>The concordance() method returns the context of a specific expression. The length of the output can be changed with the parameters in width and lines.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nltk_text</span><span class="o">.</span><span class="n">concordance</span><span class="p">(</span><span class="s1">&#39;反对&#39;</span><span class="p">,</span> <span class="n">lines</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">40</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Displaying 15 of 15 matches:
-                   反对 逃犯 条例 修订 草案 运动 其他 
-运动 其他 诉求 中央政府 香港政府 反对 逃犯 条例 修订 草案 运动 英语 
-年 以及 年 等 过去 的 政治危机 反对 逃犯 条例 修订 草案 运动 为 香
-陆 接受 刑事 调查 及 审判 故而 反对 修例 香港 工商界 金融界 学术界 
-法律界 等 多个 行业 亦 均 提出 反对 意见 担忧 修订 草案 削弱 香港 
-月初 的 舆论 调查 有 受访 市民 反对 逃犯 条例 修订 草案 而 草案 若
-求 之后 也 有 建制 派 成员 不 反对 撤回 多名 行政 会议 成员 建制 
- 香港 多家 报纸 刊登 整版 广告 反对 暴力行为 呼吁 以 和平 方式 解决
-阂 增大 导致 许多 中国 大陆 人 反对 这次 抗议 活动 中国 官方 媒体 
- 以 暴力 方式 处理 群众运动 也 反对 采取 激烈 手段 驱离 民众 港府 
- 不同 不能 相提并论 国民党 坚决 反对 一国两制 也 坚决 反对 台湾独立 
-民党 坚决 反对 一国两制 也 坚决 反对 台湾独立 坚守 一中 各表 的 九二
-也 在 西方 各 大城市 举行 集会 反对 香港 的 抗议 活动 年 月 日 美
- 冲绳 的 口号 也 在 日本 传播 反对 方 俄罗斯外交部 发言人 玛丽亚 扎
- 的 打压 香港 在 年 中旬 发生 反对 逃犯 条例 修订 运动 美国 通过 
 </pre></div>
 </div>
 </div>
@@ -881,30 +708,11 @@
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>民主派 疫情 多次 留学生 英格兰
-</pre></div>
-</div>
-</div>
 </div>
 <p>You can use the generate() method to generate more or less coherent text based on an existing text.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">text_gen</span> <span class="o">=</span> <span class="n">nltk_text</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="mi">150</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>派 与 民主派 代表 均 认为 需要 对话 来 解决问题 并 暂缓 国歌 法 草案 恢复 二读 审议 并 于 月 日 太子 站 事件 后令
-示威 行动 进一步 升级 理大及 中大 两所 大学 发生 激烈 警民 冲突 示威者 开始 投掷 燃烧弹 纵火 与 警方 之间 的 冲突 加剧
-后续 的 升级 作出 谴责 寄望 尽快 回复 安宁 与 法治 香港 总商会 要求 撤回 逃犯 条例 修订 反送 中 争议 国民党 始终 坚定
-秉持 四项 立场 一 不 乐见 香港 抗争 情事 不可收拾 香港 是 一个 有 法治 基础 的 社会 运动 逾万人 被捕 此次 运动 并 无
-统一 的 组织 带领 和 呼吁 下 示威者 透过 互联网 平台 号召 英语 发起 各式 抗议 活动 采取 越趋 激进 的 策略 香港 网友
-将 其 翻译 为 流水 革命 或 夏水 革命 又 或 直称 时代 革命 等 口号 行动 方式 除了 民间 人权 阵线 举办 传统 的
-集会游行 活动 外
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Building ngram index...
 </pre></div>
 </div>
 </div>
