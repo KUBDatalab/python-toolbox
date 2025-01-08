@@ -1,12 +1,13 @@
 
+
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="./" >
+<html lang="en" data-content_root="" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
     <title>Lemmatization, pos tagging, and digitized books &#8212; Python Toolkit</title>
   
@@ -16,8 +17,8 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
-  <!-- 
-    this give us a css class that will be invisible only if js is disabled 
+  <!--
+    this give us a css class that will be invisible only if js is disabled
   -->
   <noscript>
     <style>
@@ -27,39 +28,37 @@
   </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
-    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
-    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
-    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.4cbf315f70debaebd550c87a6162cf0f.min.css" />
   
   <!-- So that users can add custom icons -->
-  <script src="_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
+  <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
-    <script src="_static/doctools.js?v=9a2dae69"></script>
-    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
-    <script src="_static/copybutton.js?v=f281be69"></script>
-    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script src="_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script src="_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'Lemmatization pos tagging and digitized books';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -106,7 +105,7 @@
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
 </div>
 <aside class="bd-header-announcement" aria-label="Announcement">
-  <div class="bd-header-announcement__content"><p class='mystyle'><a href='https://kubkalender.kb.dk/calendar/datalab?cid=6416&t=d&d=0000-00-00&cal=6416&inc=0' target='_blank' style='color: white;'>KUB Datalab Upcoming Events</a></p></div>
+  <div class="bd-header-announcement__content"><p class='mystyle'><a href='https://kubkalender.kb.dk/calendar/datalab?cid=6416&t=d&d=0000-00-00&cal=6416&inc=0' target='_blank' style='color: white;'>KUB Datalab Upcomming Events</a></p></div>
 </aside>
 
   
@@ -189,9 +188,14 @@
   
   
   <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
   </div>
-  
-  <div id="rtd-footer-container"></div>
 
 
       </div>
@@ -370,7 +374,7 @@
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dowload-a-digitized-book-from-the-royal-danish-library">Dowload a digitized book from the Royal Danish Library</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#remove-stopwords">Remove stopwords</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lemmatization">Lemmatization</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lemmatization-and-pos-tagging">Lemmatization and POS tagging</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sources">Sources:</a></li>
 </ul>
 </li>
@@ -386,7 +390,7 @@
                 <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="lemmatization-pos-tagging-and-digitized-books">
-<h1>Lemmatization, pos tagging, and digitized books<a class="headerlink" href="#lemmatization-pos-tagging-and-digitized-books" title="Link to this heading">#</a></h1>
+<h1>Lemmatization, pos tagging, and digitized books<a class="headerlink" href="#lemmatization-pos-tagging-and-digitized-books" title="Permalink to this heading">#</a></h1>
 <p>Lemmatization of words is to find the base form of a word. The base form is called a lemma.</p>
 <p>To do this, we need to know the grammatical category of words; noun, verb, adjective, or adverb. Because the same word can have different base form depending on its word class. The process of getting to know the grammatical category of words is called “Part-Of-Speech tagging”.</p>
 <p>The NLTK library can be used in this process. Other libraries can be used as well, for example Spacy.</p>
@@ -396,7 +400,7 @@
 <p>When POS-tags are converted to WordNet format, the <code class="docutils literal notranslate"><span class="pre">WordNetLemmatizer</span></code> can be used to lemmatize the words correctly. If a word does not have an available POS-tag, then the word is included without changes.</p>
 <p>A lemmatization of the text data will often be part of the preprocessing of the text data, and it will occur as a prelude to an analysis. This means that before we get to lemmatization, we need to load the text, clean it, and remove stop words. After lemmatization, we perform a visualization of some of the words that frequently appear in the text. The visualization is intended as an example of why lemmatization can be a smart thing to do.</p>
 <section id="dowload-a-digitized-book-from-the-royal-danish-library">
-<h2>Dowload a digitized book from the Royal Danish Library<a class="headerlink" href="#dowload-a-digitized-book-from-the-royal-danish-library" title="Link to this heading">#</a></h2>
+<h2>Dowload a digitized book from the Royal Danish Library<a class="headerlink" href="#dowload-a-digitized-book-from-the-royal-danish-library" title="Permalink to this heading">#</a></h2>
 <p>In this note book we wil work with the book <em><a class="reference external" href="https://soeg.kb.dk/permalink/45KBDK_KGL/1pioq0f/alma99122600818605763">Carr, John. A Northern Summer: Or Travels Round the Baltic, through Denmark, Sweden, Russia, Prussia, and Part of Germany, in the Year 1804. 1805.
 </a></em></p>
 <p>The deals with travel experiences, cultural observations, and historical contexts countries around the Baltic Sea,</p>
@@ -499,7 +503,7 @@ DENMARK, SW E D E N
 </div>
 </section>
 <section id="remove-stopwords">
-<h2>Remove stopwords<a class="headerlink" href="#remove-stopwords" title="Link to this heading">#</a></h2>
+<h2>Remove stopwords<a class="headerlink" href="#remove-stopwords" title="Permalink to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># remove stopwords</span>
@@ -522,11 +526,13 @@ DENMARK, SW E D E N
 </div>
 </div>
 </section>
-<section id="lemmatization">
-<h2>Lemmatization<a class="headerlink" href="#lemmatization" title="Link to this heading">#</a></h2>
+<section id="lemmatization-and-pos-tagging">
+<h2>Lemmatization and POS tagging<a class="headerlink" href="#lemmatization-and-pos-tagging" title="Permalink to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Importing the Natural Language Toolkit (nltk) library</span>
+<span class="c1"># nltk.download(&#39;averaged_perceptron_tagger_eng&#39;) (only first time)</span>
+<span class="c1"># nltk.download(&#39;wordnet&#39;) (only first time)</span>
 <span class="kn">import</span> <span class="nn">nltk</span>
 <span class="kn">from</span> <span class="nn">nltk.stem</span> <span class="kn">import</span> <span class="n">WordNetLemmatizer</span>
 
@@ -538,6 +544,7 @@ DENMARK, SW E D E N
 
 <span class="c1"># Initializing the WordNetLemmatizer, which is used to lemmatize words</span>
 <span class="n">lemmatizer</span> <span class="o">=</span> <span class="n">WordNetLemmatizer</span><span class="p">()</span>
+
 
 <span class="c1"># Function to convert nltk POS tags to WordNet POS tags</span>
 <span class="k">def</span> <span class="nf">pos_tagger</span><span class="p">(</span><span class="n">nltk_tag</span><span class="p">):</span>
@@ -579,15 +586,10 @@ DENMARK, SW E D E N
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span> <span class="n">line</span> <span class="mi">2</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># Importing the Natural Language Toolkit (nltk) library</span>
-<span class="ne">----&gt; </span><span class="mi">2</span> <span class="kn">import</span> <span class="nn">nltk</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="kn">from</span> <span class="nn">nltk.stem</span> <span class="kn">import</span> <span class="n">WordNetLemmatizer</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="c1"># Downloading the &#39;averaged_perceptron_tagger&#39; model, which is used for part-of-speech tagging</span>
-
-<span class="ne">ModuleNotFoundError</span>: No module named &#39;nltk&#39;
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[nltk_data] Downloading package averaged_perceptron_tagger to
+[nltk_data]     C:\Users\lakj\AppData\Roaming\nltk_data...
+[nltk_data]   Package averaged_perceptron_tagger is already up-to-
+[nltk_data]       date!
 </pre></div>
 </div>
 </div>
@@ -599,9 +601,12 @@ DENMARK, SW E D E N
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="_images/24b30df0cfa24579c3e3b9eca84f5eb13f31e2d2be2bb8c2f05cd761bc791c09.png" src="_images/24b30df0cfa24579c3e3b9eca84f5eb13f31e2d2be2bb8c2f05cd761bc791c09.png" />
+</div>
 </div>
 <section id="sources">
-<h3>Sources:<a class="headerlink" href="#sources" title="Link to this heading">#</a></h3>
+<h3>Sources:<a class="headerlink" href="#sources" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p><a class="reference external" href="https://www.nltk.org/book/ch05.html">https://www.nltk.org/book/ch05.html</a></p></li>
 <li><p><a class="reference external" href="https://www.nltk.org/howto/wordnet.html">https://www.nltk.org/howto/wordnet.html</a></p></li>
@@ -681,7 +686,7 @@ DENMARK, SW E D E N
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dowload-a-digitized-book-from-the-royal-danish-library">Dowload a digitized book from the Royal Danish Library</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#remove-stopwords">Remove stopwords</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lemmatization">Lemmatization</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lemmatization-and-pos-tagging">Lemmatization and POS tagging</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sources">Sources:</a></li>
 </ul>
 </li>
@@ -736,8 +741,8 @@ By KUB Datalab
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
-<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+  <script defer src="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
 
   <footer class="bd-footer">
   </footer>
