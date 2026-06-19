@@ -5,8 +5,11 @@ format: jb-book
 root: intro
 chapters:
 - file: Preprocessing and analysing Chinese text
-- file: Tf-idf example
-- file: Identify textual changes
-- file: Regex and digitized books
-- file: Text preprocessing pipeline
+- file: Harvest Peoples Daily from june 1989
 - file: Harvest text from the web
+- file: Tf-idf example
+- file: Regex and digitized books
+- file: Collocation and digitized books
+- file: Lemmatization pos tagging and digitized books
+- file: Text preprocessing pipeline
+- file: Identify textual changes

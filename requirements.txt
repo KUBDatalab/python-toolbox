@@ -3,12 +3,8 @@ matplotlib
 numpy
 pandas
 nltk
-urllib
-BeautifulSoup
+beautifulsoup4
 jieba
-re
-nltk
 requests
-os
 fuzzywuzzy
-fuzz
+PyPDF2
