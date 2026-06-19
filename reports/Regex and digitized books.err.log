@@ -1,0 +1,66 @@
+Traceback (most recent call last):
+  File "C:\Users\lakj\AppData\Local\anaconda3\envs\MEKUNI\lib\site-packages\jupyter_cache\executors\utils.py", line 58, in single_nb_execution
+    executenb(
+  File "C:\Users\lakj\AppData\Local\anaconda3\envs\MEKUNI\lib\site-packages\nbclient\client.py", line 1305, in execute
+    return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
+  File "C:\Users\lakj\AppData\Local\anaconda3\envs\MEKUNI\lib\site-packages\jupyter_core\utils\__init__.py", line 165, in wrapped
+    return loop.run_until_complete(inner)
+  File "C:\Users\lakj\AppData\Local\anaconda3\envs\MEKUNI\lib\asyncio\base_events.py", line 647, in run_until_complete
+    return future.result()
+  File "C:\Users\lakj\AppData\Local\anaconda3\envs\MEKUNI\lib\site-packages\nbclient\client.py", line 705, in async_execute
+    await self.async_execute_cell(
+  File "C:\Users\lakj\AppData\Local\anaconda3\envs\MEKUNI\lib\site-packages\nbclient\client.py", line 1058, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "C:\Users\lakj\AppData\Local\anaconda3\envs\MEKUNI\lib\site-packages\nbclient\client.py", line 914, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+#! pip install PyPDF2
+import requests
+from io import BytesIO
+from PyPDF2 import PdfReader
+
+# URL to the ocr scanned, pdf verison of the text
+url = "https://www.kb.dk/e-mat/dod/130014244515_bw.pdf"
+
+# Download the pdf file
+response = requests.get(url)
+response.raise_for_status()  # Check if the request was successful
+
+# Open the pdf file in memory
+pdf_file = BytesIO(response.content)
+
+# Create a PDF reader object
+reader = PdfReader(pdf_file)
+
+# Extract text from each page starting from page 5
+text_content = []
+for page in reader.pages[4:]:
+    text_content.append(page.extract_text())
+
+# Join all the text content into a single string
+full_text = "\n".join(text_content)
+
+# Print the extracted text
+print(full_text[0:1000])
+------------------
+
+
+[1;31m---------------------------------------------------------------------------[0m
+[1;31mHTTPError[0m                                 Traceback (most recent call last)
+Cell [1;32mIn[1], line 11[0m
+[0;32m      9[0m [38;5;66;03m# Download the pdf file[39;00m
+[0;32m     10[0m response [38;5;241m=[39m requests[38;5;241m.[39mget(url)
+[1;32m---> 11[0m [43mresponse[49m[38;5;241;43m.[39;49m[43mraise_for_status[49m[43m([49m[43m)[49m  [38;5;66;03m# Check if the request was successful[39;00m
+[0;32m     13[0m [38;5;66;03m# Open the pdf file in memory[39;00m
+[0;32m     14[0m pdf_file [38;5;241m=[39m BytesIO(response[38;5;241m.[39mcontent)
+
+File [1;32m~\AppData\Local\anaconda3\envs\MEKUNI\lib\site-packages\requests\models.py:1024[0m, in [0;36mResponse.raise_for_status[1;34m(self)[0m
+[0;32m   1019[0m     http_error_msg [38;5;241m=[39m (
+[0;32m   1020[0m         [38;5;124mf[39m[38;5;124m"[39m[38;5;132;01m{[39;00m[38;5;28mself[39m[38;5;241m.[39mstatus_code[38;5;132;01m}[39;00m[38;5;124m Server Error: [39m[38;5;132;01m{[39;00mreason[38;5;132;01m}[39;00m[38;5;124m for url: [39m[38;5;132;01m{[39;00m[38;5;28mself[39m[38;5;241m.[39murl[38;5;132;01m}[39;00m[38;5;124m"[39m
+[0;32m   1021[0m     )
+[0;32m   1023[0m [38;5;28;01mif[39;00m http_error_msg:
+[1;32m-> 1024[0m     [38;5;28;01mraise[39;00m HTTPError(http_error_msg, response[38;5;241m=[39m[38;5;28mself[39m)
+
+[1;31mHTTPError[0m: 404 Client Error: Not Found for url: https://www.kb.dk/e-mat/dod/130014244515_bw.pdf
+
