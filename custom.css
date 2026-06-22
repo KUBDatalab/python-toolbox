@@ -28,3 +28,13 @@
   max-width: 160px;
   object-fit: contain;
 }
+
+/* Skjul Binder / Thebe launch-knap og status-popup */
+.myst-fm-launch-button,
+button[aria-label='Launch in external computing interface'],
+.menu-dropdown-launch-buttons,
+.thebe-status-field,
+#thebe-status-field,
+.thebe-info-container {
+  display: none !important;
+}
