@@ -1,0 +1,30 @@
+/* Article theme: webbanner som hero-baggrund (project.banner) */
+.myst-article-header {
+  /* Banner 2048x474 px: højde skalerer med viewport-bredde */
+  min-height: calc(100vw * 474 / 2048);
+}
+
+.myst-article-header-background {
+  width: 100% !important;
+  background-size: 100% auto !important;
+  background-repeat: no-repeat !important;
+  background-position: center top !important;
+  opacity: 1;
+}
+
+/* Titelkort med forfattere over banneret */
+.myst-article-header-banner {
+  max-width: 42rem;
+}
+
+.myst-article-header-content {
+  padding-top: 0.5rem;
+}
+
+/* Lille logo i top-nav hvis temaet viser et */
+.myst-top-nav-bar a img {
+  max-height: 32px;
+  width: auto;
+  max-width: 160px;
+  object-fit: contain;
+}

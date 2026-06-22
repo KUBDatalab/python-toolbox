@@ -1,0 +1,36 @@
+# See docs at: https://mystmd.org/guide/frontmatter
+version: 1
+project:
+  id: 4db76894-e2c3-4ce7-9ebd-7c13717735b0
+  title: "The university library's data lab Python-toolbox"
+  description: A collection of individual notebooks
+  banner: Datalab_webbanner_9.6.262.png
+  keywords:
+    - Digital Humanities
+    - Social Data Science
+  authors:
+    - name: Lars Kjær
+    - name: "The university library's data lab"
+  github: KUBDatalab/python-toolbox
+  license: CC-BY-NC-SA-4.0
+  requirements:
+    - requirements.txt
+  jupyter: true
+  toc:
+    - file: intro.md
+    - file: Preprocessing and analysing Chinese text.ipynb
+    - file: Harvest Peoples Daily from june 1989.ipynb
+    - file: Harvest text from the web.ipynb
+    - file: Tf-idf example.ipynb
+    - file: Regex and digitized books.ipynb
+    - file: Collocation and digitized books.ipynb
+    - file: Lemmatization pos tagging and digitized books.ipynb
+    - file: Text preprocessing pipeline.ipynb
+    - file: Identify textual changes.ipynb
+
+site:
+  title: Python-toolbox
+  template: article-theme
+  options:
+    logo_text: Python-toolbox
+    style: custom.css

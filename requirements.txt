@@ -4,7 +4,7 @@ numpy
 pandas
 nltk
 beautifulsoup4
-jieba
+jieba3k
 requests
 fuzzywuzzy
 PyPDF2
