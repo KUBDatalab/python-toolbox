@@ -22,9 +22,9 @@ project:
     - file: Harvest Peoples Daily from june 1989.ipynb
     - file: Harvest text from the web.ipynb
     - file: Tf-idf example.ipynb
-    - file: Regex and digitized books.ipynb
-    - file: Collocation and digitized books.ipynb
-    - file: Lemmatization pos tagging and digitized books.ipynb
+    - file: Digitized books from The Royal Danish Library - Regex.ipynb
+    - file: Digitized books from The Royal Danish Library - Collocation.ipynb
+    - file: Digitized books from The Royal Danish Library - Lemmatization and POS tagging.ipynb
     - file: Text preprocessing pipeline.ipynb
     - file: Identify textual changes.ipynb
     - file: Telegram chat export - copy thumbnails.ipynb
