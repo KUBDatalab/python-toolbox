@@ -1,7 +1,9 @@
 /* Article theme: webbanner som hero-baggrund (project.banner) */
 .myst-article-header {
-  /* Banner 2048x474 px: højde skalerer med viewport-bredde */
-  min-height: calc(100vw * 474 / 2048);
+  /* Banner 2048x474 px; 0.75 = ca. 25% lavere end fuld proportion */
+  --banner-height-scale: 0.75;
+  min-height: calc(100vw * 474 / 2048 * var(--banner-height-scale));
+  max-height: 220px;
 }
 
 .myst-article-header-background {
