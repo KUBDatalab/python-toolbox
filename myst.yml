@@ -27,6 +27,8 @@ project:
     - file: Lemmatization pos tagging and digitized books.ipynb
     - file: Text preprocessing pipeline.ipynb
     - file: Identify textual changes.ipynb
+    - file: Telegram chat export - copy thumbnails.ipynb
+    - file: Telegram chat export - extract text.ipynb
 
 site:
   title: Python-toolbox

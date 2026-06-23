@@ -8,3 +8,4 @@ jieba3k
 requests
 fuzzywuzzy
 PyPDF2
+tqdm
