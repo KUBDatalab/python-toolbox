@@ -6,6 +6,8 @@ This site is a collection of individual notebooks. It is not intended as a singl
 
 The concept is to provide an overview over some ofthe Python notebooks that can act as the foundation for courses.
 
+Based on the notebooks currently on the site, you can expect examples of working with Chinese text (preprocessing with jieba and harvesting articles from People's Daily), harvesting text from the web, term weighting with TF-IDF, and analysing digitized books from The Royal Danish Library (regex cleaning, collocation, lemmatization and POS tagging). There are also notebooks on building a text preprocessing pipeline, identifying textual changes between editions, and working with Telegram chat exports.
+
 Based on the individual and specific needs in a given situation, we will make a selection of relevant notebooks, and string them together to form a tailored course.
 
 The site is under development and it is not a goal to be finished. We will continue to add new content.

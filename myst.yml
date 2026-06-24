@@ -19,7 +19,9 @@ project:
   toc:
     - file: intro.md
     - file: Preprocessing and analysing Chinese text.ipynb
+      title: Chinese - Preprocessing and analysing text
     - file: Harvest Peoples Daily from june 1989.ipynb
+      title: Chinese - Harvest Peoples Daily
     - file: Harvest text from the web.ipynb
     - file: Tf-idf example.ipynb
     - file: Digitized books from The Royal Danish Library - Regex.ipynb
