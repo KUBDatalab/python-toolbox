@@ -37,4 +37,5 @@ site:
   template: article-theme
   options:
     logo_text: Python-toolbox
+    favicon: "datalab logo white.png"
     style: custom.css
